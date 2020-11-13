@@ -1,5 +1,5 @@
 ### [Customizing AzSK.ADO for your project](Readme.md#customizing-azskado-for-your-project-1)
-- [Overview](Readme.md#Overview-2)
+- [Overview](Readme.md#Overview)
 - [Setting up org policy](Readme.md#setting-up-org-policy)  
 - [Consuming custom org policy](Readme.md#consuming-custom-org-policy)  
 - [Modifying and customizing org policy](Readme.md#modifying-and-customizing-org-policy)  
