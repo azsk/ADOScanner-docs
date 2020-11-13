@@ -82,7 +82,7 @@ The table below explains the different parameters used by Install-AzSKADOMonitor
 
 The installation command will display output like the below:
 
-![09_Install-AzSKMonitoringSolution](../Images/ADO/09_ADO_Install-AzSKMonitoringSolution.png)
+![09_Install-AzSKMonitoringSolution](../Images/09_ADO_Install-AzSKMonitoringSolution.png)
 
 ----------------------------------------------
 
@@ -91,7 +91,7 @@ The installation command will display output like the below:
 At this point, assuming that AzSK.ADO events were already being sent to the Log Analytics workspace, you should start
 seeing a tile such as the one below:
 
-![09_Workspace_Summary_View](../Images/ADO/09_Workspace_Summary_View.png)
+![09_Workspace_Summary_View](../Images/09_Workspace_Summary_View.png)
 
 **[2-a]** Viewing raw events from AzSK.ADO (sanity check)
 
@@ -104,12 +104,12 @@ You should see data about AzSK.ADO events as query results. (Again, this assumes
 control scan results are being sent to this workspace. See [this](Readme.md#b-testing-log-anaytics-workspace-connectivity) for
 how that is done.)
 
-![09_Log_Analytics_Workspace_Logs_Query](../Images/ADO/09_Log_Analytics_Workspace_Logs_Query.png) 
+![09_Log_Analytics_Workspace_Logs_Query](../Images/09_Log_Analytics_Workspace_Logs_Query.png) 
 
 If you are certain that events are being sent to the Log Analytics workspace but you are seeing blank views/no query results, 
 you may need to extend the duration applicable to the queries. (This can be done using the 'Time range' selector next to the 'Run' button at the top of the query window.)
 
-![09_Log_Analytics_Workspace_Query_Duration](../Images/ADO/09_Log_Analytics_Workspace_Query_Duration.png)
+![09_Log_Analytics_Workspace_Query_Duration](../Images/09_Log_Analytics_Workspace_Query_Duration.png)
 
 	
 **[2-b]** Using the AzSK.ADO Monitoring Solution
@@ -118,7 +118,7 @@ The solution view contains multiple blades representing various types of securit
 security trends, etc. This view shows up when you click on the view tile and looks like the picture
 below:
 
-![09_Log_Analytics_Workspace_New_View](../Images/ADO/09_Log_Analytics_Workspace_New_View.png)
+![09_Log_Analytics_Workspace_New_View](../Images/09_Log_Analytics_Workspace_New_View.png)
 
 The very first (Summary) blade provides complete instructions on how to interpret the different
 blades in this view. These blades cover the complete picture of baseline security compliance
@@ -136,7 +136,7 @@ You should start seeing a tile such as the one below:
 
 **[3-a]** Workbook 
 
-![09_Log_Analytics_Workbook_View](../Images/ADO/09_Log_Analytics_Workbook_View.png)
+![09_Log_Analytics_Workbook_View](../Images/09_Log_Analytics_Workbook_View.png)
 
 **[3-b]** Workbook Overview tiles
 
@@ -144,7 +144,7 @@ The solution workbook contains multiple blades representing various types of sec
 security trends, etc. This view shows up when you click on the view tile and looks like the picture
 below:
 
-![09_Log_Analytics_Workbook_Overview](../Images/ADO/09_Log_Analytics_Workbook_Overview.png)
+![09_Log_Analytics_Workbook_Overview](../Images/09_Log_Analytics_Workbook_Overview.png)
 
 The "Help" (Summary) blade provides complete instructions on how to interpret the different
 blades in this view. These blades cover the complete picture of baseline security compliance
