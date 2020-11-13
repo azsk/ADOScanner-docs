@@ -3,16 +3,19 @@
 > **Note**: Please use utmost discretion when attesting controls. In particular, when choosing to not fix a failing control, you are taking accountability that nothing will go wrong even though security is not correctly/fully configured. 
 > </br>Also, please ensure that you provide an apt justification for each attested control to capture the rationale behind your decision.  
 
+----------------------------------------------
 
 ## Contents
-- [Overview](Readme.md#Overview-1)
-- [Setup Repository to store Attestation details](Readme.md#)
-   * 
-   *
-- [Starting attestation](Readme.md#starting-attestation)  
-- [How scanner determines the effective control result](Readme.md#how-scanner-determines-the-effective-control-result)  
-- [Permissions required for attesting controls](Readme.md#permissions-required-for-attesting-controls) 
-- [Attestation expiry](Readme.md#attestation-expiry)  
+- [Overview](README.md#overview)
+- [Setup Repository to store Attestation details](README.md#setup-attestation-repository)
+   * [How to setup attestation repository in a project?](README.md#how-to-setup-attestation-repository-in-a-project)
+   * [How to setup host project to store attestation details for organization-specific controls?](README.md#how-to-setup-host-project-to-store-attestation-details-for-organization-specific-controls)
+- [Starting attestation](README.md#starting-attestation)  
+- [How scanner determines the effective control result](README.md#how-scanner-determines-the-effective-control-result)  
+- [Permissions required for attesting controls](README.md#permissions-required-for-attesting-controls) 
+- [Attestation expiry](README.md#attestation-expiry)  
+
+----------------------------------------------
 
 ### Overview
 
@@ -42,6 +45,7 @@ the permissions required section below.
 
 [Back to top...](Readme.md#contents)
 
+----------------------------------------------
 
 ## Setup Attestation Repository
 
@@ -75,9 +79,11 @@ Get-AzSKADOSecurityStatus -OrganizationName $orgName -AttestationHostProjectName
 
 ```
 
+----------------------------------------------
+
 ## Starting attestation
       
-The AzSK.ADO scan cmdlets now support a new switch called *ControlsToAttest*. When this switch is specified, 
+The AzSK.ADO scan cmdlets now support a new switch called ***ControlsToAttest***. When this switch is specified, 
 AzSK.ADO enters the attestation workflow immediately after a scan is completed. This ensures that attestation is done on the basis of the most current
 control status.
 
@@ -225,6 +231,9 @@ Attestation details corresponding to each control (e.g., justification, user nam
 If you wish to revisit previous attestations, it can be done by using 'AlreadyAttested' flag in the command above.  
 
 [Back to top...](Readme.md#contents)
+
+----------------------------------------------
+
 ## How scanner determines the effective control result
 
 During the attestation workflow, the user gets to provide attestation status for each control attested. This basically represents the user's attestation preference w.r.t.
@@ -286,6 +295,8 @@ The following table describes the possible effective control evaluation results 
 
 [Back to top...](Readme.md#contents)
 
+----------------------------------------------
+
 ## Permissions required for attesting controls:
 Attestation is supported for organization and project controls only with admin privileges on organization and project, respectively. 
 
@@ -301,6 +312,8 @@ Currently, attestation can be performed only via PowerShell session in local mac
 >* In order to attest build, release, service connection, agent pool control, user needs to have write permission on the 'ADOScanner_Attestation' repository of that particular project.
 
 [Back to top...](Readme.md#contents)
+
+----------------------------------------------
 
 ## Attestation expiry:
 All the control attestations done through AzSK.ADO is set with a default expiry. This would force teams to revisit the control attestation at regular intervals. 
@@ -320,4 +333,5 @@ Any control with evaluation result as not passed and,
 
 > **Note**:
 >* Attestation may also expire before actual expiry in cases when the attested state for the control doesn't match with current control state.
+
 [Back to top...](Readme.md#contents)
