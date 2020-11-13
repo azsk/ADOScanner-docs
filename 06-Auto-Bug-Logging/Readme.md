@@ -1,5 +1,5 @@
-### [Auto Bug Logging](Readme.md#Overview-3)
-- [Overview](Readme.md#Overview-3)
+### [Auto Bug Logging](Readme.md)
+- [Overview](Readme.md#Overview)
 - [Starting bug logging](Readme.md#starting-bug-logging)  
 - [Setting up host project for organization specific controls](Readme.md#setting-up-host-project-for-organization-specific-controls)  
 - [Defining area and iteration path](Readme.md#defining-area-and-iteration-path)  
