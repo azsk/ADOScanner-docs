@@ -6,6 +6,7 @@
 
 ## Contents
 - [Overview](Readme.md#Overview-1)
+- [Setup Attestation Repository](Readme.md#)
 - [Starting attestation](Readme.md#starting-attestation)  
 - [How scanner determines the effective control result](Readme.md#how-scanner-determines-the-effective-control-result)  
 - [Permissions required for attesting controls](Readme.md#permissions-required-for-attesting-controls) 
@@ -37,9 +38,28 @@ state is auto-reset if there is any change in 'state' (e.g., someone adds a new 
 Lastly, due to the governance implications, the ability to attest controls is available to a subset of users. This is described in
 the permissions required section below.  
 
-
 [Back to top...](Readme.md#contents)
-### Starting attestation
+
+
+## Setup Attestation Repository
+
+AzSK.ADO internally stores attestation details in a project repository named 'ADOScanner_Attestation' which needs to be configured typically by the project admin. 
+
+Attestation details for project and its components (build/release/service connection/agent pool) are recorded only when this repository is present inside the project.
+
+> **Note:** Control attestation details for project and its components are stored inside the attestation repo present in the project.
+
+> *Project Collection Administrator* needs to assign a project in the organization to host attestation details for organization-specific controls. See the next section for more details.   
+
+### How to setup attestation repository in a project?
+
+In order to setup attestation repository inside a project, follow the below steps:
+
+1. Navigate to *Repos* section of the project.
+2. Create a new Git repository with the name 'ADOScanner_Attestation'. Skip this step if this repository already exists.
+
+
+## Starting attestation
       
 The AzSK.ADO scan cmdlets now support a new switch called *ControlsToAttest*. When this switch is specified, 
 AzSK.ADO enters the attestation workflow immediately after a scan is completed. This ensures that attestation is done on the basis of the most current
@@ -72,23 +92,6 @@ $attHotProjectName = '<Project name>'
 Get-AzSKADOSecurityStatus -OrganizationName $orgName -AttestationHostProjectName $attHotProjectName -ControlsToAttest NotAttested -ResourceTypeName Organization    
 
 ```
-
-### How is the control attestation information stored and managed?
-
-AzSK.ADO internally stores attestation details in a project repository named 'ADOScanner_Attestation' which needs to be configured typically by the project admin. 
-
-Attestation details for project and its components (build/release/service connection/agent pool) are recorded only when this repository is present inside the project.
-
-> **Note:** Control attestation details for project and its components are stored inside the attestation repo present in the project.
-
-> *Project Collection Administrator* needs to assign a project in the organization to host attestation details for organization-specific controls. See the next section for more details.   
-
-### How to setup attestation repository in a project?
-
-In order to setup attestation repository inside a project, follow the below steps:
-
-1. Navigate to *Repos* section of the project.
-2. Create a new Git repository with the name 'ADOScanner_Attestation'. Skip this step if this repository already exists.
 
 ### How to setup host project to store attestation details for organization-specific controls?
 
@@ -220,7 +223,7 @@ Attestation details corresponding to each control (e.g., justification, user nam
 If you wish to revisit previous attestations, it can be done by using 'AlreadyAttested' flag in the command above.  
 
 [Back to top...](Readme.md#contents)
-### How scanner determines the effective control result
+## How scanner determines the effective control result
 
 During the attestation workflow, the user gets to provide attestation status for each control attested. This basically represents the user's attestation preference w.r.t.
 a specific control (i.e., whether the user wants to override/augment the scanner status and treat the control as passed or whether the user agrees with the scanner status but wants to defer fixing the issue for the time being):
@@ -280,7 +283,8 @@ The following table describes the possible effective control evaluation results 
 |Exception |Risk acknowledged. The 'WillNotFix' option was chosen as attestation choice/status. |
 
 [Back to top...](Readme.md#contents)
-### Permissions required for attesting controls:
+
+## Permissions required for attesting controls:
 Attestation is supported for organization and project controls only with admin privileges on organization and project, respectively. 
 
 In order to attest build, release, service connection and agent pool controls, user needs to have atleast contributor access on the 'ADOScanner_Attestation' repository of project these resources belong to.
@@ -296,7 +300,7 @@ Currently, attestation can be performed only via PowerShell session in local mac
 
 [Back to top...](Readme.md#contents)
 
-### Attestation expiry:
+## Attestation expiry:
 All the control attestations done through AzSK.ADO is set with a default expiry. This would force teams to revisit the control attestation at regular intervals. 
 Expiry of an attestation is determined through different parameters like control severity, attestation status etc. 
 There are two simple rules for determining the attestation expiry. Those are:
