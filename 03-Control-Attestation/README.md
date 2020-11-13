@@ -6,7 +6,9 @@
 
 ## Contents
 - [Overview](Readme.md#Overview-1)
-- [Setup Attestation Repository](Readme.md#)
+- [Setup Repository to store Attestation details](Readme.md#)
+   * 
+   *
 - [Starting attestation](Readme.md#starting-attestation)  
 - [How scanner determines the effective control result](Readme.md#how-scanner-determines-the-effective-control-result)  
 - [Permissions required for attesting controls](Readme.md#permissions-required-for-attesting-controls) 
@@ -58,6 +60,20 @@ In order to setup attestation repository inside a project, follow the below step
 1. Navigate to *Repos* section of the project.
 2. Create a new Git repository with the name 'ADOScanner_Attestation'. Skip this step if this repository already exists.
 
+### How to setup host project to store attestation details for organization-specific controls?
+
+1. Host project to store attetstation details for organization-specific controls can be set using a scan parameter named 'AttestationHostProjectName'. Before setting up the host project, ensure this project has 'ADOScanner_Attestation' repository setup.
+2.  **Attestation host project can be set only once and can't be updated later**.
+
+For e.g., to attest organization controls, run the command below:
+```PowerShell  
+#Set attestation host project and attest organization controls:
+$orgName = '<Organization name>'
+$hostProjectName = '<Name of the host project to store attestation details of org-specific controls>'
+  	
+Get-AzSKADOSecurityStatus -OrganizationName $orgName -AttestationHostProjectName $hostProjectName -ControlsToAttest NotAttested -ResourceTypeName Organization  
+
+```
 
 ## Starting attestation
       
@@ -93,20 +109,6 @@ Get-AzSKADOSecurityStatus -OrganizationName $orgName -AttestationHostProjectName
 
 ```
 
-### How to setup host project to store attestation details for organization-specific controls?
-
-1. Host project to store attetstation details for organization-specific controls can be set using a scan parameter named 'AttestationHostProjectName'. Before setting up the host project, ensure this project has 'ADOScanner_Attestation' repository setup.
-2.  **Attestation host project can be set only once and can't be updated later**.
-
-For e.g., to attest organization controls, run the command below:
-```PowerShell  
-#Set attestation host project and attest organization controls:
-$orgName = '<Organization name>'
-$hostProjectName = '<Name of the host project to store attestation details of org-specific controls>'
-  	
-Get-AzSKADOSecurityStatus -OrganizationName $orgName -AttestationHostProjectName $hostProjectName -ControlsToAttest NotAttested -ResourceTypeName Organization  
-
-```
 Attestation can be performed for orgnization, project, build, release, service connection and agent pool using the the below commands: 
 > **Note**: Using PolicyProject parameter you can specify the name of the project to read and write attestation details and fetch organization policy for organization.
 
