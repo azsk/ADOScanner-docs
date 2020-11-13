@@ -3,12 +3,12 @@
 ## Contents
 
   -  [Overview](README.md#overview)
-  -  [Automated Scanning using Azure functions](Readme.md#Automated-Scanning-using-Azure-functions)
-     * [Setting up Continuous Assurance - Step by Step](README.md#overview)
-     * [Updating an existing Continuous Assurance setup](README.md#)
-     * [Getting details about a Continuous Assurance setup](README.md#)
-     * [Continuous Assurance using containers - how it works (under the covers)](README.md#)
-  -  [Automated Scanning using ADO extensionn](Readme.md#Automated-Scanning-using-ADO-extension)
+  -  [Automated Scanning using Azure functions](README.md#automated-scanning-using-azure-functions)
+     * [Setting up Continuous Assurance - Step by Step](README.md#setting-up-continuous-assurance---step-by-step)
+     * [Updating an existing Continuous Assurance setup](README.md#updating-an-existing-continuous-assurance-setup)
+     * [Getting details about a Continuous Assurance setup](README.md#getting-details-about-a-continuous-assurance-setup)
+     * [Continuous Assurance using containers - how it works (under the covers)](README.md#continuous-assurance-using-containers---how-it-works-under-the-covers)
+  -  [Automated Scanning using ADO extensionn](README.md#automated-scanning-using-ado-extension)
      * [Setting up Continuous Assurance - Step by Step](README.md#setting-up-continuous-assurance---step-by-step-1)
      * [Customizing your PAT with minimum required privileges for ADO Connection](README.md#-customizing-your-pat-with-minimum-required-privileges-for-azure-devops-connection)
      * [Visualize security scan results](README.md#visualize-security-scan-results)
@@ -205,7 +205,7 @@ To host all the Continuous Assurance artifacts
 - Function app (Format : ADOScannerFAYYMMDDHHMMSS) :- To trigger the containerised image and provide input to function from application setings. The function app is named with a timestamp-suffix applied to 'ADOScannerFA'(e.g. ADOScannerFA200815181008)
 - Application Insights (Format : ADOScannerFAYYMMDDHHMMSS) :- To collect log, performance of the function in containerised image. The application insights is named with a timestamp-suffix and has same name as function app (e.g. ADOScannerFA200815181008)
 - Key Vault (Format : ADOScannerKVYYMMDDHHMMSS) :- To safegaurd the pat token used in running scan. The Key vault is named with a timestamp-suffix applied to 'ADOScannerKV' (e.g. ADOScannerKV200815181008)
-- Managed Identity of Function app :- This is used at the runtime to fetch pat from keyvault and store can logs in storage account. It has Get,List access on keyvault and contributor access on storage account   
+- Managed Identity of Function app :- This is used at the runtime to fetch pat from keyvault and store logs in storage account. It has Get,List access on keyvault and contributor access on storage account   
 
 ----------------------------------------------
 
