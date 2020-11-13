@@ -4,6 +4,13 @@
 > </br>Also, please ensure that you provide an apt justification for each attested control to capture the rationale behind your decision.  
 
 
+## Contents
+- [Overview](Readme.md#Overview-1)
+- [Starting attestation](Readme.md#starting-attestation)  
+- [How scanner determines the effective control result](Readme.md#how-scanner-determines-the-effective-control-result)  
+- [Permissions required for attesting controls](Readme.md#permissions-required-for-attesting-controls) 
+- [Attestation expiry](Readme.md#attestation-expiry)  
+
 ### Overview
 
 The attestation feature empowers users to support scenarios where human input is required to augment or override the default control 
