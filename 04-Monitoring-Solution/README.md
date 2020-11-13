@@ -1,12 +1,16 @@
 # Monitoring Solution for AzSK.ADO (ADO Scanner)
 
+----------------------------------------------
+
 ## Contents
 
   -  [Overview](README.md#overview)
-  -  [Components of the AzSK.ADO Monitoring Solution](README.md#)
-  -  [Setting up the AzSK.ADO Monitoring Solution](README.md#)
-  -  [Scan your Azure DevOps resources](README.md#)
-  -  [Execute SVTs using "-UsePartialCommits" switch](README.md#)
+  -  [Components of the AzSK.ADO Monitoring Solution](README.md#components-of-the-azskado-monitoring-solution)
+  -  [Setting up the AzSK.ADO Monitoring Solution](README.md#setting-up-the-azskado-monitoring-solution-step-by-step)
+     *  [Step-1 (Ops Team): Deploy the AzSK.ADO Monitoring Solution](README.md#step-1-ops-team-deploy-the-azskado-monitoring-solution)
+     *  [Step-2 (Ops Team): Using the Log Analytics Workspace Summary (Overview) for monitoring](README.md#step-2-ops-team-using-the-log-analytics-workspace-summary-overview-for-monitoring)
+     *  [Step-3 (Ops Team): Using the Log Analytics Workbook for monitoring](README.md#step-3-ops-team-using-the-log-analytics-workbook-for-monitoring)
+  -  [Appendix](README.md#appendix)
   
 ----------------------------------------------
 
@@ -19,9 +23,12 @@ Out of the box, these capabilities can be leveraged via the Log Analytics-based 
 
 However, a dev ops team can equally easily leverage a different system for log analytics (e.g., Splunk) and view the AzSK.ADO control evaluation events in the alternate system. This can be accomplished by using connectors for Event Hubs or Webhooks in the AzSK.ADO.
 
+----------------------------------------------
 
 ## Components of the AzSK.ADO Monitoring Solution
 The AzSK.ADO Monitoring Solution is deployed to a Log Analytics workspace that is used by the dev ops team for monitoring and generating a dashboard for security monitoring.
+
+----------------------------------------------
 
 ## Setting up the AzSK.ADO Monitoring Solution (Step by Step)
 This section will walk you through the step-by-step experience of setting up the AzSK.ADO Monitoring Solution.
@@ -77,6 +84,7 @@ The installation command will display output like the below:
 
 ![09_Install-AzSKMonitoringSolution](../Images/ADO/09_ADO_Install-AzSKMonitoringSolution.png)
 
+----------------------------------------------
 
 ### Step-2 (Ops Team): Using the Log Analytics Workspace Summary (Overview) for monitoring
 
@@ -120,6 +128,8 @@ blade takes a different pivot to show the resource compliance data. The very las
 provides some handy queries that you can use to get started with building your own custom 
 queries for log searches on top of the AzSK.ADO events in the repository.
 
+----------------------------------------------
+
 ### Step-3 (Ops Team): Using the Log Analytics Workbook for monitoring**
 
 You should start seeing a tile such as the one below:
@@ -141,6 +151,8 @@ blades in this view. These blades cover the complete picture of baseline securit
 for your organization and resources. It starts with a couple of blades that display organization
 level security issues. The subsequent blades display project level security queries - each 
 blade takes a different pivot to show the resource compliance data. 
+
+----------------------------------------------
 
 ## Appendix ##
 
