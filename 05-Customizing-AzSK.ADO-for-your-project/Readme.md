@@ -57,7 +57,7 @@ At a high level, the org policy setup support for AzSK.ADO does the following:
 
 #### Steps to setup org policy setup 
 
-1. Create a Git repository in your project by importing this [repo](https://github.com/azsk/ADOScanner_Policy.git). [Project -> Repos -> Import repository -> Select 'Git' as repository type -> Enter 'https://github.com/azsk/ADOScanner_Policy.git' as clone URL -> Enter 'ADOScanner_Policy_\<ProjectName>' as name].
+1. Create a Git repository in your project by importing this [repo](https://github.com/azsk/ADOScanner_Policy.git). [Project -> Repos -> Import repository -> Select 'Git' as repository type -> Enter 'https://github.com/azsk/ADOScanner_Policy.git' as clone URL -> Enter 'ADOScannerPolicy' as name].
 
 It will import a very basic 'customized' policy involving below files uploaded to the policy repository.
 
