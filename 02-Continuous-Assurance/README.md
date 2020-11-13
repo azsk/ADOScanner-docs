@@ -9,6 +9,11 @@
      * [Getting details about a Continuous Assurance setup](README.md#)
      * [Continuous Assurance using containers - how it works (under the covers)](README.md#)
   -  [Automated Scanning using ADO extensionn](Readme.md#Automated-Scanning-using-ADO-extension)
+     * [Setting up Continuous Assurance - Step by Step](README.md#setting-up-continuous-assurance---step-by-step-1)
+     * [Customizing your PAT with minimum required privileges for ADO Connection](README.md#-customizing-your-pat-with-minimum-required-privileges-for-azure-devops-connection)
+     * [Visualize security scan results](README.md#visualize-security-scan-results)
+
+----------------------------------------------
 
 ## Overview
 
@@ -16,11 +21,11 @@ The basic idea behind Continuous Assurance (CA) is to setup the ability to check
 
 Besides 'drift tracking' there are also two other aspects of "staying secure" in operations. First of them is the simple concept that if new, more secure options become available for a feature, it should be possible to detect that a particular application or solution can benefit from them and notify/alert the owners concerned. In a way this can be thought of as facilitating "positive" security drift. The other aspect is about supporting "operational hygiene". In this area, we will add the ability to remind a team about the security hygiene tasks that they need to periodically perform (key rotation, access reviews,  removing inactive/dormant power users, etc.).
 
+----------------------------------------------
 
 ## Automated Scanning using Azure functions
 
 An Azure-based continuous assurance scanning solution for ADO can be setup in subscription. It will run ADO security scanner inside a container image and the scanning infrastructure of this containerized model will be hosted in an Azure resource group. This provides an alternate option to running the scanner via ADO pipeline extension and is designed to be more suitable for larger environments.
-
 
 ### Setting up Continuous Assurance - Step by Step
 In this section, we will walk through the steps of setting up a Azure DevOps Organization for Continuous Assurance coverage in a subscription. 
@@ -138,7 +143,7 @@ Let us verify that the function app output is generated as expected and that the
 ![09_CA_Laws_Query](../Images/09_CA_Laws_Query.PNG)
 
 
-## Updating an existing Continuous Assurance setup
+### Updating an existing Continuous Assurance setup
 
 The '**Update-AzSKADOContinuousAssurance**' command can be used to make changes to a previously setup CA configuration.
 For instance, you may use it to:
@@ -167,7 +172,7 @@ Update-AzSKADOContinuousAssurance -SubscriptionId <SubscriptionId> `
 
 ```
 
-## Getting details about a Continuous Assurance setup
+### Getting details about a Continuous Assurance setup
 
 Run the 'Get-AzSKADOContinuousAssurance' command as below.
 Result will display the current status of CA in your subscription. If CA is not working as expected, it will display remediation steps else it will display a message indicating CA is in healthy state.
@@ -185,7 +190,7 @@ Get-AzSKADOContinuousAssurance  -SubscriptionId <SubscriptionId> `
 ```
 
 
-## Continuous Assurance using containers - how it works (under the covers)
+### Continuous Assurance using containers - how it works (under the covers)
 The CA feature is about tracking configuration drift. This is achieved by enabling support for running AzSK.ADO periodically.
 
 The CA installation script that sets up CA creates the following resources in your subscription:
@@ -259,7 +264,7 @@ The "ADO Security Scanner" task starts showing in the "Run on Agent" list and di
 <head>
 
 </head><body>
-<H2> Customizing your PAT with minimum required privileges for Azure DevOps Connection</H2>
+<H3> Customizing your PAT with minimum required privileges for Azure DevOps Connection</H3>
 
 Here is a scope-wise list of minimum privileges that needs to be assigned to your PAT to ensure a smooth experience of the security scan.
 
