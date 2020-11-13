@@ -49,7 +49,7 @@ the permissions required section below.
 
 ## Setup Attestation Repository
 
-AzSK.ADO internally stores attestation details in a project repository named 'ADOScanner_Attestation' which needs to be configured typically by the project admin. 
+AzSK.ADO internally stores attestation details in a project repository named 'ADOScannerAttestation' which needs to be configured typically by the project admin. 
 
 Attestation details for project and its components (build/release/service connection/agent pool) are recorded only when this repository is present inside the project.
 
@@ -62,11 +62,11 @@ Attestation details for project and its components (build/release/service connec
 In order to setup attestation repository inside a project, follow the below steps:
 
 1. Navigate to *Repos* section of the project.
-2. Create a new Git repository with the name 'ADOScanner_Attestation'. Skip this step if this repository already exists.
+2. Create a new Git repository with the name 'ADOScannerAttestation'. Skip this step if this repository already exists.
 
 ### How to setup host project to store attestation details for organization-specific controls?
 
-1. Host project to store attetstation details for organization-specific controls can be set using a scan parameter named 'AttestationHostProjectName'. Before setting up the host project, ensure this project has 'ADOScanner_Attestation' repository setup.
+1. Host project to store attestation details for organization-specific controls can be set using a scan parameter named 'AttestationHostProjectName'. Before setting up the host project, ensure this project has 'ADOScanner_Attestation' repository setup.
 2.  **Attestation host project can be set only once and can't be updated later**.
 
 For e.g., to attest organization controls, run the command below:
@@ -101,10 +101,10 @@ To manage attestation flow effectively, 4 options are provided for the *Controls
 |All|Attest all controls which can be attested (including those that have past attestations).|
 |None|N/A.|
 
-The attestation feature internally stores attestation details in a repository called 'ADOScanner_Attestation'. As a prerequisite, you need to create a repository with the same name. Attestation details of projects, builds, releases, service connections, agent pools and variable groups will be stored in the 'ADOScanner_Attestation' repository of the project these resources belong to.    
+The attestation feature internally stores attestation details in a repository called 'ADOScannerAttestation'. As a prerequisite, you need to create a repository with the same name. Attestation details of projects, builds, releases, service connections, agent pools and variable groups will be stored in the 'ADOScanner_Attestation' repository of the project these resources belong to.    
 
 To attest organization specific controls, you need to setup a similar repository in the host project which will store the attestation details for organization specific controls.
-> **Note**: Administrator needs to setup the attestation host project name to store organization spesific control attestation details. It can be set using the parameter 'AttestationHostProjectName'. Attestation host project can be set only once and can not be update later.
+> **Note**: Administrator needs to setup the attestation host project name to store organization specific control attestation details. It can be set using the parameter 'AttestationHostProjectName'. Attestation host project can be set only once and can not be update later.
 Run below command to set attestation host project:
 For example: 
 ```PowerShell  
@@ -115,7 +115,7 @@ Get-AzSKADOSecurityStatus -OrganizationName $orgName -AttestationHostProjectName
 
 ```
 
-Attestation can be performed for orgnization, project, build, release, service connection and agent pool using the the below commands: 
+Attestation can be performed for orgnization, project, build, release, service connection and agent pool using the below commands: 
 > **Note**: Using PolicyProject parameter you can specify the name of the project to read and write attestation details and fetch organization policy for organization.
 
 For example: 
