@@ -1,9 +1,9 @@
  ### [AzSK.ADO PowerShell module]
-  -  [Installation Guide]
-  -  [Auto Update]
-  -  [Scan your Azure DevOps resources]
+  -  [Installation Guide](README.md#installation-guide)
+  -  [Auto Update](README.md#auto-update)
+  -  [Scan your Azure DevOps resources](README.md#scan-your-azure-devops-resources)
 
-# AzSK.ADO PowerShell module
+## AzSK.ADO PowerShell module
 
 At its core, the Security Scanner for ADO is a PowerShell module. This can be run locally from the PS console after installation. This is as simple as running PS in non-Admin mode and running the cmds as shown below:
 
