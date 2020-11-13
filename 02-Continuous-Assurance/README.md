@@ -142,6 +142,7 @@ Let us verify that the function app output is generated as expected and that the
 	
 ![09_CA_Laws_Query](../Images/09_CA_Laws_Query.png)
 
+----------------------------------------------
 
 ### Updating an existing Continuous Assurance setup
 
@@ -172,6 +173,8 @@ Update-AzSKADOContinuousAssurance -SubscriptionId <SubscriptionId> `
 
 ```
 
+----------------------------------------------
+
 ### Getting details about a Continuous Assurance setup
 
 Run the 'Get-AzSKADOContinuousAssurance' command as below.
@@ -189,6 +192,7 @@ Get-AzSKADOContinuousAssurance  -SubscriptionId <SubscriptionId> `
                                 [-FunctionAppName <FunctionAppName>]
 ```
 
+----------------------------------------------
 
 ### Continuous Assurance using containers - how it works (under the covers)
 The CA feature is about tracking configuration drift. This is achieved by enabling support for running AzSK.ADO periodically.
@@ -202,6 +206,8 @@ To host all the Continuous Assurance artifacts
 - Application Insights (Format : ADOScannerFAYYMMDDHHMMSS) :- To collect log, performance of the function in containerised image. The application insights is named with a timestamp-suffix and has same name as function app (e.g. ADOScannerFA200815181008)
 - Key Vault (Format : ADOScannerKVYYMMDDHHMMSS) :- To safegaurd the pat token used in running scan. The Key vault is named with a timestamp-suffix applied to 'ADOScannerKV' (e.g. ADOScannerKV200815181008)
 - Managed Identity of Function app :- This is used at the runtime to fetch pat from keyvault and store can logs in storage account. It has Get,List access on keyvault and contributor access on storage account   
+
+----------------------------------------------
 
 ## Automated Scanning using ADO extension
 
@@ -374,6 +380,7 @@ Once you are able to successfully run the ADO scan using ADO pipeline, you can c
 
 ![Schedule Trigger](../Images/09_ADO_ScheduleTrigger.png)
 
+----------------------------------------------
 
 ### Visualize security scan results 
 
