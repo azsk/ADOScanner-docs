@@ -111,7 +111,7 @@ Note:
 
 **2:** Click on 'Functions' tile. It should show the following function: 
 	
-![09_CA_FunctionApp](../Images/09_CA_FunctionApp.PNG)
+![09_CA_FunctionApp](../Images/09_CA_FunctionApp.png)
 
 
 **3:** Click on 'Configuration' tile. It should show the application settings of the function app. Default schedule is to run scan 20 minutes post Install CA command and then every 24 hours after that.
@@ -131,7 +131,7 @@ Let us verify that the function app output is generated as expected and that the
 3. There should be a ZIP file named using a timestamp based on the date time for the manual execution in this container (most likely the ZIP file with the most recent creation date). 
 4. Download the ZIP file and extract its contents locally.
 	
-![09_CA_Storage_Logs](../Images/09_CA_Storage_Logs.PNG)
+![09_CA_Storage_Logs](../Images/09_CA_Storage_Logs.png)
 
 **2:** Verify that data is being sent to the target Log Analytics workspace   
 
@@ -140,7 +140,7 @@ Let us verify that the function app output is generated as expected and that the
   AzSK_ADO_CL | where Source_s == "CA"
 3. You should see results similar to the below:
 	
-![09_CA_Laws_Query](../Images/09_CA_Laws_Query.PNG)
+![09_CA_Laws_Query](../Images/09_CA_Laws_Query.png)
 
 
 ### Updating an existing Continuous Assurance setup
