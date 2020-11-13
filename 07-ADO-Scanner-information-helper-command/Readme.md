@@ -1,5 +1,5 @@
-### [ADO Scanner information helper command](Readme.md#Overview-4)
-- [Overview](Readme.md#Overview-4)
+### [ADO Scanner information helper command](Readme.md#ado-scanner-information-helper-command-1)
+- [Overview](Readme.md#Overview)
 - [Control Information](Readme.md#control-information)  
 - [Host Information](Readme.md#host-information)  
 
