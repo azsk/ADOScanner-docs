@@ -6,6 +6,7 @@
   -  [Installation Guide](README.md#installation-guide)
   -  [Auto Update](README.md#auto-update)
   -  [Scan your Azure DevOps resources](README.md#scan-your-azure-devops-resources)
+  -  [Execute SVTs using "-UsePartialCommits" switch](README.md#execute-svts-using--usepartialcommits-switch)
   
 ----------------------------------------------
 
@@ -26,6 +27,7 @@ Security Scanner for Azure DevOps (ADO) performs security scanning for core area
 1. First verify that prerequisites are already installed:  
     Ensure that you have PowerShell version 5.0 or higher by typing **$PSVersionTable** in the PowerShell ISE console window and looking at the PSVersion in the output as shown below.) 
  If the PSVersion is older than 5.0, update PowerShell from [here](https://www.microsoft.com/en-us/download/details.aspx?id=54616).  
+ 
    ![PowerShell Version](../Images/00_PS_Version.png)   
 
 2. Install the Security Scanner for Azure DevOps (AzSK.ADO) PS module:  
@@ -145,6 +147,13 @@ To scan large number of project component (more then 1000 resources default valu
 ```PowerShell
 Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "<PRJ1, PRJ2,...etc.>" -AllowLongRunningScan
 ```
-Allowing scan for more then 1000 resources can be configured through the organization policy by updating 'IsAllowLongRunningSca'n and 'LongRunningScanCheckPoint' properties in the ControlSettings.json file. 
-If 'IsAllowLongRunningScan' is set to true, then by using '-AllowLongRunningScan' switch parameter, AzSK.ADO allows scan for resources count which is set in 'LongRunningScanCheckPoint'. If 'IsAllowLongRunningScan' value is set to false it does not allow scan for more then resources count set in 'LongRunningScanCheckPoint'. 
+Allowing scan for more then 1000 resources can be configured through the organization policy by updating 'IsAllowLongRunningScan' and 'LongRunningScanCheckPoint' properties in the ControlSettings.json file. 
+If 'IsAllowLongRunningScan' is set to true, then by using '-AllowLongRunningScan' switch parameter, AzSK.ADO allows scan for resources count which is set in 'LongRunningScanCheckPoint'. If 'IsAllowLongRunningScan' value is set to false it does not allow scan for more then resources count set in 'LongRunningScanCheckPoint'.
+
+----------------------------------------------
+
+### Execute SVTs using "-UsePartialCommits" switch
+
+The Get-AzSKADOSecurityStatus command now supports checkpointing via a "-UsePartialCommits" switch. When this switch is used, the command periodically persists scan progress to disk. That way, if the scan is interrupted or an error occurs, a future retry can resume from the last saved state. This capability also helps in Continuous Assurance scans if scan gets suspended due to any unforeseen reason.The cmdlet below checks security control state via a "-UsePartialCommits" switch:
+Get-AzSKADOSecurityStatus-OrganizationName "<OrganizationName>" -ScanAllArtifacts -UsePartialCommits
 
