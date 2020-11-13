@@ -10,7 +10,7 @@ At its core, the Security Scanner for ADO is a PowerShell module. This can be ru
 1. First verify that prerequisites are already installed:  
     Ensure that you have PowerShell version 5.0 or higher by typing **$PSVersionTable** in the PowerShell ISE console window and looking at the PSVersion in the output as shown below.) 
  If the PSVersion is older than 5.0, update PowerShell from [here](https://www.microsoft.com/en-us/download/details.aspx?id=54616).  
-   ![PowerShell Version](../Images/00_PS_Version.PNG)   
+   ![PowerShell Version](../Images/00_PS_Version.png)   
 
 2. Install the Security Scanner for Azure DevOps (AzSK.ADO) PS module:  
 	  
@@ -27,7 +27,7 @@ It is always recommended to scan your organization with the latest AzSK.ADO modu
 **Adhoc Scans:**
 Users running the older version of AzSK.ADO scan from their local machine will get a warning as shown in the image below.
 It would also provide the user with required instructions to upgrade the module.
-![Install_Autoupdate](./Images/ADO/09_Install_Autoupdate.PNG) 
+![Install_Autoupdate](../Images/ADO/09_Install_Autoupdate.png) 
 
 The users can leverage the auto update feature which has been introduced from the AzSDK.ADO version 1.15.x.
 As shown in the image above, user can go with update by running the command below:
@@ -40,7 +40,7 @@ User needs to close and reopen a fresh session once the command is run.
 Going forward, if the latest version of AzSK.ADO is released, then during execution of any AzSK.ADO command it would start the auto update workflow automatically 
 as shown in the image below:
 
-![Install_Autoupdate_Workflow](./Images/ADO/09_Install_Autoupdate_Workflow.PNG)
+![Install_Autoupdate_Workflow](../Images/ADO/09_Install_Autoupdate_Workflow.png)
 
 Step 1: It would take user consent before it starts the auto update workflow. (1 in the image above) <br/>
 Step 2: Users need to close all the displayed PS sessions. Typically open PS sessions would lock the module and fail the installation. (2 in the image above) <br/>
