@@ -182,4 +182,4 @@ Bug logging is supported for organization and project controls only with admin p
 >-   In order to log bugs for organization control, user needs to be a member of the group 'Project Collection Administrators'.    
 >-   In order to log bugs for project control, user needs to be a member of the group 'Project Administrators' of that particular project.
 
-[Back to top...](Readme.md#contents)
+[Back to top...](Readme.md#auto-bug-logging)
