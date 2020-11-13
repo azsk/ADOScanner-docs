@@ -1,4 +1,4 @@
-### [Auto Bug Logging](Readme.md)
+### [Auto Bug Logging](Readme.md/auto-bug-logging-1)
 - [Overview](Readme.md#Overview)
 - [Starting bug logging](Readme.md#starting-bug-logging)  
 - [Setting up host project for organization specific controls](Readme.md#setting-up-host-project-for-organization-specific-controls)  
