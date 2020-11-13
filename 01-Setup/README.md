@@ -10,6 +10,9 @@
 ----------------------------------------------
 
 ## Overview
+Security Scanner for Azure DevOps (ADO) helps you keep your ADO artifacts such as various org/project settings, build/release configurations, service connections, agent pools, etc. configured securely. You can run the ADO Security Scanner standalone in a PowerShell console or in an ADO pipeline via a marketplace extension.
+
+Security Scanner for Azure DevOps (ADO) performs security scanning for core areas of Azure DevOps like Organization, Projects, Users, Pipelines (Build & Release), Connections and Agent Pools. 
 
 At its core, the Security Scanner for ADO is a PowerShell module. This can be run locally from the PS console after installation. This is as simple as running PS in non-Admin mode and running the cmds as shown below:
 
@@ -60,6 +63,7 @@ Step 3: Even the current session must be closed. It would again take the user co
 **ADOScanner Extension:**
 No impact to default behavior of ADOScanner extension. It always runs the scan with the latest version available in the PS Gallery. 
 
+----------------------------------------------
 
 ## Scan your Azure DevOps resources
 
