@@ -7,7 +7,7 @@
 
 ## Contents
 - [Overview](README.md#overview)
-- [Setup Repository to store Attestation details](README.md#setup-attestation-repository)
+- [Setup Repository to store attestation details](README.md#setup-attestation-repository)
    * [How to setup attestation repository in a project?](README.md#how-to-setup-attestation-repository-in-a-project)
    * [How to setup host project to store attestation details for organization-specific controls?](README.md#how-to-setup-host-project-to-store-attestation-details-for-organization-specific-controls)
 - [Starting attestation](README.md#starting-attestation)  
@@ -43,7 +43,7 @@ state is auto-reset if there is any change in 'state' (e.g., someone adds a new 
 Lastly, due to the governance implications, the ability to attest controls is available to a subset of users. This is described in
 the permissions required section below.  
 
-[Back to top...](Readme.md#contents)
+[Back to top...](README.md##control-attestation)
 
 ----------------------------------------------
 
@@ -230,7 +230,7 @@ Attestation details corresponding to each control (e.g., justification, user nam
 
 If you wish to revisit previous attestations, it can be done by using 'AlreadyAttested' flag in the command above.  
 
-[Back to top...](Readme.md#contents)
+[Back to top...](README.md##control-attestation)
 
 ----------------------------------------------
 
@@ -293,7 +293,7 @@ The following table describes the possible effective control evaluation results 
 |Manual |No automation as of now. User needs to validate manually|
 |Exception |Risk acknowledged. The 'WillNotFix' option was chosen as attestation choice/status. |
 
-[Back to top...](Readme.md#contents)
+[Back to top...](README.md##control-attestation)
 
 ----------------------------------------------
 
@@ -311,7 +311,7 @@ Currently, attestation can be performed only via PowerShell session in local mac
 >* In order to attest project control, user needs to be a member of the group 'Project Administrators' of that particular project.
 >* In order to attest build, release, service connection, agent pool control, user needs to have write permission on the 'ADOScanner_Attestation' repository of that particular project.
 
-[Back to top...](Readme.md#contents)
+[Back to top...](README.md##control-attestation)
 
 ----------------------------------------------
 
@@ -334,4 +334,4 @@ Any control with evaluation result as not passed and,
 > **Note**:
 >* Attestation may also expire before actual expiry in cases when the attested state for the control doesn't match with current control state.
 
-[Back to top...](Readme.md#contents)
+[Back to top...](README.md##control-attestation)
