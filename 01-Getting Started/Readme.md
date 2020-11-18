@@ -48,6 +48,12 @@ Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "
 #Scan organization, project, all builds, releases, service connectiopns and agent pools
 Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "PRJ1" -BuildNames "*" -ReleaseNames "*" -ServiceConnectionNames "*" -AgentPoolNames "*"
 
+#Scan organization and Project with PAT prompted
+Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "PRJ1" -PromptForPAT
+
+#Scan organization and Project with PAT token URL
+Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "PRJ1" -PATTokenURL
+
 #Scan all supported artifacts
 Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ScanAllArtifacts
 
@@ -55,16 +61,22 @@ Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ScanAllArtifac
 Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "<PRJ1,PRJ2,etc>" -ResourceTypeName Project
 
 #Scan builds 
-Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "PRJ1" -BuildNames "*" -ResourceTypeName Build
+Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "PRJ1" -ResourceTypeName Build
 
 #Scan releases 
-Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "PRJ1" -ReleaseNames "*" -ResourceTypeName Release
+Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "PRJ1"  -ResourceTypeName Release
 
 #Scan service connections 
-Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "PRJ1" -ServiceConnectionNames "*" -ResourceTypeName ServiceConnection
+Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "PRJ1"  -ResourceTypeName ServiceConnection
 
 #Scan agent pools 
-Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "PRJ1" -AgentPoolNames "*" -ResourceTypeName AgentPool
+Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "PRJ1"  -ResourceTypeName AgentPool
+
+#Scan Variable group
+Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "PRJ1"  -ResourceTypeName VariableGroup
+
+#Scan using service Id
+Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "PRJ1"  -ServiceId "<service Id>"
 
 #Scan resources for baseline controls only
 Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "<PRJ1,PRJ2,etc>" -ubc
@@ -89,5 +101,11 @@ Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "
 ```
 Allowing scan for more then 1000 resources can be configured through the organization policy by updating 'IsAllowLongRunningScan' and 'LongRunningScanCheckPoint' properties in the ControlSettings.json file. 
 If 'IsAllowLongRunningScan' is set to true, then by using '-AllowLongRunningScan' switch parameter, AzSK.ADO allows scan for resources count which is set in 'LongRunningScanCheckPoint'. If 'IsAllowLongRunningScan' value is set to false it does not allow scan for more then resources count set in 'LongRunningScanCheckPoint'.
+
+> **Note**: By default organization and project control is not including in scan for non-admin users. To scan organization and project controls, non-admin users needs to add a switch '-IncludeAdminControls' with scan command. 
+> 
+```PowerShell
+#Scan organization and Project (non-admin users)
+Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "<PRJ1,PRJ2,etc>" -ScanAllArtifacts -IncludeAdminControls
 
 ----------------------------------------------
