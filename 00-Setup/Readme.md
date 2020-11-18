@@ -5,7 +5,7 @@
   -  [Overview](Readme.md#overview)
   -  [Installation Guide](Readme.md#installation-guide)
   -  [Auto Update](Readme.md#auto-update)
-  -  [FAQ](Readme.md#faq)
+  -  [FAQs](Readme.md#faqs)
   
   
 ----------------------------------------------
