@@ -3,9 +3,9 @@
 ## Contents
 
   -  [Overview](Readme.md#overview)
-  -  [Installation Guide](README.md#installation-guide)
-  -  [Auto Update](README.md#auto-update)
-  -  [FAQ](README.md#faq)
+  -  [Installation Guide](Readme.md#installation-guide)
+  -  [Auto Update](Readme.md#auto-update)
+  -  [FAQ](Readme.md#faq)
   
   
 ----------------------------------------------
