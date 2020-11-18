@@ -2,7 +2,7 @@
 
 ## Contents
 
-  -  [Overview](README.md#overview)
+  -  [Overview](Readme.md#overview)
   -  [Installation Guide](README.md#installation-guide)
   -  [Auto Update](README.md#auto-update)
   -  [FAQ](README.md#faq)
