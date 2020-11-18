@@ -72,7 +72,7 @@ No impact to default behavior of ADOScanner extension. It always runs the scan w
 ### FAQs
 
 #### Error message: "Running scripts is disabled on this system..."
-This is an indication that PowerShell script loading and execution is disabled on your machine. You will need to enable it before the AzSK installation script (which itself is a PowerShell script) can run. 
+This is an indication that PowerShell script loading and execution is disabled on your machine. You will need to enable it before the ADOScanner installation script (which itself is a PowerShell script) can run. 
 ```PowerShell
 Get-ExecutionPolicy -Scope CurrentUser
 ```
