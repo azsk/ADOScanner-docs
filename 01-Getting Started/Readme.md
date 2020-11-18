@@ -48,14 +48,20 @@ Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "
 #Scan organization, project and agent pools
 Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "PRJ1" -AgentPoolNames "<AGP1, AGP2,...etc.>"
 
+#Scan organization, project and Variable groups
+Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "PRJ1" -VariableGroupNames "<VGN1,VGN2>"
+
 #Scan organization, project, all builds, releases, service connectiopns and agent pools
 Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "PRJ1" -BuildNames "*" -ReleaseNames "*" -ServiceConnectionNames "*" -AgentPoolNames "*"
 
+#Scan organization, project, all builds, releases and variable groups
+Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "PRJ1" -BuildNames "*" -ReleaseNames "*" -VariableGroupNames "*"
+
 #Scan organization and Project with PAT prompted
-Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "PRJ1" -PromptForPAT
+Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "PRJ1" -BuildNames "*" -PromptForPAT
 
 #Scan organization and Project with PAT token URL
-Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "PRJ1" -PATTokenURL
+Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "PRJ1" -ReleaseNames "*" -PATTokenURL
 
 #Scan all supported artifacts
 Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ScanAllArtifacts
