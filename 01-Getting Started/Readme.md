@@ -3,8 +3,8 @@
 ## Contents
  -  [Import ADO module](Readme.md#import-ado-module)
  -  [Scan your Azure DevOps resources](Readme.md#scan-your-azure-devops-resources)
- -  [Execute SVTs using "-DetailedScan" switch](README.md#execute-svts-using--detailedscan-switch)
- -  [Execute SVTs using "-UsePartialCommits" switch](README.md#execute-svts-using--usepartialcommits-switch)
+ -  [Execute SVTs using "-DetailedScan" switch](Readme.md#execute-svts-using--detailedscan-switch)
+ -  [Execute SVTs using "-UsePartialCommits" switch](Readme.md#execute-svts-using--usepartialcommits-switch)
 
 ## Import ADO module
 Firstly ADO module should be imported in the powershell session before using the scan commands.To import module ADO module run below command.
