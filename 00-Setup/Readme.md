@@ -5,8 +5,8 @@
   -  [Overview](README.md#overview)
   -  [Installation Guide](README.md#installation-guide)
   -  [Auto Update](README.md#auto-update)
-  -  [Scan your Azure DevOps resources](README.md#scan-your-azure-devops-resources)
-  -  [Execute SVTs using "-UsePartialCommits" switch](README.md#execute-svts-using--usepartialcommits-switch)
+  -  [FAQ](README.md#faq)
+  
   
 ----------------------------------------------
 
@@ -69,5 +69,16 @@ No impact to default behavior of ADOScanner extension. It always runs the scan w
 
 ----------------------------------------------
 
+### FAQs
 
-
+#### Error message: "Running scripts is disabled on this system..."
+This is an indication that PowerShell script loading and execution is disabled on your machine. You will need to enable it before the AzSK installation script (which itself is a PowerShell script) can run. 
+```PowerShell
+Get-ExecutionPolicy -Scope CurrentUser
+```
+If you run above command in the PS console, you will likely see that the policy level is either 'Restricted' or 'Undefined'. For AzSK cmdlets to run, it needs to be set to 'RemoteSigned'.
+To resolve this issue run the following command in your PS console:
+```PowerShell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+The execution policy setting will be remembered and all future PS consoles opened in non-Admin (CurrentUser) mode will apply the 'RemoteSigned' execution policy.
