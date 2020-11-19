@@ -1,7 +1,7 @@
 ## Contents
 
   -  [Automated Scanning using ADO extension](README.md#automated-scanning-using-ado-extension)
-     * [Setting up Continuous Assurance - Step by Step](README.md#setting-up-continuous-assurance---step-by-step)
+     * [Setting up ADOScanner as pipeline extension - Step by Step](README.md#setting-up-adoscanner-as-pipeline-extension---step-by-step)
      * [Customizing your PAT with minimum required privileges for ADO Connection](README.md#-customizing-your-pat-with-minimum-required-privileges-for-azure-devops-connection)
      * [Visualize security scan results](README.md#visualize-security-scan-results)
 
