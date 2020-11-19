@@ -1,4 +1,4 @@
-# Running ADOScanner as Azure Function
+# Running ADOScanner as Azure Function (Continuous Assurance setup)
 
 ## Contents
 
