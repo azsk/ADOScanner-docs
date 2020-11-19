@@ -1,3 +1,5 @@
+# Running ADOScanner as pipeline extension
+
 ## Contents
 
   -  [Automated Scanning using ADO extension](README.md#automated-scanning-using-ado-extension)
