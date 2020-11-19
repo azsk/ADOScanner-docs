@@ -4,7 +4,7 @@
 
   -  [Overview](README.md#overview)
   -  [Automated Scanning using Azure functions](README.md#automated-scanning-using-azure-functions)
-     * [Setting up Continuous Assurance - Step by Step](README.md#setting-up-continuous-assurance---step-by-step)
+     * [Setting up ADOScanner using Azure function - Step by Step](README.md#setting-up-adoscanner-using-azure-function---step-by-step)
      * [Updating an existing Continuous Assurance setup](README.md#updating-an-existing-continuous-assurance-setup)
      * [Getting details about a Continuous Assurance setup](README.md#getting-details-about-a-continuous-assurance-setup)
      * [Continuous Assurance using containers - how it works (under the covers)](README.md#continuous-assurance-using-containers---how-it-works-under-the-covers)
@@ -23,7 +23,7 @@ Besides 'drift tracking' there are also two other aspects of "staying secure" in
 
 An Azure-based continuous assurance scanning solution for ADO can be setup in subscription. It will run ADO security scanner inside a container image and the scanning infrastructure of this containerized model will be hosted in an Azure resource group. This provides an alternate option to running the scanner via ADO pipeline extension and is designed to be more suitable for larger environments.
 
-### Setting up ADO Scanner using Azure function - Step by Step
+### Setting up ADOScanner using Azure function - Step by Step
 In this section, we will walk through the steps of setting up a Azure DevOps Organization for Continuous Assurance coverage in a subscription. 
 
 To get started, we need the following:
