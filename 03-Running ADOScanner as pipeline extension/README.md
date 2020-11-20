@@ -162,7 +162,7 @@ __! Important__ : Make sure you **DO NOT** select  checkbox for "Grant access pe
 
 __Step-4__: Click "Save & queue"
 
-![Add Service connection](../Images/09_ADO_TriggerPipeline.png)
+![Add Service connection](../Images/ADO_TriggerPipeline.png)
 
 Task will install latest ADO scanner module and start scanning based on input parameters. 
 
