@@ -52,6 +52,12 @@ See the examples below for auto bug logging of organization, project, build, rel
 #Auto bug logging for organization controls
 Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ResourceTypeName Organization -AutoBugLog All
 
+#Auto bug logging for organization baseline controls
+Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ResourceTypeName Organization -AutoBugLog BaselineControls
+
+#Auto bug logging for organization preview baseline controls
+Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ResourceTypeName Organization -AutoBugLog PreviewBaselineControls
+
 #Auto bug logging for project controls
 Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "<ProjectName>" -ResourceTypeName Project -AutoBugLog All
 
@@ -137,6 +143,7 @@ The bugs are assigned according to the resource type as follows:
 |Release| Latest user to trigger the pipeline. If there has been no run history, it is assigned to creator |
 | Service Connection| Owner of the service connection |
 | Agent Pool | Owner of the agent pool |
+| Variable Group | Owner of the variable group |
 
 
 ## Customizing resolved bug behaviour
