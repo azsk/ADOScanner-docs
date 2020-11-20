@@ -54,7 +54,7 @@ __Step-2__: Add "ADO Security Scanner" task to the pipeline
 
 Click on "Add Tasks" and select "Azure DevOps (ADO) Security Verification".
 
-![Add scanner task](../Images/09_ADO_AddADOScannerTask.png)
+![Add scanner task](../Images/ADO_AddADOScannerTask.png)
 
 __Step-3__: Specify the input parameters for the task.
 The "ADO Security Scanner" task starts showing in the "Run on Agent" list and displays some configuration inputs that are required for the task to run. These are none other than the familiar options we have been specifying while running the ADO scan manually - you can choose to specify the target org, projects, builds and releases based on how your org resources are organized.
