@@ -115,11 +115,11 @@ There are three kinds of bugs shown in the summary:
  
 The details for all these bugs can be found in *BugSummary.json* file that is stored in the folder : *%LOCALAPPDATA%\Microsoft\AzSK.ADOLogs\Org_[yourOrganizationName]*. The information conveyed from this JSON looks as follows:
 
-![Bug Logging JSON](../Images/ADO_BugLogging_BugJSON.png)
+![Bug Logging JSON](../Images/ADO_BugLogging_BugJSONNew.png)
 
 A sample bug template is shown as below :
 
-![Bug Logging Template](../Images/ADO_BugLogging_BugTemplate.png)
+![Bug Logging Template](../Images/ADO_BugLogging_BugTemplateNew.png)
 
 The following information is conveyed by the bug template:
 -   The control that has failed    
