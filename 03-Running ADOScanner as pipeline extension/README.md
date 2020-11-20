@@ -152,7 +152,7 @@ Work Items
 </body></html>
 
 
-![Add Service connection](../Images/09_ADO_AddServiceConnection.png)
+![Add Service connection](../Images/AddServiceConnection.png.png)
 
 
 __! Important__ : Make sure you **DO NOT** select  checkbox for "Grant access permission to all pipelines" before saving service connection. 
