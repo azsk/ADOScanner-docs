@@ -41,7 +41,7 @@ Extension has been published to the Visual Studio marketplace gallery under "Azu
 
 Refer doc [here](https://docs.microsoft.com/en-us/azure/devops/marketplace/install-extension?view=azure-devops&tabs=browser) for more about installing extensions for org
 
-  ![Extension Details](../Images/09_ADO_ExtensionDetails.png) 
+  ![Extension Details](../Images/ADO_ExtensionDetails.png) 
 
 
 #### Adding ADO Security Scanner in the pipeline
