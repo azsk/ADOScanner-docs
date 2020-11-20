@@ -45,7 +45,7 @@ It is always recommended to scan your organization with the latest AzSK.ADO modu
 **Adhoc Scans:**
 Users running the older version of AzSK.ADO scan from their local machine will get a warning as shown in the image below.
 It would also provide the user with required instructions to upgrade the module.
-![Install_Autoupdate](../Images/Updatecommand.png) 
+![Install_Autoupdate](../Images/Updatecommand1.png) 
 
 The users can leverage the auto update feature which has been introduced from the AzSDK.ADO version 1.15.x.
 As shown in the image above, user can go with update by running the command below:
