@@ -198,7 +198,7 @@ __Steps__:
 
 2. Click edit or add widget > Search for "__Org Level Security Scan Summary__" > Click 'Add' followed by "Done Editing"
 
-    ![Configure Widget](../Images/09_ADO_AddOrgSummaryWidget.png)
+    ![Configure Widget](../Images/ADO_AddOrgSummaryWidget.png)
 
 3. Dashboard will start displaying scanned results 
 
