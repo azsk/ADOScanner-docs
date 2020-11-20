@@ -59,7 +59,7 @@ Click on "Add Tasks" and select "Azure DevOps (ADO) Security Verification".
 __Step-3__: Specify the input parameters for the task.
 The "ADO Security Scanner" task starts showing in the "Run on Agent" list and displays some configuration inputs that are required for the task to run. These are none other than the familiar options we have been specifying while running the ADO scan manually - you can choose to specify the target org, projects, builds and releases based on how your org resources are organized.
 
-![Add task inputs](../Images/09_ADO_AddTaskDetails.png)
+![Add task inputs](../Images/ADOAddTaskDetails.png)
 
 > **Note:** This task also requires Azure DevOps connection containing org details and PAT to scan the required resources. Refer doc [here](https://docs.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?view=azure-devops&tabs=preview-page) to create token and provide it as part of connection
 
