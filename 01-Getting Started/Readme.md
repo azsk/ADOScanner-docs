@@ -29,7 +29,7 @@ The CSV file and LOG file are generated under a org-specific sub-folder in the f
 E.g.  
 C:\Users\<UserName>\AppData\Local\Microsoft\AzSK.ADOLogs\Org_[yourOrganizationName]\20181218_103136_GADS
 
-Refer [link](./ControlCoverage) for current control coverage for Azure DevOps
+Refer [link](/ControlCoverage) for current control coverage for Azure DevOps
 
 To scan large number of project component (more then 1000 resources default value), you need to supply an additional switch parameter -AllowLongRunningScan in the command.
 ```PowerShell
