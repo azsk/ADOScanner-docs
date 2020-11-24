@@ -88,16 +88,6 @@ Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "
 Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "<PRJ1,PRJ2,etc>" -Severity "High/Medium/Low"
 ```
 
-The outcome of the security scan/analysis is printed on the console during SVT execution and a CSV and LOG files are 
-also generated for subsequent use.
-
-The CSV file and LOG file are generated under a org-specific sub-folder in the folder  
-*%LOCALAPPDATA%\Microsoft\AzSK.ADOLogs\Org_[yourOrganizationName]*  
-E.g.  
-C:\Users\<UserName>\AppData\Local\Microsoft\AzSK.ADOLogs\Org_[yourOrganizationName]\20181218_103136_GADS
-
-Refer [doc](../02-Secure-Development#understand-the-scan-reports) for understanding the scan report and [link](./ControlCoverage) for current control coverage for Azure DevOps
-
 To scan large number of project component (more then 1000 resources default value), you need to supply an additional switch parameter -AllowLongRunningScan in the command.
 ```PowerShell
 Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "<PRJ1, PRJ2,...etc.>" -AllowLongRunningScan
