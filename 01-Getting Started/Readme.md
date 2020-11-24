@@ -2,7 +2,7 @@
 
 ## Contents
  -  [Import ADO module](Readme.md#import-ado-module)
- -  Begin scanning your Organisation and Project(Readme.md#begin-scanning-your-organisation-and-project)
+ -  [Begin scanning your Organisation and Project](Readme.md#begin-scanning-your-organisation-and-project)
  -  [Support](Readme.md#Support)
 
 
