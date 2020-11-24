@@ -1,7 +1,7 @@
 ## Miscellaneous Features
 
 - [ADO Scanner information helper command](Readme.md#ado-scanner-information-helper-command)
-- [Execute SVTs using "AllowLongRunningScan" switch](Readme.md#Execute-SVTs-using-"AllowLongRunningScan"-switch)
+- [Execute SVTs using "-AllowLongRunningScan" switch](Readme.md#Execute-SVTs-using--AllowLongRunningScan-switch)
 - [Policy Project]()
 - [Scanning using Service Id]()
 
@@ -64,7 +64,7 @@ Below is the sample output:
 
 ![GADI_HostInfo_Summary_PS](../Images/GADI_HostInfo.png)  
 
-### Execute SVTs using "AllowLongRunningScan" switch
+### Execute SVTs using "-AllowLongRunningScan" switch
 
 To scan large number of project component (more then 1000 resources default value), you need to supply an additional switch parameter -AllowLongRunningScan in the command.
 ```PowerShell
