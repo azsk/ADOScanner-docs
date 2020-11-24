@@ -6,11 +6,6 @@
  -  [Execute SVTs using "-DetailedScan" switch](Readme.md#execute-svts-using--detailedscan-switch)
  -  [Execute SVTs using "-UsePartialCommits" switch](Readme.md#execute-svts-using--usepartialcommits-switch)
 
-## Import ADO module
-Firstly ADO module should be imported in the powershell session before using the scan commands. To import ADO module run below command.
-```PowerShell
-Import-Module AzSK.ADO
-```
 ## Scan your Azure DevOps resources
 
 Run the command below after replacing `<OrganizationName>` with your Azure DevOps org Name 
