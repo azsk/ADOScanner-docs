@@ -1,9 +1,9 @@
 ## Miscellaneous Features
 
--[ADO Scanner information helper command](Readme.md#ado-scanner-information-helper-command)
--[Execute SVTs using "AllowLongRunningScan" switch](Readme.md#execute-svts-using-"allowlongrunningscan"-switch)
--[Policy Project]()
--[Scanning using Service Id]()
+- [ADO Scanner information helper command](Readme.md#ado-scanner-information-helper-command)
+- [Execute SVTs using "AllowLongRunningScan" switch](Readme.md#execute-svts-using-"allowlongrunningscan"-switch)
+- [Policy Project]()
+- [Scanning using Service Id]()
 
 # ADO Scanner information helper command
 ### Overview
