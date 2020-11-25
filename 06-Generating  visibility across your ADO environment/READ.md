@@ -33,11 +33,11 @@ The ```Set-AzSKADOWebhookSettings``` command supports post scan events to a webh
 ```PowerShell
  Set-AzSKADOWebhookSettings -WebhookUrl $webhookUrl -AuthZHeaderName $authZHeaderName -AuthZHeaderValue $authZHeaderValue
 ```
-|Param Name|Purpose|Required?|Default value|Comments|
-|----|----|----|----|----|
-|WebhookUrl|(Optional) All the scan results shall be posted to this configured webhook |FALSE|None||
-|WebhookAuthZHeaderName|(Optional) Name of the AuthZ header (typically 'Authorization')|FALSE|None||
-|WebhookAuthZHeaderValue|(Optional) Value of the AuthZ header |FALSE|None||
+|Param Name|Purpose|Required?|Default value|
+|----|----|----|----|
+|WebhookUrl|(Optional) All the scan results shall be posted to this configured webhook |FALSE|None|
+|WebhookAuthZHeaderName|(Optional) Name of the AuthZ header (typically 'Authorization')|FALSE|None|
+|WebhookAuthZHeaderValue|(Optional) Value of the AuthZ header |FALSE|None|
 
 ----------------------------------------------
 
