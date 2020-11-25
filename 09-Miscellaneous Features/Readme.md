@@ -2,8 +2,8 @@
 
 - [ADO Scanner information helper command](Readme.md#ado-scanner-information-helper-command)
 - [Execute SVTs using "-AllowLongRunningScan" switch](Readme.md#Execute-SVTs-using--AllowLongRunningScan-switch)
-- [Scan using PolicyProject parameter](Readme.md#Scan-using-PolicyProject-parameter)
-- [Scan using Service Id parameter]()
+- [Scan using -PolicyProject parameter](Readme.md#Scan-using--PolicyProject-parameter)
+- [Scan using -Service Id parameter](Readme.md#Scan-using--ServiceId-parameter)
 
 # ADO Scanner information helper command
 ### Overview
@@ -64,6 +64,8 @@ Below is the sample output:
 
 ![GADI_HostInfo_Summary_PS](../Images/GADI_HostInfo.png)  
 
+----------------------------------------------
+
 ### Execute SVTs using "-AllowLongRunningScan" switch
 
 To scan large number of project component (more then 1000 resources default value), you need to supply an additional switch parameter -AllowLongRunningScan in the command.
@@ -73,18 +75,30 @@ Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "
 Allowing scan for more then 1000 resources can be configured through the organization policy by updating 'IsAllowLongRunningScan' and 'LongRunningScanCheckPoint' properties in the ControlSettings.json file. 
 If 'IsAllowLongRunningScan' is set to true, then by using '-AllowLongRunningScan' switch parameter, AzSK.ADO allows scan for resources count which is set in 'LongRunningScanCheckPoint'. If 'IsAllowLongRunningScan' value is set to false it does not allow scan for more then resources count set in 'LongRunningScanCheckPoint'.
 
-## Scan using PolicyProject parameter
+----------------------------------------------
 
- Using PolicyProject parameter you can specify the name of the project to read and write attestation details and fetch organization policy for organization.
+## Scan using -PolicyProject parameter
+
+ Using -PolicyProject parameter you can specify the name of the project to read and write attestation details and fetch organization policy for organization.
  
  For example: 
 ```PowerShell  
 #Using PolicyProject parameter
 $orgName = '<Organization name>'
 $policyProject = '<Name of the project hosting organization policy with which the scan should run.>'
-Get-AzSKADOSecurityStatus -OrganizationName "<Organization name>" -PolicyProject "<Name of the project hosting organization policy with which the scan should run.>"
+Get-AzSKADOSecurityStatus -OrganizationName $orgName -PolicyProject $policyProject
 
+#Attesting a control using PolicyProject parameter
 Get-AzSKADOSecurityStatus -OrganizationName $orgName -PolicyProject $policyProject -ControlsToAttest NotAttested -ResourceTypeName Organization
+```
+----------------------------------------------
 
+# Scan using -ServiceId parameter
+
+Using the -ServiceId flag one can scan resources associated with a service in an organization. This is applicable if the organization provides a mapping of services to ADO resources (e.g., via a ‘Service Tree’ type repository of service metadata). The parameter can be used as follows:
+```PowerShell 
+Get-AzSKADOSecurityStatus -OrganizationName $orgName `
+                             -ProjectNames $projectName `
+                             -ServiceId $serviceId
 ```
 
