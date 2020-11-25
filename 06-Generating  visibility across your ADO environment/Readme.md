@@ -5,6 +5,7 @@
 ## Contents
 
   -  [Overview](README.md#overview)
+  -  [Webhook listener for control scan events](README.md#Webhook-listener-for-control-scan-events)
   -  [Components of the AzSK.ADO Monitoring Solution](README.md#components-of-the-azskado-monitoring-solution)
   -  [Setting up the AzSK.ADO Monitoring Solution](README.md#setting-up-the-azskado-monitoring-solution-step-by-step)
      *  [Step-1 (Ops Team): Deploy the AzSK.ADO Monitoring Solution](README.md#step-1-ops-team-deploy-the-azskado-monitoring-solution)
@@ -15,13 +16,28 @@
 ----------------------------------------------
 
  ## Overview: 
-The monitoring features of AzSK.ADO empower dev ops teams with the following capabilities:
+The monitoring features of AzSK.ADO empower devops teams with the following capabilities:
 - a single pane of glass view of devops security.
 - visibility to control status for their DevOps organizations.
 
-Out of the box, these capabilities can be leveraged via the Log Analytics-based Monitoring solution in AzSK.ADO.
+Out of the box, these capabilities can be leveraged via Webhook listener and the Log Analytics-based Monitoring solution in AzSK.ADO.
 
 However, a dev ops team can equally easily leverage a different system for log analytics (e.g., Splunk) and view the AzSK.ADO control evaluation events in the alternate system. This can be accomplished by using connectors for Event Hubs or Webhooks in the AzSK.ADO.
+
+----------------------------------------------
+
+## Webhook listener for control scan events
+
+The ```Set-AzSKADOWebhookSettings``` command supports post scan events to a webhook. This enables integration with arbitrary monitoring/security analytics systems (e.g., Splunk, EventGrid, etc.).
+
+```PowerShell
+ Set-AzSKADOWebhookSettings -WebhookUrl $webhookUrl -AuthZHeaderName $authZHeaderName -AuthZHeaderValue $authZHeaderValue
+```
+|Param Name|Purpose|Required?|Default value|Comments|
+|----|----|----|----|----|
+|WebhookUrl|(Optional) All the scan results shall be posted to this configured webhook |FALSE|None||
+|WebhookAuthZHeaderName|(Optional) Name of the AuthZ header (typically 'Authorization')|FALSE|None||
+|WebhookAuthZHeaderValue|(Optional) Value of the AuthZ header |FALSE|None||
 
 ----------------------------------------------
 
