@@ -2,8 +2,8 @@
 
 - [ADO Scanner information helper command](Readme.md#ado-scanner-information-helper-command)
 - [Execute SVTs using "-AllowLongRunningScan" switch](Readme.md#Execute-SVTs-using--AllowLongRunningScan-switch)
-- [Policy Project]()
-- [Scanning using Service Id]()
+- [Scan using PolicyProject parameter](Readme.md#Scan-using-PolicyProject-parameter)
+- [Scan using Service Id parameter]()
 
 # ADO Scanner information helper command
 ### Overview
@@ -72,3 +72,19 @@ Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "
 ```
 Allowing scan for more then 1000 resources can be configured through the organization policy by updating 'IsAllowLongRunningScan' and 'LongRunningScanCheckPoint' properties in the ControlSettings.json file. 
 If 'IsAllowLongRunningScan' is set to true, then by using '-AllowLongRunningScan' switch parameter, AzSK.ADO allows scan for resources count which is set in 'LongRunningScanCheckPoint'. If 'IsAllowLongRunningScan' value is set to false it does not allow scan for more then resources count set in 'LongRunningScanCheckPoint'.
+
+## Scan using PolicyProject parameter
+
+ Using PolicyProject parameter you can specify the name of the project to read and write attestation details and fetch organization policy for organization.
+ 
+ For example: 
+```PowerShell  
+#Using PolicyProject parameter
+$orgName = '<Organization name>'
+$policyProject = '<Name of the project hosting organization policy with which the scan should run.>'
+Get-AzSKADOSecurityStatus -OrganizationName "<Organization name>" -PolicyProject "<Name of the project hosting organization policy with which the scan should run.>"
+
+Get-AzSKADOSecurityStatus -OrganizationName $orgName -PolicyProject $policyProject -ControlsToAttest NotAttested -ResourceTypeName Organization
+
+```
+
