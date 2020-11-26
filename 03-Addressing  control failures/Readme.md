@@ -1,10 +1,5 @@
 ## Addressing control failures
 
-> **Note**: Please use utmost discretion when attesting controls. In particular, when choosing to not fix a failing control, you are taking accountability that nothing will go wrong even though security is not correctly/fully configured. 
-> </br>Also, please ensure that you provide an apt justification for each attested control to capture the rationale behind your decision.  
-
-----------------------------------------------
-
 ## Contents
 - [Overview](README.md#overview)
 - [Understanding scan logs and CSV report]
@@ -17,6 +12,57 @@
 - [Attestation expiry](README.md#attestation-expiry)  
 
 ----------------------------------------------
+
+## Understanding scan logs and CSV report
+
+Each ADO scan cmdlet writes output to a folder whose location is determined as below:
+- AzSK.ADO-Root-Output-Folder = %LocalAppData%\Microsoft\AzSK.ADOLogs  
+	```
+	E.g., "C:\Users\userName\AppData\Local\Microsoft\AzSK.ADOLogs"
+	```
+- Sub-Folder = Sub_\<Subscription Name>\\\<Timestamp>_\<CommandAbbreviation>  
+	```
+	E.g., "Org_[yourOrganizationName]\20201120_140515_gads"  
+	```	
+Thus, the full path to an output folder might look like:  
+```
+E.g., "C:\Users\userName\AppData\Local\Microsoft\AzSK.ADOLogs\Org_[yourOrganizationName]\20201120_140515_gads\
+```
+	
+> **Note**: By default, cmdlets open this folder upon completion of the cmdlet (we assume you'd be interested in examining the control evaluation status, etc.)
+
+The contents of the output folder are organized as under:  
+![02_Output_Log_Folder](../Images/Output_Log_Folder.PNG)
+
+- *\SecurityReport-\<timestamp>.csv*- This is the summary CSV file listing all applicable controls and their evaluation status. This file will be generated only for SVT cmdlets like Get-AzSKAzureServicesSecurityStatus, Get-AzSKSubscriptionSecurityStatus etc.  
+- *\\\<Resource_Group_or_Subscription_Name>* - This corresponds to the resource-group or subscription that was evaluated  
+	- *\\\<resourceType>.log*- This is the detailed/raw output log of controls evaluated  
+- *\Etc*  
+	- *\PowerShellOutput.log* - This is the raw PS console output captured in a file.  
+	- *\EnvironmentDetails.log* - This is the log file containing environment data of current PowerShell session.  
+	- *\SecurityEvaluationData.json* - This is the detailed security data for each control that was evaluated. This file will be generated only for SVT cmdlets like Get-AzSKAzureServicesSecurityStatus, Get-AzSKSubscriptionSecurityStatus etc.
+	![02_Etc_Folder_Structure](../Images/02_Etc_Folder_Structure.PNG)
+- *\FixControlScripts* - This folder contains scripts to fix the failed controls. The folder is generated only when 'GenerateFixScript' switch is passed and one or more failed controls support automated fixing.  
+	- *\README.txt* - This is the help file which describes about the 'FixControlScripts' folder.
+
+You can use these outputs as follows - 
+1. The SecurityReport.CSV file provides a quick glimpse of the control results. Investigate those that say 'Verify' or 'Failed'.  
+2. For 'Failed' or 'Verify' controls, look in the <resourceType>.LOG file (search for 'failed' or by control-id). Understand what caused the control to fail.
+3. For 'Verify' controls, you will also find the SecurityEvaluationData.JSON file handy. 
+4. For some controls, you can also use the 'Recommendation' field in the control output to get the PS command you may need to use.
+5. Make any changes to the subscription/resource configurations based on steps 2, 3 and 4. 
+6. Rerun the cmdlet and verify that the controls you tried to fix are passing now.
+
+[Back to top…](Readme.md#contents)
+
+----------------------------------------------
+
+> **Note**: Please use utmost discretion when attesting controls. In particular, when choosing to not fix a failing control, you are taking accountability that nothing will go wrong even though security is not correctly/fully configured. 
+> </br>Also, please ensure that you provide an apt justification for each attested control to capture the rationale behind your decision.  
+
+----------------------------------------------
+
+
 
 ## Overview
 
