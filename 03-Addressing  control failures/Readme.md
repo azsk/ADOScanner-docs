@@ -3,13 +3,13 @@
 ## Contents
 - [Understanding scan logs and CSV report](Readme.md#Understanding-scan-logs-and-CSV-report)
 - [Control Attestation](README.md#Control-Attestation)
-- [Setup Repository to store attestation details](README.md#setup-attestation-repository)
-   * [How to setup attestation repository in a project?](README.md#how-to-setup-attestation-repository-in-a-project)
-   * [How to setup host project to store attestation details for organization-specific controls?](README.md#how-to-setup-host-project-to-store-attestation-details-for-organization-specific-controls)
-- [Starting attestation](README.md#starting-attestation)  
-- [How scanner determines the effective control result](README.md#how-scanner-determines-the-effective-control-result)  
-- [Permissions required for attesting controls](README.md#permissions-required-for-attesting-controls) 
-- [Attestation expiry](README.md#attestation-expiry)  
+	- [Setup Repository to store attestation details](README.md#setup-attestation-repository)
+  		 * [How to setup attestation repository in a project?](README.md#how-to-setup-attestation-repository-in-a-project)
+  		 * [How to setup host project to store attestation details for organization-specific controls?](README.md#how-to-setup-host-project-to-store-attestation-details-for-organization-specific-controls)
+	- [Starting attestation](README.md#starting-attestation)  
+	- [How scanner determines the effective control result](README.md#how-scanner-determines-the-effective-control-result)  
+	- [Permissions required for attesting controls](README.md#permissions-required-for-attesting-controls) 
+	- [Attestation expiry](README.md#attestation-expiry)  
 
 ----------------------------------------------
 
