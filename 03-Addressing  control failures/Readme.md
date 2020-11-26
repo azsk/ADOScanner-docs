@@ -7,6 +7,7 @@
 
 ## Contents
 - [Overview](README.md#overview)
+- [Understanding scan logs and CSV report]
 - [Setup Repository to store attestation details](README.md#setup-attestation-repository)
    * [How to setup attestation repository in a project?](README.md#how-to-setup-attestation-repository-in-a-project)
    * [How to setup host project to store attestation details for organization-specific controls?](README.md#how-to-setup-host-project-to-store-attestation-details-for-organization-specific-controls)
