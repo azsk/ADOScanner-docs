@@ -2,8 +2,8 @@
 
 - [ADO Scanner information helper command](Readme.md#ado-scanner-information-helper-command)
 - [Execute SVTs using "-AllowLongRunningScan" switch](Readme.md#Execute-SVTs-using--AllowLongRunningScan-switch)
-- [Scan using -PolicyProject parameter](Readme.md#Scan-using--PolicyProject-parameter)
-- [Scan using -Service Id parameter](Readme.md#Scan-using--ServiceId-parameter)
+- [Scan using "-PolicyProject" parameter](Readme.md#Scan-using--PolicyProject-parameter)
+- [Scan using "-ServiceId" parameter](Readme.md#Scan-using--ServiceId-parameter)
 
 # ADO Scanner information helper command
 ### Overview
@@ -77,7 +77,7 @@ If 'IsAllowLongRunningScan' is set to true, then by using '-AllowLongRunningScan
 
 ----------------------------------------------
 
-## Scan using -PolicyProject parameter
+## Scan using "-PolicyProject" parameter
 
  Using -PolicyProject parameter you can specify the name of the project to read and write attestation details and fetch organization policy for organization.
  
@@ -93,7 +93,7 @@ Get-AzSKADOSecurityStatus -OrganizationName $orgName -PolicyProject $policyProje
 ```
 ----------------------------------------------
 
-# Scan using -ServiceId parameter
+# Scan using "-ServiceId" parameter
 
 Using the -ServiceId flag one can scan resources associated with a service in an organization. This is applicable if the organization provides a mapping of services to ADO resources (e.g., via a ‘Service Tree’ type repository of service metadata). The parameter can be used as follows:
 ```PowerShell 
