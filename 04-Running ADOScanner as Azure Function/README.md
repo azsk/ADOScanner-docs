@@ -137,7 +137,7 @@ Let us verify that the function app output is generated as expected and that the
 3. You should see results similar to the below:
 <kbd>	
 ![09_CA_Laws_Query](../Images/09_CA_Laws_Query.png)
-<kbd>
+</kbd>
 ----------------------------------------------
 
 ### Updating an existing Continuous Assurance setup
