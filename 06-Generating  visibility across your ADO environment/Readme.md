@@ -176,8 +176,9 @@ blade takes a different pivot to show the resource compliance data.
 **Step-1 (Ops team):** Create a new Log Analytics workspace.
 
 Go [here](https://docs.microsoft.com/en-in/azure/azure-monitor/learn/quick-create-workspace) and follow the simple steps to create a new Log Analytics workspace.
-
+<kbd>
 ![05_Setting_New_Log_Analytics_Workspace](../Images/Setting_New_Log_Analytics_Workspace1.png)
+<kbd>
 ![05_Setting_New_Log_Analytics_Workspace](../Images/Setting_New_Log_Analytics_Workspace2.png)
 
 **Step-2 (Ops Team):** Capture the Workspace ID and Primary Key for the Log Analytics workspace by navigating to "Advanced Settings -> Connected Sources -> Windows Servers".
