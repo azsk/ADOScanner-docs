@@ -127,7 +127,7 @@ Let us verify that the function app output is generated as expected and that the
 3. There should be a ZIP file named using a timestamp based on the date time for the manual execution in this container (most likely the ZIP file with the most recent creation date). 
 4. Download the ZIP file and extract its contents locally.
 <kbd>	
-![09_CA_Storage_Logs](../Images/09_CA_Storage_Logs.png)
+<img src="../Images/09_CA_Storage_Logs.png" alt="09_CA_Storage_Logs">
 </kbd>
 **2:** Verify that data is being sent to the target Log Analytics workspace   
 
@@ -136,8 +136,9 @@ Let us verify that the function app output is generated as expected and that the
   AzSK_ADO_CL | where Source_s == "CA"
 3. You should see results similar to the below:
 <kbd>	
-![09_CA_Laws_Query](../Images/09_CA_Laws_Query.png)
+<img src="../Images/09_CA_Laws_Query.png" alt="09_CA_Laws_Query">
 </kbd>
+
 ----------------------------------------------
 
 ### Updating an existing Continuous Assurance setup
