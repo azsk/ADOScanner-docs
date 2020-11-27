@@ -47,7 +47,7 @@ Go to the Log Analytics workspace and navigate to "Agents management -> Windows 
 > **Note**: The "Agents management" option will be visible only if you have 'Owners' access (and have elevated to Owner if using PIM). It will not be visible if you are 'Reader'.
 
 <kbd>
-![05_Log_Analytics_Workspace_WsId_ShrKey](../Images/Log_Analytics_Workspace_WsId_ShrKey.png)
+<img src ="../Images/Log_Analytics_Workspace_WsId_ShrKey.png" alt ="05_Log_Analytics_Workspace_WsId_ShrKey">
 </kbd>
 
 **[1-b]**
@@ -91,9 +91,11 @@ The installation command will display output like the below:
 
 At this point, assuming that AzSK.ADO events were already being sent to the Log Analytics workspace, you should start
 seeing a tile such as the one below:
+
 <kbd>
 ![09_Workspace_Summary_View](../Images/09_Workspace_Summary_View.png)
 </kbd>
+
 **[2-a]** Viewing raw events from AzSK.ADO (sanity check)
 
 Click on the 'Logs' in the menu bar on the left to open the "Logs" query page.
@@ -104,11 +106,14 @@ Enter "AzSK_ADO_CL" in the query field.
 You should see data about AzSK.ADO events as query results. (Again, this assumes that by now AzSK.ADO 
 control scan results are being sent to this workspace. See [this](Readme.md#b-testing-log-anaytics-workspace-connectivity) for
 how that is done.)
+
 <kbd>
 ![09_Log_Analytics_Workspace_Logs_Query](../Images/09_Log_Analytics_Workspace_Logs_Query.png) 
 </kbd>
+
 If you are certain that events are being sent to the Log Analytics workspace but you are seeing blank views/no query results, 
 you may need to extend the duration applicable to the queries. (This can be done using the 'Time range' selector next to the 'Run' button at the top of the query window.)
+
 <kbd>
 ![09_Log_Analytics_Workspace_Query_Duration](../Images/09_Log_Analytics_Workspace_Query_Duration.png)
 </kbd>
@@ -118,9 +123,11 @@ you may need to extend the duration applicable to the queries. (This can be done
 The solution view contains multiple blades representing various types of security activity, 
 security trends, etc. This view shows up when you click on the view tile and looks like the picture
 below:
+
 <kbd>
 ![09_Log_Analytics_Workspace_New_View](../Images/09_Log_Analytics_Workspace_New_View.png)
 </kbd>
+
 The very first (Summary) blade provides complete instructions on how to interpret the different
 blades in this view. These blades cover the complete picture of baseline security compliance
 for your organization and resources. It starts with a couple of blades that display organization
@@ -136,17 +143,21 @@ queries for log searches on top of the AzSK.ADO events in the repository.
 You should start seeing a tile such as the one below:
 
 **[3-a]** Workbook 
+
 <kbd>
 ![09_Log_Analytics_Workbook_View](../Images/09_Log_Analytics_Workbook_View.png)
 </kbd>
+
 **[3-b]** Workbook Overview tiles
 
 The solution workbook contains multiple blades representing various types of security activity, 
 security trends, etc. This view shows up when you click on the view tile and looks like the picture
 below:
+
 <kbd>
 ![09_Log_Analytics_Workbook_Overview](../Images/09_Log_Analytics_Workbook_Overview.png)
 </kbd>
+
 The "Help" (Summary) blade provides complete instructions on how to interpret the different
 blades in this view. These blades cover the complete picture of baseline security compliance
 for your organization and resources. It starts with a couple of blades that display organization
@@ -161,13 +172,17 @@ blade takes a different pivot to show the resource compliance data.
 **Step-1 :** Create a new Log Analytics workspace.
 
 Go [here](https://docs.microsoft.com/en-in/azure/azure-monitor/learn/quick-create-workspace) and follow the simple steps to create a new Log Analytics workspace.
+
 <kbd>
 ![05_Setting_New_Log_Analytics_Workspace](../Images/Setting_New_Log_Analytics_Workspace1.png)
 </kbd>
+
 <kbd>
 ![05_Setting_New_Log_Analytics_Workspace](../Images/Setting_New_Log_Analytics_Workspace2.png)
 </kbd>
+
 **Step-2 :** Capture the Workspace ID and Primary Key for the Log Analytics workspace by navigating to "Agents management" -> Windows Servers".
+
 <kbd>
 ![05_Log_Analytics_Workspace_WsId_ShrKey](../Images/Log_Analytics_Workspace_WsId_ShrKey.png)
 </kbd>
