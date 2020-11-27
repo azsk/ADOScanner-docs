@@ -184,7 +184,7 @@ Go [here](https://docs.microsoft.com/en-in/azure/azure-monitor/learn/quick-creat
 </kbd>
 **Step-2 (Ops Team):** Capture the Workspace ID and Primary Key for the Log Analytics workspace by navigating to "Advanced Settings -> Connected Sources -> Windows Servers".
 
-![05_Log_Analytics_Workspace_WsId_ShrKey](../Images/05_Log_Analytics_Workspace_WsId_ShrKey.png)
+![05_Log_Analytics_Workspace_WsId_ShrKey](../Images/Log_Analytics_Workspace_WsId_ShrKey.png)
 
 
 ### [B] Enabling Log Anaytics workspace connectivity into AzSK.ADO and routing AzSK.ADO events to Log Analytics ###
