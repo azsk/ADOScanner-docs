@@ -43,11 +43,11 @@ b) you have setup the local AzSK.ADO to send events to that workspace or ADO Sec
 
 **[1-a]**
 Obtain the workspaceId and sharedKey for the Log Analytics workspace you'd like to use for monitoring.
-Go to the Log Analytics workspace and navigate to "Advanced Settings -> Connected Sources -> Windows Servers" as shown in the image below:
-> **Note**: The "Advanced Settings" option will be visible only if you have 'Owners' access (and have elevated to Owner if using PIM). It will not be visible if you are 'Reader'.
+Go to the Log Analytics workspace and navigate to "Agents management -> Windows Servers" as shown in the image below:
+> **Note**: The "Agents management" option will be visible only if you have 'Owners' access (and have elevated to Owner if using PIM). It will not be visible if you are 'Reader'.
 
 
-![05_Log_Analytics_Workspace_WsId_ShrKey](../Images/05_Log_Analytics_Workspace_WsId_ShrKey.png)
+![05_Log_Analytics_Workspace_WsId_ShrKey](../Images/Log_Analytics_Workspace_WsId_ShrKey.png)
 
 
 **[1-b]**
@@ -214,8 +214,8 @@ The ```Set-AzSKADOWebhookSettings``` command supports post scan events to a webh
 ```
 |Param Name|Purpose|Required?|Default value|
 |----|----|----|----|
-|WebhookUrl|(Optional) All the scan results shall be posted to this configured webhook |FALSE|None|
-|WebhookAuthZHeaderName|(Optional) Name of the AuthZ header (typically 'Authorization')|FALSE|None|
-|WebhookAuthZHeaderValue|(Optional) Value of the AuthZ header |FALSE|None|
+|WebhookUrl| All the scan results shall be posted to this configured webhook |TRUE|None|
+|WebhookAuthZHeaderName| Name of the AuthZ header (typically 'Authorization')|FALSE|None|
+|WebhookAuthZHeaderValue| Value of the AuthZ header |FALSE|None|
 
 ----------------------------------------------
