@@ -96,17 +96,17 @@ Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "
 ```
 3.  Commit the file.    
 4.  Add an entry for *ControlSettings.json* in *ServerConfigMetadata.json* (in the repo) as shown below.
-
+<kbd>
 ![Bug Logging Org Policy](../Images/ADO_BugLogging_OrgPolicy.png)
-
+</kbd>
 By default the values for both of the paths are RootDefaultProject that correspond to the root level of your project work items. In ADO that means the project name that has been supplied is the area and iteration path. While specifying any other path, make sure you escape characters such as "\\" to sanitize your JSON.
 
 If no scan parameters are provided, the paths declared in the control settings will be used. If both scan parameters and org policies are specified, the org policies are overridden and paths mentioned in scan parameter are used.
 ### The bug logging summary
 After the scan is complete and bugs have been logged, you will get a summary as follows:
-
+<kbd>
 ![Bug Logging Summary](../Images/ADO_BugLogging_BugSummary.png)
-
+</kbd>
 There are three kinds of bugs shown in the summary:
 
  - **New Bug** : For freshly encountered control failures
@@ -114,13 +114,13 @@ There are three kinds of bugs shown in the summary:
  -  **Resolved Bug** : For bugs that had been resolved before, but the control failure has resurfaced. These bugs will be  reactivated by the scanner.
  
 The details for all these bugs can be found in *BugSummary.json* file that is stored in the folder : *%LOCALAPPDATA%\Microsoft\AzSK.ADOLogs\Org_[yourOrganizationName]*. The information conveyed from this JSON looks as follows:
-
+<kbd>
 ![Bug Logging JSON](../Images/ADO_BugLogging_BugJSONNew.png)
-
+</kbd>
 A sample bug template is shown as below :
-
+<kbd>
 ![Bug Logging Template](../Images/ADO_BugLogging_BugTemplateNew.png)
-
+</kbd>
 The following information is conveyed by the bug template:
 -   The control that has failed    
 -   The control description    
