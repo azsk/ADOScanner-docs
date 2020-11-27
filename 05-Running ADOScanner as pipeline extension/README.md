@@ -152,7 +152,7 @@ Work Items
 </body></html>
 
 <kbd>
-![Add Service connection](../Images/AddServiceConnection.png)
+<img src="../Images/AddServiceConnection.png" alt="Add Service connection">
 </kbd>
 
 __! Important__ : Make sure you **DO NOT** select  checkbox for "Grant access permission to all pipelines" before saving service connection. 
@@ -206,7 +206,7 @@ __Steps__:
     </kbd>
 Step 1,2 & 3 needs to be repeated to add "__Project Component Security Scan Summary__"
 <kbd>
-![Schedule Trigger](../Images/09_ADO_ProjectComponentLevl.png)
+ <img src="../Images/09_ADO_ProjectComponentLevl.png" alt"Schedule Trigger">
 </kbd>
 
 > **Note:**  Dashboard created will be visible to all users which are part of project.
