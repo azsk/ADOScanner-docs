@@ -40,9 +40,9 @@ __Prerequisite:__
 Extension has been published to the Visual Studio marketplace gallery under "Azure DevOps > Azure Pipeline" category. You can now install this extension from the Marketplace directly (https://marketplace.visualstudio.com/items?itemName=azsdktm.ADOSecurityScanner).
 
 Refer doc [here](https://docs.microsoft.com/en-us/azure/devops/marketplace/install-extension?view=azure-devops&tabs=browser) for more about installing extensions for org
-
+  <kbd>
   ![Extension Details](../Images/ADO_ExtensionDetails.png) 
-
+  </kbd>
 
 #### Adding ADO Security Scanner in the pipeline
 
@@ -53,14 +53,14 @@ __Step-1__: Create a build pipeline or open an existing one.
 __Step-2__: Add "ADO Security Scanner" task to the pipeline
 
 Click on "Add Tasks" and select "Azure DevOps (ADO) Security Verification".
-
+<kbd>
 ![Add scanner task](../Images/ADO_AddADOScannerTask.png)
-
+</kbd>
 __Step-3__: Specify the input parameters for the task.
 The "ADO Security Scanner" task starts showing in the "Run on Agent" list and displays some configuration inputs that are required for the task to run. These are none other than the familiar options we have been specifying while running the ADO scan manually - you can choose to specify the target org, projects, builds and releases based on how your org resources are organized.
-
+<kbd>
 ![Add task inputs](../Images/ADOAddTaskDetails.png)
-
+</kbd>
 > **Note:** This task also requires Azure DevOps connection containing org details and PAT to scan the required resources. Refer doc [here](https://docs.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?view=azure-devops&tabs=preview-page) to create token and provide it as part of connection
 
 
@@ -151,9 +151,9 @@ Work Items
 </table>
 </body></html>
 
-
+<kbd>
 ![Add Service connection](../Images/AddServiceConnection.png)
-
+</kbd>
 
 __! Important__ : Make sure you **DO NOT** select  checkbox for "Grant access permission to all pipelines" before saving service connection. 
 
@@ -161,23 +161,23 @@ __! Important__ : Make sure you **DO NOT** select  checkbox for "Grant access pe
 
 
 __Step-4__: Click "Save & queue"
-
+<kbd>
 ![Add Service connection](../Images/ADO_TriggerPipeline.png)
-
+</kbd>
 Task will install latest ADO scanner module and start scanning based on input parameters. 
-
+<kbd>
 ![Scan Image](../Images/09_ADO_ScanImage-1.png)
-
+</kbd>
 At the end, it will show the summary of scan and store the result in extension storage.
-
+<kbd>
 ![Scan Image](../Images/09_ADO_ScanImage-2.png)
-
+</kbd>
 __Step-4__: Setup scheduled trigger for pipeline
 
 Once you are able to successfully run the ADO scan using ADO pipeline, you can configure scheduled trigger to get latest visibility of security on resources
-
+<kbd>
 ![Schedule Trigger](../Images/09_ADO_ScheduleTrigger.png)
-
+</kbd>
 ----------------------------------------------
 
 ### Visualize security scan results 
@@ -193,21 +193,21 @@ __* Project Component Security Scan Summary__: Displays project components (Buil
 __Steps__:
 
 1. Go to project dashboard under your organization and create new dashboard for org level summary
-
+    <kbd>
     ![Create Dashboard](../Images/09_ADO_AddDashboard.png)
-
+    </kbd>
 2. Click edit or add widget > Search for "__Org Level Security Scan Summary__" > Click 'Add' followed by "Done Editing"
-
+    <kbd>
     ![Configure Widget](../Images/ADO_AddOrgSummaryWidget.png)
-
+    </kbd>
 3. Dashboard will start displaying scanned results 
-
+    <kbd>
     ![org Level Summary](../Images/09_ADO_OrgLevelDashboard.png)
-
+    </kbd>
 Step 1,2 & 3 needs to be repeated to add "__Project Component Security Scan Summary__"
-
+<kbd>
 ![Schedule Trigger](../Images/09_ADO_ProjectComponentLevl.png)
-
+</kbd>
 
 > **Note:**  Dashboard created will be visible to all users which are part of project.
 
