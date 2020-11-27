@@ -32,17 +32,17 @@ E.g., "C:\Users\userName\AppData\Local\Microsoft\AzSK.ADOLogs\Org_[yourOrganizat
 > **Note**: By default, cmdlets open this folder upon completion of the cmdlet (we assume you'd be interested in examining the control evaluation status, etc.)
 
 The contents of the output folder are organized as under:  
-
+<kbd>
 ![02_Output_Log_Folder](../Images/Output_Log_Folder.png)
-
+<kbd>
 - *\SecurityReport-\<timestamp>.csv*- This is the summary CSV file listing all applicable controls and their evaluation status. 
 
 - *\Etc*  
 	- *\PowerShellOutput.log* - This is the raw PS console output captured in a file.  
 	- *\EnvironmentDetails.log* - This is the log file containing environment data of current PowerShell session.  
-	
+	<kbd>
 	![02_Etc_Folder_Structure](../Images/Etc_Folder_Structure.png)
-
+	</kbd>
 	- *\README.txt* - This README file describes how to interpret the different files created when AzSK cmdlets are executed 
 
 You can use these outputs as follows - 
@@ -261,14 +261,17 @@ As shown in the images, the command enters 'attest' mode after completing a scan
 4. This is repeated for all attestable controls and each resource.
 
  Sample attestation workflow in progress:
+ <kbd>
  ![09_SVT_Attest_1](../Images/SVT_Attest_1.png) 
- 
+ </kbd>
  Sample summary of attestation after workflow is completed:
+ <kbd>
  ![09_SVT_Attest_2](../Images/SVT_Attest_2.png) 
-
+ </kbd>
 Attestation details corresponding to each control (e.g., justification, user name, etc.) are also captured in the CSV file as shown below:
+<kbd>
  ![09_SVT_Attest_3](../Images/SVT_Attest_3.png) 
-
+</kbd>
 If you wish to revisit previous attestations, it can be done by using 'AlreadyAttested' flag in the command above.  
 
 [Back to top...](README.md#control-attestation)
