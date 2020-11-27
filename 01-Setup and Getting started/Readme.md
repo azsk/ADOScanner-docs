@@ -37,7 +37,7 @@ Security Scanner for Azure DevOps (ADO) performs security scanning for core area
  If the PSVersion is older than 5.0, update PowerShell from [here](https://www.microsoft.com/en-us/download/details.aspx?id=54616). 
  
  <kbd>
-   ![PowerShell Version]<img src="../Images/00_PS_Version.png">
+   <img src="../Images/00_PS_Version.png" alt="PowerShell version">
 </kbd>
 
 2. Install the Security Scanner for Azure DevOps (AzSK.ADO) PS module:  
