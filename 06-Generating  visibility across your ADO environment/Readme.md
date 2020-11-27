@@ -5,13 +5,13 @@
 ## Contents
 
   -  [Overview](Readme.md#overview)
-  -  [Webhook listener for control scan events](README.md#Webhook-listener-for-control-scan-events)
   -  [Components of the AzSK.ADO Monitoring Solution](README.md#components-of-the-azskado-monitoring-solution)
-  -  [Setting up the AzSK.ADO Monitoring Solution](README.md#setting-up-the-azskado-monitoring-solution-step-by-step)
-     *  [Step-1 (Ops Team): Deploy the AzSK.ADO Monitoring Solution](README.md#step-1-ops-team-deploy-the-azskado-monitoring-solution)
-     *  [Step-2 (Ops Team): Using the Log Analytics Workspace Summary (Overview) for monitoring](README.md#step-2-ops-team-using-the-log-analytics-workspace-summary-overview-for-monitoring)
-     *  [Step-3 (Ops Team): Using the Log Analytics Workbook for monitoring](README.md#step-3-ops-team-using-the-log-analytics-workbook-for-monitoring)
-  -  [Appendix](README.md#appendix)
+  	-  [Setting up the AzSK.ADO Monitoring Solution](README.md#setting-up-the-azskado-monitoring-solution-step-by-step)
+     		*  [Step-1 (Ops Team): Deploy the AzSK.ADO Monitoring Solution](README.md#step-1-ops-team-deploy-the-azskado-monitoring-solution)
+     		*  [Step-2 (Ops Team): Using the Log Analytics Workspace Summary (Overview) for monitoring](README.md#step-2-ops-team-using-the-log-analytics-workspace-summary-overview-for-monitoring)
+    		 *  [Step-3 (Ops Team): Using the Log Analytics Workbook for monitoring](README.md#step-3-ops-team-using-the-log-analytics-workbook-for-monitoring)
+  		-  [Appendix](README.md#appendix)
+    -  [Webhook listener for control scan events](README.md#Webhook-listener-for-control-scan-events)
   
 ----------------------------------------------
 
@@ -23,21 +23,6 @@ The monitoring features of AzSK.ADO empower devops teams with the following capa
 Out of the box, these capabilities can be leveraged via Webhook listener and the Log Analytics-based Monitoring solution in AzSK.ADO.
 
 However, a dev ops team can equally easily leverage a different system for log analytics (e.g., Splunk) and view the AzSK.ADO control evaluation events in the alternate system. This can be accomplished by using connectors for Event Hubs or Webhooks in the AzSK.ADO.
-
-----------------------------------------------
-
-## Webhook listener for control scan events
-
-The ```Set-AzSKADOWebhookSettings``` command supports post scan events to a webhook. This enables integration with arbitrary monitoring/security analytics systems (e.g., Splunk, EventGrid, etc.).
-
-```PowerShell
- Set-AzSKADOWebhookSettings -WebhookUrl $webhookUrl -AuthZHeaderName $authZHeaderName -AuthZHeaderValue $authZHeaderValue
-```
-|Param Name|Purpose|Required?|Default value|
-|----|----|----|----|
-|WebhookUrl|(Optional) All the scan results shall be posted to this configured webhook |FALSE|None|
-|WebhookAuthZHeaderName|(Optional) Name of the AuthZ header (typically 'Authorization')|FALSE|None|
-|WebhookAuthZHeaderValue|(Optional) Value of the AuthZ header |FALSE|None|
 
 ----------------------------------------------
 
@@ -54,7 +39,7 @@ This section assumes that:
 a) you have a Log Analytics worskpace**
 b) you have setup the local AzSK.ADO to send events to that workspace or ADO Security Scanner added to CICD pipeline or setup ADO Security Scanner in Azure using the continuous assurance feature.
 
-### Step-1 (Ops Team): Deploy the AzSK.ADO Monitoring Solution
+### Step-1 : Deploy the AzSK.ADO Monitoring Solution
 
 **[1-a]**
 Obtain the workspaceId and sharedKey for the Log Analytics workspace you'd like to use for monitoring.
@@ -102,7 +87,7 @@ The installation command will display output like the below:
 
 ----------------------------------------------
 
-### Step-2 (Ops Team): Using the Log Analytics Workspace Summary (Overview) for monitoring
+### Step-2 : Using the Log Analytics Workspace Summary (Overview) for monitoring
 
 At this point, assuming that AzSK.ADO events were already being sent to the Log Analytics workspace, you should start
 seeing a tile such as the one below:
@@ -146,7 +131,7 @@ queries for log searches on top of the AzSK.ADO events in the repository.
 
 ----------------------------------------------
 
-### Step-3 (Ops Team): Using the Log Analytics Workbook for monitoring**
+### Step-3 : Using the Log Analytics Workbook for monitoring**
 
 You should start seeing a tile such as the one below:
 
@@ -173,7 +158,7 @@ blade takes a different pivot to show the resource compliance data.
 ## Appendix ##
 
 ### [A] If you don't have Log Analytics workspace, follow below steps: ###
-**Step-1 (Ops team):** Create a new Log Analytics workspace.
+**Step-1 :** Create a new Log Analytics workspace.
 
 Go [here](https://docs.microsoft.com/en-in/azure/azure-monitor/learn/quick-create-workspace) and follow the simple steps to create a new Log Analytics workspace.
 <kbd>
@@ -182,7 +167,7 @@ Go [here](https://docs.microsoft.com/en-in/azure/azure-monitor/learn/quick-creat
 <kbd>
 ![05_Setting_New_Log_Analytics_Workspace](../Images/Setting_New_Log_Analytics_Workspace2.png)
 </kbd>
-**Step-2 (Ops Team):** Capture the Workspace ID and Primary Key for the Log Analytics workspace by navigating to "Advanced Settings -> Connected Sources -> Windows Servers".
+**Step-2 :** Capture the Workspace ID and Primary Key for the Log Analytics workspace by navigating to "Agents management" -> Windows Servers".
 
 ![05_Log_Analytics_Workspace_WsId_ShrKey](../Images/Log_Analytics_Workspace_WsId_ShrKey.png)
 
@@ -191,7 +176,7 @@ Go [here](https://docs.microsoft.com/en-in/azure/azure-monitor/learn/quick-creat
 Let us look at how to send events to the Log Analytics workspace from AzSK.ADO running on a local machine. This is a handy way to 
 test connectivity and to see if the <Log Analytics workspace> Logs can display the received events.
 
-**Step-1 (App Team):** Connect the local (dev box) installation of AzSK.ADO to your Log Analytics workspace for sending AzSK.ADO control evaluation events.
+**Step-1 :** Connect the local (dev box) installation of AzSK.ADO to your Log Analytics workspace for sending AzSK.ADO control evaluation events.
 
 Run the below in a PS session (this assumes that you have the latest AzSK.ADO installed).
 ```PowerShell
@@ -205,7 +190,7 @@ After this, all AzSK.ADO cmdlets, SVTs, etc. run on the local machine will start
 security scans) into the Log Analytics repository corresponding to the workspace ID above. To send logs from the ADOScanner added pipeline, add two pipeline variable LAWSId and LAWSSharedKey. 
 
 
-**Step-2 (App Team):** Generate some AzSK.ADO events and validate that they are reaching the configured Log Analytics workspace.
+**Step-2 :** Generate some AzSK.ADO events and validate that they are reaching the configured Log Analytics workspace.
 
 Run a few AzSK.ADO cmdlets to generate events for the Log Analytics repo. 
 For example, you can run one or both of the following:
@@ -217,3 +202,20 @@ For example, you can run one or both of the following:
 
 After the above scans finish, if we go into Log Analytics workspace Logs and search for 'AzSK_ADO_CL', it should show 
 AzSK.ADO events similar to the below ("_CL" stands for "custom log"):
+
+----------------------------------------------
+
+## Webhook listener for control scan events
+
+The ```Set-AzSKADOWebhookSettings``` command supports post scan events to a webhook. This enables integration with arbitrary monitoring/security analytics systems (e.g., Splunk, EventGrid, etc.).
+
+```PowerShell
+ Set-AzSKADOWebhookSettings -WebhookUrl $webhookUrl -AuthZHeaderName $authZHeaderName -AuthZHeaderValue $authZHeaderValue
+```
+|Param Name|Purpose|Required?|Default value|
+|----|----|----|----|
+|WebhookUrl|(Optional) All the scan results shall be posted to this configured webhook |FALSE|None|
+|WebhookAuthZHeaderName|(Optional) Name of the AuthZ header (typically 'Authorization')|FALSE|None|
+|WebhookAuthZHeaderValue|(Optional) Value of the AuthZ header |FALSE|None|
+
+----------------------------------------------
