@@ -99,6 +99,8 @@ Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "
 <kbd>
 <img src="../Images/ADO_BugLogging_OrgPolicy.png" alt="Bug Logging Org Policy">
 </kbd>
+
+
 By default the values for both of the paths are RootDefaultProject that correspond to the root level of your project work items. In ADO that means the project name that has been supplied is the area and iteration path. While specifying any other path, make sure you escape characters such as "\\" to sanitize your JSON.
 
 If no scan parameters are provided, the paths declared in the control settings will be used. If both scan parameters and org policies are specified, the org policies are overridden and paths mentioned in scan parameter are used.
