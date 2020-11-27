@@ -170,7 +170,7 @@ The local version of this file should be in the following folder:
     %userprofile%\Documents\WindowsPowerShell\Modules\AzSK.ADO\<version>\Framework\Configurations\SVT
 ```
 <kbd>
-   ![Local AzSK.AzureDevOps Policies](../Images/09_ADO_Org_Policy2.png) 
+   <img src="../Images/09_ADO_Org_Policy2.png" alt="Local AzSK.AzureDevOps Policies"> 
 </kbd>
 Note that the 'Configurations' folder in the above picture holds all policy files (for all features) of AzSK.ADO. We 
 will make copies of files we need to change from here and place the changed versions in the org-policy repo. 
