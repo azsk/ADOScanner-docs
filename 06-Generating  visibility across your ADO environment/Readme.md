@@ -83,7 +83,7 @@ The table below explains the different parameters used by Install-AzSKADOMonitor
 
 The installation command will display output like the below:
 
-![09_Install-AzSKMonitoringSolution](../Images/09_ADO_Install-AzSKMonitoringSolution.png)
+![09_Install-AzSKMonitoringSolution](../Images/ADO_Install-AzSKMonitoringSolution.png)
 
 ----------------------------------------------
 
