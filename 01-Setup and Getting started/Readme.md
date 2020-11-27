@@ -7,8 +7,8 @@
   	 -  [Installation Guide](Readme.md#installation-guide)
   	 -  [Auto Update](Readme.md#auto-update)
   -  [Getting Started](Readme.md#getting-started)
-  	-  [Import ADO module](Readme.md#import-ado-module)
- 	-  [Begin scanning your Organisation and Project](Readme.md#begin-scanning-your-organisation-and-project)
+  	 -  [Import ADO module](Readme.md#import-ado-module)
+ 	 -  [Begin scanning your Organisation and Project](Readme.md#begin-scanning-your-organisation-and-project)
   -  [FAQs](Readme.md#faqs)
   -  [Support](Readme.md#Support)
  
