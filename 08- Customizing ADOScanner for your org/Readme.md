@@ -153,8 +153,9 @@ Get-AzSKADOSecurityStatus -OrganizationName "<Organization name>" -ProjectNames 
 ```
  When the command starts, it will show an updated message as in the 
 image below:
-
+<kbd>
 ![Org-Policy - changed message](../Images/09_ADO_Org_Policy1.png) 
+</kbd>
 
 This change will be effective across your project immediately. Anyone running AzSK.ADO commands (in fresh PS sessions) should see the new message. 
 
@@ -168,9 +169,9 @@ The local version of this file should be in the following folder:
 ```PowerShell
     %userprofile%\Documents\WindowsPowerShell\Modules\AzSK.ADO\<version>\Framework\Configurations\SVT
 ```
-
+<kbd>
    ![Local AzSK.AzureDevOps Policies](../Images/09_ADO_Org_Policy2.png) 
- 
+</kbd>
 Note that the 'Configurations' folder in the above picture holds all policy files (for all features) of AzSK.ADO. We 
 will make copies of files we need to change from here and place the changed versions in the org-policy repo. 
 Again, you should **never** edit any file directly in the local installation policy folder of AzSK.ADO. 
@@ -181,15 +182,15 @@ Rather, **always** copy the file and edit it.
  i) Copy the ControlSettings.json from the AzSK.ADO installation to your org-policy repo.
  
  ii) Remove everything except the "BuildHistoryPeriodInDays" line while keeping the JSON object hierarchy/structure intact.
-
+<kbd>
   ![Edit Number of build history period in days](../Images/09_ADO_Org_Policy3.png) 
-
+</kbd>
  iii) Commit the file.
 
  iv) Add an entry for *ControlSettings.json* in *ServerConfigMetadata.json* (in the repo) as shown below.
-
+<kbd>
  ![Update control settings in ServerConfigMetadata](../Images/09_ADO_Org_Policy4.png) 
- 
+ </kbd>
 ###### Testing: 
 
 Anyone in your project can now start a fresh PS console and the result of the evaluation whether a build pipeline is inactive in 
@@ -248,9 +249,9 @@ in your org has developed. Let us do this for the ADO.Project.json file. Specifi
  iii) Commit the file
 
  iv) Add an entry for *ADO.Project.json* in *ServerConfigMetadata.json* (in the repo) as shown below.
-
+<kbd>
   ![Update project SVT in ServerConfigMetadata](../Images/09_ADO_Org_Policy5.png) 
- 
+ </kbd>
  
 ###### Testing: 
 Someone in your project can test this change using the `Get-AzSKADOProjectSecurityStatus` command on the project for which we have configured the org policy. If run with the `-UseBaselineControls` switch, you will see that
@@ -357,9 +358,9 @@ ii) Update all the required configurations (baseline set, preview baseline set, 
 iii) Commit the file.
 
 iv) Add entry for configuration in index file(ServerConfigMetadata.json) with OverrideOffline property as shown here 
-
+<kbd>
 ![Override ADO Configurations](../Images/09_ADO_Org_Policy6.png)
-
+</kbd>
 
 ###### Testing:
 
@@ -589,9 +590,9 @@ ii) Update all the required configurations (baseline set, preview baseline set, 
 iii) Commit the file.
 
 iv) Add entry for configuration in index file(ServerConfigMetadata.json) with OverrideOffline property as shown here 
-
+<kbd>
 ![Override ADO Configurations](../Images/09_ADO_Org_Policy6.png)
-
+</kbd>
 ### Control is getting scanned even though it has been removed from my custom org-policy.
 
 If you want only the controls which are present on your custom org-policy to be scanned, set the  OverrideOffline flag to true in the ServerConfigMetadata.json file.
