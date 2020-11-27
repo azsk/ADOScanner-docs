@@ -106,9 +106,9 @@ Note:
 **1:** In the Azure portal, select the host subscription that was used above and search for resource group. You should see a Function App created by the name starting with 'ADOScannerFA'. There will also be some other resources App Service Plan, Key vault to store PAT secret, Application Insights, Storage to store scan logs, Log Analytics workspace (created only if CreateLAWorkspace switch is used while installation )
 
 **2:** Click on 'Functions' tile. It should show the following function: 
-	
+<kbd>	
 ![09_CA_FunctionApp](../Images/09_CA_FunctionApp.png)
-
+</kbd>
 
 **3:** Click on 'Configuration' tile. It should show the application settings of the function app. Default schedule is to run scan 20 minutes post Install CA command and then every 24 hours after that.
 
@@ -126,18 +126,18 @@ Let us verify that the function app output is generated as expected and that the
 2. Find a blob container called 'ado-scan-logs' in this storage account.
 3. There should be a ZIP file named using a timestamp based on the date time for the manual execution in this container (most likely the ZIP file with the most recent creation date). 
 4. Download the ZIP file and extract its contents locally.
-	
+<kbd>	
 ![09_CA_Storage_Logs](../Images/09_CA_Storage_Logs.png)
-
+</kbd>
 **2:** Verify that data is being sent to the target Log Analytics workspace   
 
 1. Go to the Log Analytics workspace that we used to setup CA above.
 2. Navigate to 'Logs' window, and enter below query
   AzSK_ADO_CL | where Source_s == "CA"
 3. You should see results similar to the below:
-	
+<kbd>	
 ![09_CA_Laws_Query](../Images/09_CA_Laws_Query.png)
-
+<kbd>
 ----------------------------------------------
 
 ### Updating an existing Continuous Assurance setup
