@@ -97,7 +97,7 @@ Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "
 3.  Commit the file.    
 4.  Add an entry for *ControlSettings.json* in *ServerConfigMetadata.json* (in the repo) as shown below.
 <kbd>
-![Bug Logging Org Policy](../Images/ADO_BugLogging_OrgPolicy.png)
+<img src="../Images/ADO_BugLogging_OrgPolicy.png" alt="Bug Logging Org Policy">
 </kbd>
 By default the values for both of the paths are RootDefaultProject that correspond to the root level of your project work items. In ADO that means the project name that has been supplied is the area and iteration path. While specifying any other path, make sure you escape characters such as "\\" to sanitize your JSON.
 
