@@ -107,6 +107,8 @@ After the scan is complete and bugs have been logged, you will get a summary as 
 <kbd>
 <img src="../Images/ADO_BugLogging_BugSummary.png" alt="Bug Logging Summary">
 </kbd>
+
+
 There are three kinds of bugs shown in the summary:
 
  - **New Bug** : For freshly encountered control failures
