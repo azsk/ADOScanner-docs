@@ -69,9 +69,9 @@ As shown in the image above, user can go with update by running the command belo
 User needs to close and reopen a fresh session once the command is run.
 Going forward, if the latest version of AzSK.ADO is released, then during execution of any AzSK.ADO command it would start the auto update workflow automatically 
 as shown in the image below:
-
+<kbd>
 ![Install_Autoupdate_Workflow](../Images/AutoUpdate.png)
-
+</kbd>
 Step 1: It would take user consent before it starts the auto update workflow. (1 in the image above) <br/>
 Step 2: Users need to close all the displayed PS sessions. Typically open PS sessions would lock the module and fail the installation. (2 in the image above) <br/>
 Step 3: Even the current session must be closed. It would again take the user consent before it starts the auto update flow to avoid the loss of any unsaved work. (3 in the image above)
