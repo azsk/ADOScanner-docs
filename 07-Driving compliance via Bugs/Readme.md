@@ -105,7 +105,7 @@ If no scan parameters are provided, the paths declared in the control settings w
 ### The bug logging summary
 After the scan is complete and bugs have been logged, you will get a summary as follows:
 <kbd>
-![Bug Logging Summary](../Images/ADO_BugLogging_BugSummary.png)
+<img src="../Images/ADO_BugLogging_BugSummary.png" alt="Bug Logging Summary">
 </kbd>
 There are three kinds of bugs shown in the summary:
 
