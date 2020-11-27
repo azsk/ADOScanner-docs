@@ -41,9 +41,9 @@ Run below command to get information about Azure DevOps security control(s). Con
 Below is the sample output:
 
 Output of control details summary
-
+<kbd>
 ![GADI_ControlInfo_Summary_PS](../Images/GADI_ControlInfo.png)  
-
+</kbd>
 
 ### Host information  
 
@@ -61,9 +61,9 @@ Run below command to get information about,
 ```
 
 Below is the sample output:
-
+<kbd>
 ![GADI_HostInfo_Summary_PS](../Images/GADI_HostInfo.png)  
-
+</kbd>
 ----------------------------------------------
 
 ### Execute SVTs using "-AllowLongRunningScan" switch
