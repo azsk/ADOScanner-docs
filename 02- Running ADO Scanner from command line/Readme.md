@@ -10,7 +10,7 @@
 
 Run the command below after replacing `<OrganizationName>` with your Azure DevOps org Name 
 and `<PRJ1, PRJ2, ..`> with a comma-separated list of project names where your Azure DevOps resources are hosted.
-You will get Organization name from your ADO organization url e.g. "http//<i></i>//sampleadoorg.visualstudio.com". In this 'sampleadoorg' is org name.
+You will get Organization name from your ADO organization url e.g. "http<i></i>//sampleadoorg.visualstudio.com". In this 'sampleadoorg' is org name.
 
 ```PowerShell
 Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "<PRJ1, PRJ2,...etc.>"
