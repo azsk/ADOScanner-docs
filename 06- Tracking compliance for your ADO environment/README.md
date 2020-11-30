@@ -133,7 +133,7 @@ queries for log searches on top of the AzSK.ADO events in the repository.
 
 ----------------------------------------------
 
-### Step-3 : Using the Log Analytics Workbook for monitoring**
+### Step-3: Using the Log Analytics Workbook for monitoring**
 
 You should start seeing a tile such as the one below:
 
