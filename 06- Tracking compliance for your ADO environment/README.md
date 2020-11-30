@@ -8,7 +8,7 @@
   -  [Components of the AzSK.ADO Monitoring Solution](README.md#components-of-the-azskado-monitoring-solution)
   		-  [Setting up the AzSK.ADO Monitoring Solution](README.md#setting-up-the-azskado-monitoring-solution-step-by-step)
   			*  [Step-1: Deploy the AzSK.ADO Monitoring Solution](README.md#step-1-deploy-the-azskado-monitoring-solution)
-  			*  [Step-2: Using the Log Analytics Workspace Summary for monitoring](README.md#step-2-Using-the-Log-Analytics-Workspace-Summary-for-monitoring)
+  			*  [Step-2: Using](README.md#step-2-Using)
   			*  [Step-3: Using the Log Analytics Workbook for monitoring](README.md#step-3-using-the-log-analytics-workbook-for-monitoring)
   			*  [Appendix](README.md#appendix)
   -  [Webhook listener for control scan events](README.md#Webhook-listener-for-control-scan-events)
@@ -87,8 +87,7 @@ The installation command will display output like the below:
 </kbd>
 ----------------------------------------------
 
-### Step-2 : Using the Log Analytics Workspace Summary for monitoring
-
+### Step-2 : Using
 At this point, assuming that AzSK.ADO events were already being sent to the Log Analytics workspace, you should start
 seeing a tile such as the one below:
 <kbd>
