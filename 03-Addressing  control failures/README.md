@@ -41,7 +41,7 @@ The contents of the output folder are organized as under:
 	- *\PowerShellOutput.log* - This is the raw PS console output captured in a file.  
 	- *\EnvironmentDetails.log* - This is the log file containing environment data of current PowerShell session.  
 	<kbd>
-	![02_Etc_Folder_Structure](../Images/Etc_Folder_Structure.png)
+	<img src="../Images/Etc_Folder_Structure.png" alt="02_Etc_Folder_Structure">
 	</kbd>
 	- *\README.txt* - This README file describes how to interpret the different files created when AzSK cmdlets are executed 
 
