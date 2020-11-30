@@ -7,7 +7,7 @@
   -  [Overview](README.md#overview)
   -  [Components of the AzSK.ADO Monitoring Solution](README.md#components-of-the-azskado-monitoring-solution)
   		-  [Setting up the AzSK.ADO Monitoring Solution](README.md#setting-up-the-azskado-monitoring-solution-step-by-step)
-  			*  [Step-1: Deploy the AzSK.ADO Monitoring Solution](README.md#step-1-deploy-the-azskado-monitoring-solution)
+  			*  [Step-1: Deploy the AzSK.ADO Monitoring Solution](README.md#step-1-deploy-the-azsk.ado-monitoring-solution)
   			*  [Step-2: Using the Log Analytics Workspace Summary (Overview) for monitoring](README.md#step-2-using-the-log-analytics-workspace-summary-overview-for-monitoring)
   			*  [Step-3: Using the Log Analytics Workbook for monitoring](README.md#step-3-using-the-log-analytics-workbook-for-monitoring)
   			*  [Appendix](README.md#appendix)
@@ -33,7 +33,7 @@ The AzSK.ADO Monitoring Solution is deployed to a Log Analytics workspace that i
 
 ## Setting up the AzSK.ADO Monitoring Solution (Step by Step)
 This section will walk you through the step-by-step experience of setting up the AzSK.ADO Monitoring Solution.
-If you do not have a Log Analytics workspace yet, see [Appendix](Readme.md#appendix) to create one.
+If you do not have a Log Analytics workspace yet, see [Appendix](README.md#appendix) to create one.
 
 This section assumes that:
 a) you have a Log Analytics worskpace**
