@@ -4,7 +4,7 @@
 
 ## Contents
 
-  -  [Overview](README.md#overview)
+  -  [Overview-1:](README.md#overview)
   -  [Components of the AzSK.ADO Monitoring Solution](README.md#components-of-the-azskado-monitoring-solution)
   		-  [Setting up the AzSK.ADO Monitoring Solution](README.md#setting-up-the-azskado-monitoring-solution-step-by-step)
   			*  [Step-1: Deploy the AzSK.ADO Monitoring Solution](README.md#step-1-deploy-the-azskado-monitoring-solution)
@@ -15,7 +15,7 @@
   
 ----------------------------------------------
 
- ## Overview: 
+ ## Overview-1: 
 The monitoring features of AzSK.ADO empower devops teams with the following capabilities:
 - a single pane of glass view of devops security.
 - visibility to control status for their DevOps organizations.
