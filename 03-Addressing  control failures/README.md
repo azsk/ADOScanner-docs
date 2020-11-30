@@ -1,7 +1,7 @@
 ## Addressing control failures
 
 ## Contents
-- [Understanding scan logs and CSV report](Readme.md#Understanding-scan-logs-and-CSV-report)
+- [Understanding scan logs and CSV report](README.md#Understanding-scan-logs-and-CSV-report)
 - [Control Attestation](README.md#Control-Attestation)
 	- [Setup Repository to store attestation details](README.md#setup-attestation-repository)
   		 * [How to setup attestation repository in a project?](README.md#how-to-setup-attestation-repository-in-a-project)
