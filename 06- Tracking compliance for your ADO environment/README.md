@@ -39,7 +39,7 @@ This section assumes that:
 a) you have a Log Analytics worskpace**
 b) you have setup the local AzSK.ADO to send events to that workspace or ADO Security Scanner added to CICD pipeline or setup ADO Security Scanner in Azure using the continuous assurance feature.
 
-### Step-1  Deploy the AzSK.ADO Monitoring Solution
+### Step-1  Deploy the AzSK ADO Monitoring Solution
 
 **[1-a]**
 Obtain the workspaceId and sharedKey for the Log Analytics workspace you'd like to use for monitoring.
