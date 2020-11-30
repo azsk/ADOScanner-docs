@@ -4,7 +4,7 @@
 
 ## Contents
 
-  -  [Overview-1](README.md#overview)
+  -  [Overview](README.md#overview)
   -  [Components of the AzSK.ADO Monitoring Solution](README.md#components-of-the-azskado-monitoring-solution)
   		-  [Setting up the AzSK.ADO Monitoring Solution](README.md#setting-up-the-azskado-monitoring-solution-step-by-step)
   			*  [Step-1: Deploy the AzSK.ADO Monitoring Solution](README.md#step-1-deploy-the-azskado-monitoring-solution)
