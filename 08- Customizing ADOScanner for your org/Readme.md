@@ -89,7 +89,7 @@ Get-AzSKADOSecurityStatus -OrganizationName "<Organization name>" -PolicyProject
 
 ### 2. Using ADO security scanner extension with custom org policy
 
-To set up CICD when using custom org policy, add 'ADO Security Scanner' extension in ADO build pipeline by following the steps [here](Readme.md#setting-up-continuous-assurance---step-by-step).
+To set up CICD when using custom org policy, add 'ADO Security Scanner' extension in ADO build pipeline by following the steps [here](https://github.com/azsk/ADOScanner-docs/blob/users/ADOFinaldocs/05-Running%20ADOScanner%20as%20pipeline%20extension/README.md#setting-up-adoscanner-as-pipeline-extension---step-by-step).
 
 ## Modifying and customizing org policy 
 
