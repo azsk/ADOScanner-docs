@@ -7,7 +7,7 @@
   -  [Overview](README.md#overview)
   -  [Components of the AzSK.ADO Monitoring Solution](README.md#components-of-the-azskado-monitoring-solution)
   		-  [Setting up the AzSK.ADO Monitoring Solution](README.md#setting-up-the-azskado-monitoring-solution-step-by-step)
-  			*  [Step-1 Deploy the AzSKADO Monitoring Solution](README.md#step-1-deploy-azskado-the-monitoring-solution)
+  			*  [Step-1 Deploy the ADO Monitoring Solution](README.md#step-1-deploy-ado-the-monitoring-solution)
   			*  [Step-2: Using the Log Analytics Workspace Summary (Overview) for monitoring](README.md#step-2-using-the-log-analytics-workspace-summary-overview-for-monitoring)
   			*  [Step-3: Using the Log Analytics Workbook for monitoring](README.md#step-3-using-the-log-analytics-workbook-for-monitoring)
   			*  [Appendix](README.md#appendix)
@@ -39,7 +39,7 @@ This section assumes that:
 a) you have a Log Analytics worskpace**
 b) you have setup the local AzSK.ADO to send events to that workspace or ADO Security Scanner added to CICD pipeline or setup ADO Security Scanner in Azure using the continuous assurance feature.
 
-### Step-1 Deploy the AzSKADO Monitoring Solution
+### Step-1 Deploy the ADO Monitoring Solution
 
 **[1-a]**
 Obtain the workspaceId and sharedKey for the Log Analytics workspace you'd like to use for monitoring.
