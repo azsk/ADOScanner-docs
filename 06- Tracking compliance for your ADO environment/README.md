@@ -4,10 +4,10 @@
 
 ## Contents
 
-  -  [Overview-1](README.md#overview)
+  -  [Overview](README.md#overview)
   -  [Components of the AzSK.ADO Monitoring Solution](README.md#components-of-the-azskado-monitoring-solution)
   		-  [Setting up the AzSK.ADO Monitoring Solution](README.md#setting-up-the-azskado-monitoring-solution-step-by-step)
-  			*  [Step-1: Deploy the AzSK.ADO Monitoring Solution](README.md#step-1-deploy-the-azskado-monitoring-solution)
+  			*  [Step-1 Deploy the AzSK.ADO Monitoring Solution](README.md#step-1-deploy-the-azskado-monitoring-solution)
   			*  [Step-2: Using the Log Analytics Workspace Summary (Overview) for monitoring](README.md#step-2-using-the-log-analytics-workspace-summary-overview-for-monitoring)
   			*  [Step-3: Using the Log Analytics Workbook for monitoring](README.md#step-3-using-the-log-analytics-workbook-for-monitoring)
   			*  [Appendix](README.md#appendix)
@@ -15,7 +15,7 @@
   
 ----------------------------------------------
 
- ## Overview-1: 
+ ## Overview 
 The monitoring features of AzSK.ADO empower devops teams with the following capabilities:
 - a single pane of glass view of devops security.
 - visibility to control status for their DevOps organizations.
