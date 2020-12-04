@@ -1,4 +1,5 @@
-# ADOScanner-docs<img align="right" width="100" height="100" src="./Images/ADOIcon.png">
+<img align="right" width="100" height="100" src="./Images/ADOIcon.png">
+# ADOScanner-docs
 Welcome to the documentation of ADO Security Scanner!
 
 The ADO Security Scanner helps you keep your ADO artifacts such as various org/project settings, build/release configurations, service connections, agent pools, etc., configured securely. You can run the ADO Security Scanner in 3 modes: 
