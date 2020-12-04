@@ -1,6 +1,7 @@
 <img align="right" width="100" height="100" src="./Images/ADOIcon.png">
 
 
+
 # ADOScanner-docs
 Welcome to the documentation of ADO Security Scanner!
 
