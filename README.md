@@ -6,7 +6,7 @@
 
 The ADO Security Scanner helps you keep your ADO artifacts such as various org/project settings, build/release configurations, service connections, agent pools, etc., configured securely. You can run the ADO Security Scanner in 3 modes: 
 <ul>
-<li>(a) standalone in a PowerShell console
-<li>(b) in an ADO pipeline via a marketplace extension 
-<li>(c) as an Azure-based containerized automated scanning solution.
+<li> Standalone in a PowerShell console
+<li> ADO pipeline via a marketplace extension 
+<li> Azure-based containerized automated scanning solution.
 </ul>
