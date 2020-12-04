@@ -1,4 +1,4 @@
-<img align="right" width="150" height="150" src="./Images/ADOIcon.png">
+<img align="topright" width="150" height="150" src="./Images/ADOIcon.png">
 
 # ADOScanner-docs
 
