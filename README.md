@@ -1,6 +1,6 @@
 # ADOScanner-docs 
-![ADOIcon](../Images/ADOIcon.png)
-![Install_Autoupdate](../Images/Updatecommand.PNG) 
+![ADOIcon](./Images/ADOIcon.png)
+![Install_Autoupdate](./Images/Updatecommand.PNG) 
 Welcome to the documentation of ADO Security Scanner!
 
 The ADO Security Scanner helps you keep your ADO artifacts such as various org/project settings, build/release configurations, service connections, agent pools, etc., configured securely. You can run the ADO Security Scanner in 3 modes: 
