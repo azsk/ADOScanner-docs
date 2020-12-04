@@ -1,7 +1,4 @@
-<div align="right">
 <img align="right" width="150" height="150" src="./Images/ADOIcon.png">
-</div>
-<div align="left">
 
 # ADOScanner-docs
 
@@ -13,4 +10,4 @@ The ADO Security Scanner helps you keep your ADO artifacts such as various org/p
 <li> ADO pipeline via a marketplace extension 
 <li> Azure-based containerized automated scanning solution.
 </ul>
-<div>
+
