@@ -27,7 +27,7 @@ An Azure-based continuous assurance scanning solution for ADO can be setup in su
 In this section, we will walk through the steps of setting up a Azure DevOps Organization for Continuous Assurance coverage in a subscription. 
 
 To get started, we need the following:
-1. The user setting up Continuous Assurance needs to have 'Owner' access to the subscription. 
+1. The user setting up Continuous Assurance needs to have 'Owner' access to the subscription or Owner access on existing resource group where setup needs to be created. 
 
 2. Target Log Analytics WorkspaceID* and SharedKey. (The Log Analytics workspace can be in a different subscription, see note below)
 
@@ -97,9 +97,9 @@ Note:
 |LAWSSharedKey|(Optional) Shared key of Log Analytics workspace which will be used to monitor security scan results|FALSE|None|
 |AltLAWSId|(Optional) Alternate workspace ID of Log Analytics workspace which will be used to monitor security scan results|FALSE|None|
 |AltLAWSSharedKey|(Optional) Alternate shared key of Log Analytics workspace which will be used to monitor security scan results|FALSE|None|
-|ExtendedCommand|(Optional) Extended command to narrow down the target scan|TRUE|FALSE|
+|ExtendedCommand|(Optional) Extended command to narrow down the target scan|FALSE|FALSE|
 |ScanIntervalInHours|(Optional) Overrides the default scan interval (24hrs) with the custom provided value.|FALSE|24|
-|CreateLAWorkspace|(Optional) Switch to create and map new Log Analytics workspace with CA setup|TRUE|FALSE|
+|CreateLAWorkspace|(Optional) Switch to create and map new Log Analytics workspace with CA setup|FALSE|FALSE|
 
 
 **Step-2: Verifying that CA Setup is complete**  

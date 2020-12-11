@@ -56,9 +56,6 @@ Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ResourceTypeNa
 #Auto bug logging for organization baseline controls
 Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ResourceTypeName Organization -AutoBugLog BaselineControls
 
-#Auto bug logging for organization preview baseline controls
-Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ResourceTypeName Organization -AutoBugLog PreviewBaselineControls
-
 #Auto bug logging for project controls
 Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "<ProjectName>" -ResourceTypeName Project -AutoBugLog All
 
