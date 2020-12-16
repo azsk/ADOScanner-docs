@@ -110,7 +110,7 @@ Detailed information is also generated when -ControlIds or -ControlsToAttest fla
 |ADO_Build_AuthZ_Grant_Min_RBAC_Access||
 |ADO_Release_AuthZ_Grant_Min_RBAC_Access||
 |ADO_Organization_AuthZ_Justify_Guest_Identities|
-|ADO_Organization_SI_Review_Installed_Extensions|list of extensions that (a) have not been updated by publishers for more than 2 years, (b) have sensitive access permissions, (c) are not production ready/in preview, (d) are developed by top publishers in marketplace, and (e) have private visibility.|
+|ADO_Organization_SI_Review_Installed_Extensions|List of extensions that <br>(a) have not been updated by publishers for more than 2 years<br> (b) have sensitive access permissions, (c) are not production ready/in preview, (d) are developed by top publishers in marketplace, and (e) have private visibility.|
 
 ----------------------------------------------
 
