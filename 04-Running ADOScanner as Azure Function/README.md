@@ -41,12 +41,12 @@ To get started, we need the following:
                                     [-ResourceGroupName <ResourceGroupName>] `
                                     -OrganizationName <OrganizationName> `
                                     -ProjectName <ProjectName> `
-                                    -PATToken <SecureStringPATToken> `
+                                    [-PATToken <SecureStringPATToken>] `
+                                    [-PATTokenURL <PATTokenURL>] `
+                                    [-IdentityResourceId <ResourceIdofUserAssignedMI>] `
                                     [-Location <Location>] `
                                     [-LAWSId <WorkspaceId>] `
                                     [-LAWSSharedKey <SharedKey>] `
-                                    [-AltLAWSId <WorkspaceId>] `
-                                    [-AltLAWSSharedKey <SharedKey>] `
                                     [-ExtendedCommand <ExtendedCommand>] `
                                     [-ScanIntervalInHours <ScanIntervalInHours>] `
                                     [-CreateLAWorkspace]
@@ -82,6 +82,19 @@ Here are few basic examples of continuous assurance setup command:
 
 ```
 
+<b>Example 3:</b> Setup CA centrally by storing PATToken independent of CA setup. Provide key vault url in Install CA command along with user assigned managed identity to access the PAT from key vault
+
+1. Central CA setup uses user assigned managed identity. User must provide Get,List secrets' permission to the managed identity on the key vault storing PAT. (Same managed identiy can be used to setup multiple CA setups for different organization/project scope)
+2. User must have atleast 'Managed identity operator' permission on user assigned managed identity
+```PowerShell
+	Install-AzSKADOContinuousAssurance -SubscriptionId <SubscriptionId> `
+                                    -ResourceGroupName <ResourceGroupName> `
+                                    -OrganizationName <OrganizationName> `
+                                    -ProjectName <ProjectName> `
+                                    -PATTokenURL <PATTokenURL> ` 
+                                    -IdentityResourceId <ResourceIdofUserAssignedMI>                                   
+
+```
 
 Note:
 
@@ -92,6 +105,8 @@ Note:
 |OrganizationName|Organization name for which scan will be performed|TRUE|None|
 |ProjectName|Project to be scanned|TRUE|None|
 |PATToken|PAT token secure string for organization to be scanned|TRUE|None|
+|PATTokenURL|Uri from key vault where PAT is stored|FALSE|None|
+|IdentityResourceId|Resource id of user assigned managed identity which has valid permissions to access PATTokenURL|FALSE|None|
 |Location|Location in which all resources need to be setup|FALSE|East US|
 |LAWSId|(Optional) Workspace ID of Log Analytics workspace which will be used to monitor security scan results|FALSE|None|
 |LAWSSharedKey|(Optional) Shared key of Log Analytics workspace which will be used to monitor security scan results|FALSE|None|
@@ -162,11 +177,16 @@ Update-AzSKADOContinuousAssurance -SubscriptionId <SubscriptionId> `
                                   [-AltLAWSId <WorkspaceId>] `
                                   [-AltLAWSSharedKey <SharedKey>] `
                                   [-PATToken <PATToken>] `
+                                  [-PATTokenURL <PATTokenURL>] `
                                   [-ProjectName <ProjectName>] `
                                   [-ExtendedCommand <ExtendedCommand>] `
                                   [-ScanIntervalInHours <ScanIntervalInHours>] `
                                   [-RsrcTimeStamp <RsrcTimeStamp>] `
-                                  [-ClearExtendedCommand]
+                                  [-ClearExtendedCommand] `
+                                  [-WebhookUrl <WebhookUrl>] `
+                                  [-WebhookAuthZHeaderName <WebhookAuthZHeaderName>] `
+                                  [-WebhookAuthZHeaderValue <WebhookAuthZHeaderValue>] `
+                                  [-AllowSelfSignedWebhookCertificate] 
 
 ```
 
@@ -186,7 +206,7 @@ Command:
 Get-AzSKADOContinuousAssurance  -SubscriptionId <SubscriptionId> `
                                 -OrganizationName <OrganizationName> `
                                 [-ResourceGroupName <ResourceGroupName>] `
-                                [-FunctionAppName <FunctionAppName>]
+                                [-RsrcTimeStamp <RsrcTimeStamp>]
 ```
 
 ----------------------------------------------
@@ -203,3 +223,9 @@ To host all the Continuous Assurance artifacts
 - Application Insights (Format : ADOScannerFAYYMMDDHHMMSS) :- To collect log, performance of the function in containerised image. The application insights is named with a timestamp-suffix and has same name as function app (e.g. ADOScannerFA200815181008)
 - Key Vault (Format : ADOScannerKVYYMMDDHHMMSS) :- To safegaurd the pat token used in running scan. The Key vault is named with a timestamp-suffix applied to 'ADOScannerKV' (e.g. ADOScannerKV200815181008)
 - Managed Identity of Function app :- This is used at the runtime to fetch pat from keyvault and store logs in storage account. It has Get,List access on keyvault and contributor access on storage account   
+
+Whats different with Central CA:
+- User Assigned Managed Identity :- This is used to fetch PAT from key vault using PATTokenURL (PATTokenURL refers to uri from key vault where PAT is stored). CA setup does not directly have access to PAT Token and uses user assigned identity to fetch PAT at runtime  
+- Key Vault (Format : ADOScannerKVYYMMDDHHMMSS) :- To safegaurd log analytics workspace shared key and client id of user assigned managed identity. The Key vault is named with a timestamp-suffix applied to 'ADOScannerKV' (e.g. ADOScannerKV200815181008)
+- Managed Identity of Function app :- This is used at the runtime to fetch log analytics workspace shared key and client id of user assigned managed identity from keyvault and store logs in storage account. It has Get,List access on keyvault and contributor access on storage account  
+
