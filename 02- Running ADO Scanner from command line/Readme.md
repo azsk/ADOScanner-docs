@@ -108,8 +108,8 @@ Detailed information is also generated when -ControlIds or -ControlsToAttest fla
 |Control ID|Detailed Information|
 |----------|--------------------|
 |ADO_Organization_SI_Review_Installed_Extensions|List of extensions that: <br>(a) have not been updated by publishers for more than 2 years.<br> (b) have sensitive access permissions.<br> (c) are not production ready/in preview.<br> (d) are developed by top publishers in marketplace.<br> (e) have private visibility.|
-|ADO_Build_AuthZ_Grant_Min_RBAC_Access|List of identities with thier name and permissions that have been provided with minimum RBAC access to associated pipeline|
-|ADO_Release_AuthZ_Grant_Min_RBAC_Access|List of identities with thier name and permissions that have been provided with minimum RBAC access to associated pipeline|
+|ADO_Build_AuthZ_Grant_Min_RBAC_Access|List of identities with their name and permissions that have been provided with minimum RBAC access to associated pipeline|
+|ADO_Release_AuthZ_Grant_Min_RBAC_Access|List of identities with their name and permissions that have been provided with minimum RBAC access to associated pipeline|
 |ADO_Organization_AuthZ_Justify_Guest_Identities|List of guest identities and their respective project entitlements in the organization.|
 
 
