@@ -104,10 +104,13 @@ A special flag -DetailedScan in the scan command which can be used to tell the s
 ```PowerShell
 Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ScanAllArtifacts -DetailedScan
 ```
-Detailed information is also generated when -ControlIds or -ControlsToAttest flag is used. At present, the following controls support this flag: 
-- ADO_Build_AuthZ_Grant_Min_RBAC_Access
-- ADO_Release_AuthZ_Grant_Min_RBAC_Access
-- ADO_Organization_AuthZ_Justify_Guest_Identities
+Detailed information is also generated when -ControlIds or -ControlsToAttest flag is used. At present, the following controls support this flag, there detailed information can be seen below : 
+|Control ID|Detailed Information|
+|----------|--------------------|
+|ADO_Build_AuthZ_Grant_Min_RBAC_Access||
+|ADO_Release_AuthZ_Grant_Min_RBAC_Access||
+|ADO_Organization_AuthZ_Justify_Guest_Identities|
+|ADO_Organization_SI_Review_Installed_Extensions|list of extensions that (a) have not been updated by publishers for more than 2 years, (b) have sensitive access permissions, (c) are not production ready/in preview, (d) are developed by top publishers in marketplace, and (e) have private visibility.|
 
 ----------------------------------------------
 
