@@ -125,7 +125,7 @@ Note:
 ![09_CA_FunctionApp](../Images/09_CA_FunctionApp.png)
 </kbd>
 
-**3:** Click on 'Configuration' tile. It should show the application settings of the function app. Default schedule is to run scan 20 minutes post Install CA command and then every 24 hours after that.
+**3:** Click on 'Configuration' tile. It should show the application settings of the function app. Default schedule is to run scan 20 minutes post Install CA command and then every 24 hours after that. In case -ScanInterval param is used while setting up CA, the first scan will run 20 minutes post Install CA command and then based on scan interval duration set in the command.
 
 
 **Step-4: Verifying CA execution and Log Analytics connectivity**  
