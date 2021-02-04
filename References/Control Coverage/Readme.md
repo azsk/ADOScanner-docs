@@ -2,7 +2,7 @@
 
 This page displays security controls that are automated via ADO security scanner and also controls that have to manually verified. Controls have a 'Severity' field to help distinguish issues by degree of risk. Apart from that the automated flag indicates whether a particular control is automated and 'Fix Script' provides the availability of  a 'control fix' script that the user can review and run to apply the fixes. 
 
-## Azure DevOps Services supported by AzSK.AzureDevOps
+## Azure DevOps resource types supported by the AzSK.ADO scanner module
 
 Below resource types can be checked for validating the security controls. 
 
