@@ -12,6 +12,7 @@
   			*  [Step-3: Using the Log Analytics Workbook for monitoring](README.md#step-3-using-the-log-analytics-workbook-for-monitoring)
   			*  [Appendix](README.md#appendix)
   -  [Webhook listener for control scan events](README.md#Webhook-listener-for-control-scan-events)
+  -  [Enable or Disable anonymous usage telemetry for local, CA and CICD scans](README.md#enable-or-disable-anonymous-usage-telemetry-for-local-CA-and-CICD-scans)
   
 ----------------------------------------------
 
@@ -224,3 +225,29 @@ The ```Set-AzSKADOWebhookSettings``` command supports post scan events to a webh
 |WebhookAuthZHeaderValue| Value of the AuthZ header |FALSE|None|
 
 ----------------------------------------------
+
+## Enable or Disable anonymous usage telemetry for local, CA and CICD scans
+
+Added support to enable/disable anonymous usage telemetry for local, CA and CICD scans.
+If usage telemetry set to 'Anonymous', telemetry will be captured. 
+If usage telemetry set to 'None', telemetry will not be captured. 
+
+For local:
+Set-AzSKADOUsageTelemetryLevel -level 'Anonymous'
+or
+Set-AzSKADOUsageTelemetryLevel -level 'None'
+
+For CA:
+Add a variable in appsettings:
+UsageTelemetryLevel with Value 'Anonymous'
+or
+UsageTelemetryLevel with Value 'None'
+
+For Extension:
+Add a variable in pipeline variables:
+UsageTelemetryLevel with Value 'Anonymous'
+or
+UsageTelemetryLevel with Value 'None'
+
+----------------------------------------------
+
