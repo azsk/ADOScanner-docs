@@ -239,16 +239,16 @@ or
 Set-AzSKADOUsageTelemetryLevel -level 'None'
 ```
 - For CA:
-Add a variable in appsettings:
-```UsageTelemetryLevel``` with Value 'Anonymous'
-or
-```UsageTelemetryLevel``` with Value 'None'
+   - Add a variable in appsettings:
+	```UsageTelemetryLevel``` with Value 'Anonymous'
+    or
+	```UsageTelemetryLevel``` with Value 'None'
 
 - For Extension:
-Add a variable in pipeline variables:
-```UsageTelemetryLevel``` with Value 'Anonymous'
-or
-```UsageTelemetryLevel``` with Value 'None'
+   - Add a variable in pipeline variables:
+	```UsageTelemetryLevel``` with Value 'Anonymous'
+     or
+	```UsageTelemetryLevel``` with Value 'None'
 
 ----------------------------------------------
 
