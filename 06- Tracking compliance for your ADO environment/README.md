@@ -228,7 +228,7 @@ The ```Set-AzSKADOWebhookSettings``` command supports post scan events to a webh
 
 ## Enable or Disable anonymous usage telemetry for local, CA and CICD scans
 
-Added support to enable/disable anonymous usage telemetry for local, CA and CICD scans.
+Added support to enable/disable anonymous usage telemetry for local, CA and CICD scans.<br>
 If usage telemetry level set to 'Anonymous', telemetry will be captured.<br> 
 If usage telemetry level set to 'None', telemetry will not be captured. 
 
@@ -240,9 +240,9 @@ Set-AzSKADOUsageTelemetryLevel -level 'None'
 ```
 - For CA:
    - Add a variable in appsettings:
-	- ```UsageTelemetryLevel``` with Value 'Anonymous'
-    or
-	- ```UsageTelemetryLevel``` with Value 'None'
+		- ```UsageTelemetryLevel``` with Value 'Anonymous'
+   		or
+		- ```UsageTelemetryLevel``` with Value 'None'
 
 - For Extension:
    - Add a variable in pipeline variables:
