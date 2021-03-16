@@ -3,8 +3,11 @@
 ## Contents
 
   -  [Overview](README.md#overview)
-  -  [Automated Scanning using Azure functions](README.md#automated-scanning-using-azure-functions)
+  -  [Automated Scanning using Azure functions - PAT based scanning](README.md#automated-scanning-using-azure-functions-PAT-based-scanning)
      * [Setting up ADOScanner using Azure function - Step by Step](README.md#setting-up-adoscanner-using-azure-function---step-by-step)
+  -  [Automated Scanning using Azure functions - OAuth app based scanning](README.md#automated-scanning-using-azure-functions-OAuth-app-based-scanning)
+     * [Setting up ADOScanner using Azure function - Step by Step](README.md#setting-up-adoscanner-using-azure-function---step-by-step)
+  - Other commands
      * [Updating an existing Continuous Assurance setup](README.md#updating-an-existing-continuous-assurance-setup)
      * [Getting details about a Continuous Assurance setup](README.md#getting-details-about-a-continuous-assurance-setup)
      * [Continuous Assurance using containers - how it works (under the covers)](README.md#continuous-assurance-using-containers---how-it-works-under-the-covers)
@@ -19,7 +22,7 @@ Besides 'drift tracking' there are also two other aspects of "staying secure" in
 
 ----------------------------------------------
 
-## Automated Scanning using Azure functions
+## Automated Scanning using Azure functions (PAT based scanning)
 
 An Azure-based continuous assurance scanning solution for ADO can be setup in subscription. It will run ADO security scanner inside a container image and the scanning infrastructure of this containerized model will be hosted in an Azure resource group. This provides an alternate option to running the scanner via ADO pipeline extension and is designed to be more suitable for larger environments.
 
@@ -96,6 +99,78 @@ Here are few basic examples of continuous assurance setup command:
 
 ```
 
+## Automated Scanning using Azure functions (OAuth app based scanning)
+
+### Setting up OAuth application - Step by Step
+1. Navigate to https://aex.dev.azure.com/app/register
+
+<kbd>	
+<img src="../Images/04_ADO_OAuthApp.png" alt="04_ADO_OAuthApp">
+</kbd>
+
+2. Provide necessary details. Set authorization callback URL as https://localhost/
+
+3. Select *only* 'Token Administration' authorization scope.
+
+4. Create Application. 
+
+5. The CA setup will require AppId, ClientSecret and Authorized Scopes details of the created app.
+
+### Setting up ADOScanner using Azure function - Step by Step
+In this section, we will walk through the steps of setting up a Azure DevOps Organization for Continuous Assurance coverage in a subscription. 
+
+To get started, we need the following:
+1. The user setting up Continuous Assurance needs to have 'Owner' access to the subscription or Owner access on existing resource group where setup needs to be created. 
+
+2. Target Log Analytics WorkspaceID* and SharedKey. (The Log Analytics workspace can be in a different subscription, see note below)
+
+
+**Step-1: Setup**  
+1. Install latest AzSK.ADO module.
+2. Run the '**Install-AzSKADOContinuousAssurance**' command with required parameters given in below table. 
+3. The command will open a webpage, click on authorise. 
+<kbd>	
+<img src="../Images/04_ADO_OAuthAuthorize.png" alt="04_ADO_OAuthAuthorize">
+</kbd>
+4. The webpage will then be redirected to a url staring from "https://localhost/?code=". Copy the entire URL and provide it in the Install-AzSKADOContinuousAssurance command
+
+```PowerShell
+	Install-AzSKADOContinuousAssurance -SubscriptionId <SubscriptionId> `
+                                    [-ResourceGroupName <ResourceGroupName>] `
+                                    -OrganizationName <OrganizationName> `
+                                    -ProjectName <ProjectName> `
+                                    [-OAuthAppId <OAuthAppId>] `
+                                    [-ClientSecret <ClientSecret>] `
+                                    [-AuthorizedScopes <AuthorizedScopes>] `
+                                    [-Location <Location>] `
+                                    [-LAWSId <WorkspaceId>] `
+                                    [-LAWSSharedKey <SharedKey>] `
+                                    [-ExtendedCommand <ExtendedCommand>] `
+                                    [-ScanIntervalInHours <ScanIntervalInHours>] `
+                                    [-CreateLAWorkspace]
+```
+
+Note: 
+Updating ExtendedCommand overrides the default '-ScanAllArtifacts' behavior of CA. If you need that, please specify '-saa' switch in CA '-ExtendedCommand'
+
+Here are few basic examples of continuous assurance setup command:
+
+<b>Example 1:</b> Install CA in custom resource group  
+```PowerShell
+	Install-AzSKADOContinuousAssurance -SubscriptionId <SubscriptionId> `
+                                    -OrganizationName <OrganizationName> `
+                                    -ProjectName <ProjectName> `
+                                    -ResourceGroupName <ResourceGroupName> `
+                                    -OAuthAppId <OAuthAppId> `
+                                    -ClientSecret <ClientSecret> `
+                                    -AuthorizedScopes 'vso.tokenadministration' `
+                                    -LAWSId <WorkspaceId> `
+                                    -LAWSSharedKey <SharedKey> `
+                                    -ProjectName <ProjectName> `
+                                    -ExtendedCommand <ExtendedCommand> 
+```
+
+
 Note:
 
 |Param Name|Purpose|Required?|Default value|
@@ -115,6 +190,9 @@ Note:
 |ExtendedCommand|(Optional) Extended command to narrow down the target scan|FALSE|FALSE|
 |ScanIntervalInHours|(Optional) Overrides the default scan interval (24hrs) with the custom provided value.|FALSE|24|
 |CreateLAWorkspace|(Optional) Switch to create and map new Log Analytics workspace with CA setup|FALSE|FALSE|
+|OAuthAppId| AppId of the OAuth application |FALSE|FALSE|
+|ClientSecret| ClientSecret of the OAuth application|FALSE|FALSE|
+|AuthorizedScopes| AuthorizedScopes of the OAuth application|FALSE|FALSE|
 
 
 **Step-2: Verifying that CA Setup is complete**  
