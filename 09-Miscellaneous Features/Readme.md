@@ -64,6 +64,23 @@ Below is the sample output:
 <kbd>
 ![GADI_HostInfo_Summary_PS](../Images/GADI_HostInfo.png)  
 </kbd>
+
+### User information
+
+Run below command to get information about,
+* Membership details of current logged in user
+* User permissions at organization level if no project name is provided
+* User permissions at project level if project name is provided
+
+***This command currently supports user permission information for a single project. Please provide a single project name.***
+
+```PowerShell
+	$orgName = '<name of ADO org>'
+	Get-AzSKADOInfo -OrganizationName $orgName `
+                -InfoType 'UserInfo' `
+                [-ProjectNames <ProjectName>]
+```
+
 ----------------------------------------------
 
 ### Execute SVTs using "-AllowLongRunningScan" switch
