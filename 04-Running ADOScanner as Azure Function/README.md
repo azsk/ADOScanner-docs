@@ -101,6 +101,9 @@ Here are few basic examples of continuous assurance setup command:
 
 ## Automated Scanning using Azure functions (OAuth app based scanning)
 
+**Note**:
+OAuth app based CA setup is being designed as an alternative to the current personal access token (PAT) based access model. This is currently in preview and we are working on fine-tuning the OAuth scopes needed by the app.
+
 ### Setting up OAuth application - Step by Step
 1. Navigate to https://aex.dev.azure.com/app/register
 
