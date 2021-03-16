@@ -58,7 +58,7 @@ Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "
 Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "PRJ1" -ReleaseNames "*" -PATTokenURL
 
 #Scan all supported artifacts
-Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ScanAllArtifacts
+Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ScanAllResources
 
 #Scan projects 
 Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "<PRJ1,PRJ2,etc>" -ResourceTypeName Project
@@ -94,7 +94,7 @@ By default organization and project control is not including in scan for non-adm
 
 ```PowerShell
 #Scan organization and Project (non-admin users)
-Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "<PRJ1,PRJ2,etc>" -ScanAllArtifacts -IncludeAdminControls
+Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "<PRJ1,PRJ2,etc>" -ScanAllResources -IncludeAdminControls
 ```
 ----------------------------------------------
 
@@ -102,7 +102,7 @@ Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "
 
 A special flag -DetailedScan in the scan command which can be used to tell the scanner to query and display richer information when evaluating certain controls. This is “off by default” and helps us scan RBAC controls at scale by avoiding API calls that can be deferred to a fix stage. 
 ```PowerShell
-Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ScanAllArtifacts -DetailedScan
+Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ScanAllResources -DetailedScan
 ```
 Detailed information is also generated when -ControlIds or -ControlsToAttest flag is used. At present, the following controls support this flag, there detailed information can be seen below : 
 |Control ID|Detailed Information|
@@ -119,5 +119,5 @@ Detailed information is also generated when -ControlIds or -ControlsToAttest fla
 
 The Get-AzSKADOSecurityStatus command now supports checkpointing via a "-UsePartialCommits" switch. When this switch is used, the command periodically persists scan progress to disk. That way, if the scan is interrupted or an error occurs, a future retry can resume from the last saved state. This capability also helps in Continuous Assurance scans if scan gets suspended due to any unforeseen reason.The cmdlet below checks security control state via a "-UsePartialCommits" switch:
 ```PowerShell
-Get-AzSKADOSecurityStatus-OrganizationName "<OrganizationName>" -ScanAllArtifacts -UsePartialCommits
+Get-AzSKADOSecurityStatus-OrganizationName "<OrganizationName>" -ScanAllResources -UsePartialCommits
 ```
