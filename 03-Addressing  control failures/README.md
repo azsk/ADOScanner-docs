@@ -96,6 +96,8 @@ Attestation details for project and its components (build/release/service connec
 
 > **Note:** Control attestation details for project and its components are stored inside the attestation repo present in the project.
 
+> **Recommendation:** Attest controls for only one project in each scan command. If you have controls attested in multiple projects and if you scan these projects via the same command - attestation details of only the first project under scan will be respected.
+
 > *Project Collection Administrator* needs to assign a project in the organization to host attestation details for organization-specific controls. See the next section for more details.   
 
 ### How to setup attestation repository in a project?
@@ -104,6 +106,10 @@ In order to setup attestation repository inside a project, follow the below step
 
 1. Navigate to *Repos* section of the project.
 2. Create a new Git repository with the name 'ADOScannerAttestation'. Skip this step if this repository already exists.
+
+### Setup signle project to store attestation
+Single project to store attestation details can be configured in the organization policy. 
+In order to use single project to store attestatio set EnableMultiProjectAttestation true and ProjectToStoreAttestation "ProjectName" variables in the organization policy controlsettings.json file.
 
 ### How to setup host project to store attestation details for organization-specific controls?
 
