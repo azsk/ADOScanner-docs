@@ -91,7 +91,7 @@ Secure Files
 Service Connections
 </td><td>Read</tr>
 
-tr><td>
+<tr><td>
 Task Groups
 </td><td>Read</tr>
 
