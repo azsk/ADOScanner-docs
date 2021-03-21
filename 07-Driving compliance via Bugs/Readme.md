@@ -169,6 +169,10 @@ Any bug that has been resolved before can be reactivated if the control failure 
 ```
 After setting any one of the above policies, commit the file and add an entry for *ControlSettings.json* in *ServerConfigMetadata.json* (in the repo).
 
+## Customizing bug logging for certain controls
+
+Bug only for specific list of controls can be controled by the organization policy using "CustomControlList". Add controls in the CustomControlList list and use "-AutoBugLog Custom" option in command parameter. It will run bug logging only for the controls which are added in the CustomControlList.
+
 ## Auto close bugs
 
 Using the *-AutoBugLog* switch, the scanner also evaluates all the passing control scans and checks for their corresponding bugs in the ADO. If such bugs are found, they are closed. This ensures only those bugs remain in your ADO work item whose control failures are to be fixed. 
