@@ -192,7 +192,14 @@ Here are few basic examples of continuous assurance setup command:
 ## Automated Scanning using Azure functions (OAuth app based scanning)
 
 **Note**:
-OAuth app based CA setup is being designed as an alternative to the current personal access token (PAT) based access model. This is currently in preview and we are working on fine-tuning the OAuth scopes needed by the app.
+OAuth app based CA setup is being designed as an alternative to the current personal access token (PAT) based access model. This is currently in preview and below services/controls scan is currently *not* supported in this model:
+- Organization
+- Project
+- User
+- Other controls: 
+    - ADO_AgentPool_DP_Review_Inactive_Pool
+    - ADO_AgentPool_DP_No_Secrets_In_Capabilities
+    - ADO_ServiceConnection_DP_Review_Inactive_Connection
 
 ### Setting up OAuth application - Step by Step
 1. Navigate to https://aex.dev.azure.com/app/register
@@ -203,7 +210,50 @@ OAuth app based CA setup is being designed as an alternative to the current pers
 
 2. Provide necessary details. Set authorization callback URL as https://localhost/
 
-3. Select *only* 'Token Administration' authorization scope.
+3. Select *only* below authorization scopes.
+
+<table><tr><th>Scope</th><th>Privilege</th></tr>
+<tr><td>
+Identity
+</td><td>Read</tr>
+
+<tr><td>
+Work Items
+</td><td>Read and write</tr>
+
+<tr><td>
+Build
+</td><td>Read</tr>
+
+<tr><td>
+Code
+</td><td>Read and write</tr>
+
+<tr><td>
+Agent pools
+</td><td>Read</tr>
+
+<tr><td>
+Release
+</td><td>Read</tr>
+
+<tr><td>
+Task groups
+</td><td>Read</tr>
+
+<tr><td>
+Variable groups
+</td><td>Read</tr>
+
+<tr><td>
+Service endpoints
+</td><td>Read</tr>
+
+</table>
+<table>
+</table>
+</body></html>
+
 
 4. Create Application. 
 
@@ -256,7 +306,7 @@ Here are few basic examples of continuous assurance setup command:
                                     -ResourceGroupName <ResourceGroupName> `
                                     -OAuthAppId <OAuthAppId> `
                                     -ClientSecret <ClientSecret> `
-                                    -AuthorizedScopes 'vso.tokenadministration' `
+                                    -AuthorizedScopes <AuthorizedScopes> `
                                     -LAWSId <WorkspaceId> `
                                     -LAWSSharedKey <SharedKey> `
                                     -ProjectName <ProjectName> `
