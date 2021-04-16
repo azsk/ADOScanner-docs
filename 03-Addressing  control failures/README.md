@@ -6,47 +6,48 @@
 	- [Setup Repository to store attestation details](README.md#setup-attestation-repository)
   		 * [How to setup attestation repository in a project?](README.md#how-to-setup-attestation-repository-in-a-project)
   		 * [How to setup host project to store attestation details for organization-specific controls?](README.md#how-to-setup-host-project-to-store-attestation-details-for-organization-specific-controls)
-	- [Starting attestation](README.md#starting-attestation)  
-	- [How scanner determines the effective control result](README.md#how-scanner-determines-the-effective-control-result)  
-	- [Permissions required for attesting controls](README.md#permissions-required-for-attesting-controls) 
-	- [Attestation expiry](README.md#attestation-expiry)  
+	- [Starting attestation](README.md#starting-attestation)
+	- [Approved Exception](README.md#approved-exception)
+	- [How scanner determines the effective control result](README.md#how-scanner-determines-the-effective-control-result)
+	- [Permissions required for attesting controls](README.md#permissions-required-for-attesting-controls)
+	- [Attestation expiry](README.md#attestation-expiry)
 
 ----------------------------------------------
 
 ## Understanding scan logs and CSV report
 
 Each ADO scan cmdlet writes output to a folder whose location is determined as below:
-- AzSK.ADO-Root-Output-Folder = %LocalAppData%\Microsoft\AzSK.ADOLogs  
+- AzSK.ADO-Root-Output-Folder = %LocalAppData%\Microsoft\AzSK.ADOLogs
 	```
 	E.g., "C:\Users\userName\AppData\Local\Microsoft\AzSK.ADOLogs"
 	```
-- Sub-Folder = Sub_\<Subscription Name>\\\<Timestamp>_\<CommandAbbreviation>  
+- Sub-Folder = Sub_\<Subscription Name>\\\<Timestamp>_\<CommandAbbreviation>
 	```
-	E.g., "Org_[yourOrganizationName]\20201120_140515_gads"  
-	```	
-Thus, the full path to an output folder might look like:  
+	E.g., "Org_[yourOrganizationName]\20201120_140515_gads"
+	```
+Thus, the full path to an output folder might look like:
 ```
 E.g., "C:\Users\userName\AppData\Local\Microsoft\AzSK.ADOLogs\Org_[yourOrganizationName]\20201120_140515_gads\
 ```
-	
+
 > **Note**: By default, cmdlets open this folder upon completion of the cmdlet (we assume you'd be interested in examining the control evaluation status, etc.)
 
-The contents of the output folder are organized as under:  
+The contents of the output folder are organized as under:
 <kbd>
 ![02_Output_Log_Folder](../Images/Output_Log_Folder.png)
 <kbd>
-- *\SecurityReport-\<timestamp>.csv*- This is the summary CSV file listing all applicable controls and their evaluation status. 
+- *\SecurityReport-\<timestamp>.csv*- This is the summary CSV file listing all applicable controls and their evaluation status.
 
-- *\Etc*  
-	- *\PowerShellOutput.log* - This is the raw PS console output captured in a file.  
-	- *\EnvironmentDetails.log* - This is the log file containing environment data of current PowerShell session.  
+- *\Etc*
+	- *\PowerShellOutput.log* - This is the raw PS console output captured in a file.
+	- *\EnvironmentDetails.log* - This is the log file containing environment data of current PowerShell session.
 	<kbd>
 	<img src="../Images/Etc_Folder_Structure.png" alt="02_Etc_Folder_Structure">
 	</kbd>
-	- *\README.txt* - This README file describes how to interpret the different files created when AzSK cmdlets are executed 
+	- *\README.txt* - This README file describes how to interpret the different files created when AzSK cmdlets are executed
 
-You can use these outputs as follows - 
-1. The SecurityReport.CSV file provides a quick glimpse of the control results. Investigate those that say 'Verify' or 'Failed'.  
+You can use these outputs as follows -
+1. The SecurityReport.CSV file provides a quick glimpse of the control results. Investigate those that say 'Verify' or 'Failed'.
 2. For 'Failed' or 'Verify' controls, look in the LOG files (search for 'failed' or by control-id). Understand what caused the control to fail.
 3. For some controls, you can also use the 'Recommendation' field in the control output to get the PS command you may need to use.
 4. Rerun the cmdlet and verify that the controls you tried to fix are passing now.
@@ -55,34 +56,34 @@ You can use these outputs as follows -
 
 ----------------------------------------------
 
-## Control Attestation 
+## Control Attestation
 
-> **Note**: Please use utmost discretion when attesting controls. In particular, when choosing to not fix a failing control, you are taking accountability that nothing will go wrong even though security is not correctly/fully configured. 
-> </br>Also, please ensure that you provide an apt justification for each attested control to capture the rationale behind your decision.  
+> **Note**: Please use utmost discretion when attesting controls. In particular, when choosing to not fix a failing control, you are taking accountability that nothing will go wrong even though security is not correctly/fully configured.
+> </br>Also, please ensure that you provide an apt justification for each attested control to capture the rationale behind your decision.
 
-The attestation feature empowers users to support scenarios where human input is required to augment or override the default control 
+The attestation feature empowers users to support scenarios where human input is required to augment or override the default control
 evaluation status from AzSK.ADO. These may be situations such as:
 
-- The scanner has generated the list of 'Administrators' for a project but someone needs to have a look at the list and ratify that 
+- The scanner has generated the list of 'Administrators' for a project but someone needs to have a look at the list and ratify that
 these are indeed the correct people, or
 - The scanner has marked a control as failed. However, given the additional contextual knowledge, the application owner wants to ignore the control failure.
 
-In all such situations, there is usually a control result that is based on the technical evaluation (e.g., Verify, Failed, etc.) that has to 
-be combined with the user's input in order to determine the overall or effective control result. The user is said to have 'attested' such controls 
-and, after the process is performed once, AzSK.ADO remembers it and generates an effective control result for subsequent control scans _until_ there 
+In all such situations, there is usually a control result that is based on the technical evaluation (e.g., Verify, Failed, etc.) that has to
+be combined with the user's input in order to determine the overall or effective control result. The user is said to have 'attested' such controls
+and, after the process is performed once, AzSK.ADO remembers it and generates an effective control result for subsequent control scans _until_ there
 is a state change.
 
 The attestation feature is implemented via a new switch called *ControlsToAttest* which can be specified in any of the standard security scan cmdlets
 of AzSK.ADO. When this switch is specified, the scanner first performs a scan of the target resource(s) like it is business as usual and, once
 the scan is complete, it enters a special interactive 'attest mode' where it walks through each resource and relevant attestable controls
-and captures inputs from the user and records them (along with details about the person who attested, the time, etc.). 
+and captures inputs from the user and records them (along with details about the person who attested, the time, etc.).
 After this, for all future scans on the resource(s), AzSK.ADO will show the effective control evaluation results. Various options are provided to support
-different attestation scenarios (e.g., expiry of attestations, edit/change/delete previous attestations, attest only a subset of controls, etc.). 
+different attestation scenarios (e.g., expiry of attestations, edit/change/delete previous attestations, attest only a subset of controls, etc.).
 These are described below. Also, for 'stateful' controls (e.g., "are these the right service accounts with access to project collection?"), the attestation
 state is auto-reset if there is any change in 'state' (e.g., someone adds a new service account to the list).
 
 Lastly, due to the governance implications, the ability to attest controls is available to a subset of users. This is described in
-the permissions required section below.  
+the permissions required section below.
 
 [Back to top...](README.md#contents)
 
@@ -90,13 +91,13 @@ the permissions required section below.
 
 ## Setup Attestation Repository
 
-AzSK.ADO internally stores attestation details in a project repository named 'ADOScannerAttestation' which needs to be configured typically by the project admin. 
+AzSK.ADO internally stores attestation details in a project repository named 'ADOScannerAttestation' which needs to be configured typically by the project admin.
 
 Attestation details for project and its components (build/release/service connection/agent pool) are recorded only when this repository is present inside the project.
 
 > **Note:** Control attestation details for project and its components are stored inside the attestation repo present in the project.
 
-> *Project Collection Administrator* needs to assign a project in the organization to host attestation details for organization-specific controls. See the next section for more details.   
+> *Project Collection Administrator* needs to assign a project in the organization to host attestation details for organization-specific controls. See the next section for more details.
 
 ### How to setup attestation repository in a project?
 
@@ -111,24 +112,24 @@ In order to setup attestation repository inside a project, follow the below step
 2.  **Attestation host project can be set only once and can't be updated later**.
 
 For e.g., to attest organization controls, run the command below:
-```PowerShell  
+```PowerShell
 #Set attestation host project and attest organization controls:
 $orgName = '<Organization name>'
 $hostProjectName = '<Name of the host project to store attestation details of org-specific controls>'
-  	
-Get-AzSKADOSecurityStatus -OrganizationName $orgName -AttestationHostProjectName $hostProjectName -ControlsToAttest NotAttested -ResourceTypeName Organization  
+
+Get-AzSKADOSecurityStatus -OrganizationName $orgName -AttestationHostProjectName $hostProjectName -ControlsToAttest NotAttested -ResourceTypeName Organization
 
 ```
 
 ----------------------------------------------
 
 ## Starting attestation
-      
-The AzSK.ADO scan cmdlets now support a new switch called ***ControlsToAttest***. When this switch is specified, 
+
+The AzSK.ADO scan cmdlets now support a new switch called ***ControlsToAttest***. When this switch is specified,
 AzSK.ADO enters the attestation workflow immediately after a scan is completed. This ensures that attestation is done on the basis of the most current
 control status.
 
-All controls that have a technical evaluation status of anything other than 'Passed' (i.e., 'Verify' or 'Failed' or 'Manual' or 'Error') are considered 
+All controls that have a technical evaluation status of anything other than 'Passed' (i.e., 'Verify' or 'Failed' or 'Manual' or 'Error') are considered
 valid targets for attestation.
 
 > **Note**: Some controls are very crucial from security stand point and hence AzSK.ADO does not support attesting them.
@@ -142,25 +143,25 @@ To manage attestation flow effectively, 4 options are provided for the *Controls
 |All|Attest all controls which can be attested (including those that have past attestations).|
 |None|N/A.|
 
-The attestation feature internally stores attestation details in a repository called 'ADOScannerAttestation'. As a prerequisite, you need to create a repository with the same name. Attestation details of projects, builds, releases, service connections, agent pools and variable groups will be stored in the 'ADOScanner_Attestation' repository of the project these resources belong to.    
+The attestation feature internally stores attestation details in a repository called 'ADOScannerAttestation'. As a prerequisite, you need to create a repository with the same name. Attestation details of projects, builds, releases, service connections, agent pools and variable groups will be stored in the 'ADOScanner_Attestation' repository of the project these resources belong to.
 
 To attest organization specific controls, you need to setup a similar repository in the host project which will store the attestation details for organization specific controls.
 > **Note**: Administrator needs to setup the attestation host project name to store organization specific control attestation details. It can be set using the parameter 'AttestationHostProjectName'. Attestation host project can be set only once and can not be update later.
 Run below command to set attestation host project:
-For example: 
-```PowerShell  
+For example:
+```PowerShell
 #Set attestation host project and attest organization controls:
 $orgName = '<Organization name>'
 $attHotProjectName = '<Project name>'
-Get-AzSKADOSecurityStatus -OrganizationName $orgName -AttestationHostProjectName $attHotProjectName -ControlsToAttest NotAttested -ResourceTypeName Organization    
+Get-AzSKADOSecurityStatus -OrganizationName $orgName -AttestationHostProjectName $attHotProjectName -ControlsToAttest NotAttested -ResourceTypeName Organization
 
 ```
 
-Attestation can be performed for orgnization, project, build, release, service connection and agent pool using the below commands: 
+Attestation can be performed for orgnization, project, build, release, service connection and agent pool using the below commands:
 > **Note**: Using PolicyProject parameter you can specify the name of the project to read and write attestation details and fetch organization policy for organization.
 
-For example: 
-```PowerShell  
+For example:
+```PowerShell
 #Using PolicyProject parameter
 $orgName = '<Organization name>'
 $policyProject = '<Name of the project hosting organization policy with which the scan should run.>'
@@ -168,80 +169,80 @@ Get-AzSKADOSecurityStatus -OrganizationName $orgName -PolicyProject $policyProje
 
 #To attest organization controls, run the command below:
 $orgName = '<Organization name>'
-Get-AzSKADOSecurityStatus -OrganizationName $orgName -ControlsToAttest NotAttested -ResourceTypeName Organization  
+Get-AzSKADOSecurityStatus -OrganizationName $orgName -ControlsToAttest NotAttested -ResourceTypeName Organization
 
-#To attest project controls, run the command below: 
+#To attest project controls, run the command below:
 
 See the examples below to attest organization, project, build, release, service connection and agent pool controls.
-```PowerShell  
+```PowerShell
 
 #Attest organization controls:
 $orgName = '<Organization name>'
 
-Get-AzSKADOSecurityStatus -OrganizationName $orgName -ControlsToAttest NotAttested -ResourceTypeName Organization  
+Get-AzSKADOSecurityStatus -OrganizationName $orgName -ControlsToAttest NotAttested -ResourceTypeName Organization
 
 #Attest project controls:
 
 $orgName = '<Organization name>'
 $prjName = '<Project name>'
 
-Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectNames $prjName -ControlsToAttest NotAttested -ResourceTypeName Project  
+Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectNames $prjName -ControlsToAttest NotAttested -ResourceTypeName Project
 
 #To attest builds controls, run the command below:
 $orgName = '<Organization name>'
 $prjName = '<Project name>'
 $buildName = '<Build name>'
-Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectNames $prjName -BuildNames $buildName -ControlsToAttest NotAttested -ResourceTypeName Build  
+Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectNames $prjName -BuildNames $buildName -ControlsToAttest NotAttested -ResourceTypeName Build
 
 #To attest release controls, run the command below:
 $orgName = '<Organization name>'
 $prjName = '<Project name>'
 $releaseName = '<Release name>'
-Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectNames $prjName -ReleaseNames $releaseName -ControlsToAttest NotAttested -ResourceTypeName Release  
+Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectNames $prjName -ReleaseNames $releaseName -ControlsToAttest NotAttested -ResourceTypeName Release
 
-#To attest service connection controls, run the command below:  
+#To attest service connection controls, run the command below:
 $orgName = '<Organization name>'
 $prjName = '<Project name>'
 $serviceConnectionName = '<Service Connection name>'
-Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectNames $prjName -ServiceConnectionNames $serviceConnectionName -ControlsToAttest NotAttested -ResourceTypeName ServiceConnection  
+Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectNames $prjName -ServiceConnectionNames $serviceConnectionName -ControlsToAttest NotAttested -ResourceTypeName ServiceConnection
 
 #To attest agent pool controls, run the command below:
 $orgName = '<Organization name>'
 $prjName = '<Project name>'
 $agentPoolName = '<Agent pool name>'
-Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectNames $prjName -AgentPoolNames $agentPoolName -ControlsToAttest NotAttested -ResourceTypeName AgentPool  
+Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectNames $prjName -AgentPoolNames $agentPoolName -ControlsToAttest NotAttested -ResourceTypeName AgentPool
 
-#Organization, project, build, release, service connection and agent pool controls can be attest in same command also, run the command below:  
+#Organization, project, build, release, service connection and agent pool controls can be attest in same command also, run the command below:
 
 #Attest build controls:
 $orgName = '<Organization name>'
 $prjName = '<Project name>'
 $buildName = '<Build name>'
 
-Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectNames $prjName -BuildNames $buildName -ControlsToAttest NotAttested -ResourceTypeName Build  
+Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectNames $prjName -BuildNames $buildName -ControlsToAttest NotAttested -ResourceTypeName Build
 
 #Attest release controls:
 $orgName = '<Organization name>'
 $prjName = '<Project name>'
 $releaseName = '<Release name>'
 
-Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectNames $prjName -ReleaseNames $releaseName -ControlsToAttest NotAttested -ResourceTypeName Release  
+Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectNames $prjName -ReleaseNames $releaseName -ControlsToAttest NotAttested -ResourceTypeName Release
 
-#Attest service connection controls:  
+#Attest service connection controls:
 $orgName = '<Organization name>'
 $prjName = '<Project name>'
 $serviceConnectionName = '<Service Connection name>'
 
-Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectNames $prjName -ServiceConnectionNames $serviceConnectionName -ControlsToAttest NotAttested -ResourceTypeName ServiceConnection  
+Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectNames $prjName -ServiceConnectionNames $serviceConnectionName -ControlsToAttest NotAttested -ResourceTypeName ServiceConnection
 
 #Attest agent pool controls:
 $orgName = '<Organization name>'
 $prjName = '<Project name>'
 $agentPoolName = '<Agent pool name>'
 
-Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectNames $prjName -AgentPoolNames $agentPoolName -ControlsToAttest NotAttested -ResourceTypeName AgentPool  
+Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectNames $prjName -AgentPoolNames $agentPoolName -ControlsToAttest NotAttested -ResourceTypeName AgentPool
 
-#Organization, project, build, release, service connection and agent pool controls can be attested in same command too.  
+#Organization, project, build, release, service connection and agent pool controls can be attested in same command too.
 
 $orgName = '<Organization name>'
 $prjName = '<Project name>'
@@ -250,7 +251,7 @@ $releaseName = '<Release name>'
 $serviceConnectionName = '<Service Connection name>'
 $agentPoolName = '<Agent pool name>'
 
-Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectNames $prjName -BuildNames $buildName -ReleaseNames $releaseName -ServiceConnectionNames $serviceConnectionName  -AgentPoolNames $agentPoolName -ControlsToAttest NotAttested  
+Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectNames $prjName -BuildNames $buildName -ReleaseNames $releaseName -ServiceConnectionNames $serviceConnectionName  -AgentPoolNames $agentPoolName -ControlsToAttest NotAttested
 ```
 
 As shown in the images, the command enters 'attest' mode after completing a scan and does the following:
@@ -262,17 +263,60 @@ As shown in the images, the command enters 'attest' mode after completing a scan
 
  Sample attestation workflow in progress:
  <kbd>
- ![09_SVT_Attest_1](../Images/SVT_Attest_1.png) 
+ ![09_SVT_Attest_1](../Images/SVT_Attest_1.png)
  </kbd>
  Sample summary of attestation after workflow is completed:
  <kbd>
- ![09_SVT_Attest_2](../Images/SVT_Attest_2.png) 
+ ![09_SVT_Attest_2](../Images/SVT_Attest_2.png)
  </kbd>
 Attestation details corresponding to each control (e.g., justification, user name, etc.) are also captured in the CSV file as shown below:
 <kbd>
- ![09_SVT_Attest_3](../Images/SVT_Attest_3.png) 
+ ![09_SVT_Attest_3](../Images/SVT_Attest_3.png)
 </kbd>
-If you wish to revisit previous attestations, it can be done by using 'AlreadyAttested' flag in the command above.  
+If you wish to revisit previous attestations, it can be done by using 'AlreadyAttested' flag in the command above.
+
+[Back to top...](README.md#contents)
+
+----------------------------------------------
+## Approved Exception
+The approved exception feature empowers users to support attestation scenarios where valid approved exception id is required to attest the controls. This exception id can be generated as a part of bussiness process and can be used to track the approval and justification of the attestation.
+
+For e.g., to attest organization controls using approved exception, run the command below:
+```PowerShell
+#Set attestation host project and attest organization controls:
+$orgName = '<Organization name>'
+$attHotProjectName = '<Project name>'
+$approvedExceptionId = '<exception id>'
+$approvedExceptionExpiryDate = '<mm/dd/yy>'
+Get-AzSKADOSecurityStatus -OrganizationName $orgName -AttestationHostProjectName $attHotProjectName -ControlsToAttest NotAttested -ResourceTypeName Organization -AttestationStatus ApprovedException -ApprovedExceptionID $approvedExceptionId  -ApprovedExceptionExpiryDate $approvedExceptionExpiryDate
+
+```
+Approved exception can be mandated to list of controls using the below properties in ControlSettings.json. When EnforceApprovedException is enabled with list of controls, those controls will obligatorily require exception id to attest irrespective of attestation status(NotAnIssue/WillNotFix/ApprovedException).
+
+```javascript
+{
+	"EnforceApprovedException": true/false,
+	"ApprovedExceptionSettings": {
+		"ControlsList": [],
+		"InvalidatePreviousAttestations": true/false,
+		"ApprovedExceptionPromptMessage": "",
+		"NonApprovedExceptionPromptMessage": "",
+		"DefaultPromptMessage": ""
+	}
+}
+```
+
+The following table shows the description of above fields to enforce approved exception.
+- 'EnforceApprovedException' if enabled, will mandate the approved exception attesation for configured controls list.
+- 'ControlsList' represents the controls for which approved exception is mandated. The controls listed here are mandated to attest using exception id irrespective of attestation status.
+- 'ApprovedExceptionPromptMessage' represents the message to be prompted to fetch the exception id for approved exception.
+- 'NonApprovedExceptionPromptMessage' represents the message to be prompted to fetch the exception id for non approved exceptions.
+- 'DefaultPromptMessage' will be prompted as default message if both ApprovedExceptionPromptMessage/NonApprovedExceptionPromptMessage is empty.
+
+Sample approved exception attestation workflow in progress:
+<kbd>
+![09_SVT_Attest_1](../Images/EnforcingApprovedException.png)
+</kbd>
 
 [Back to top...](README.md#contents)
 
@@ -288,10 +332,11 @@ a specific control (i.e., whether the user wants to override/augment the scanner
 |None | There is no attestation done for a given control. User can select this option during the workflow to skip the attestation|
 |NotAnIssue | User has verified the control data and attesting it as not an issue with proper justification to represent situations where the control is implemented in another way, so the finding does not apply. |
 |WillNotFix | User has verified the control data and attesting it as not fixed with proper justification|
+|ApprovedException | User has verified the control data and attesting it as approved exception with proper exception id obtained as a part of bussiness process. This exception id can be used to track the justification and approval for attestation|
 
-The following table shows the complete 'state machine' that is used by AzSK.ADO to support control attestation. 
+The following table shows the complete 'state machine' that is used by AzSK.ADO to support control attestation.
 The columns are described as under:
-- 'Control Scan Result' represents the technical evaluation result 
+- 'Control Scan Result' represents the technical evaluation result
 - 'Attestation Status' represents the user choice from an attestation standpoint
 - 'Effective Status' reflects the effective control status (combination of technical status and user input)
 - 'Requires Justification' indicates whether the corresponding row requires a justification comment
@@ -311,7 +356,10 @@ The columns are described as under:
 |Error |WillNotFix |Exception |Yes | Based on the control severity table below| There was an error during evaluation. Manually verification by the user indicates a valid security issue.|
 |Manual |None |Manual |No | -NA-| The control is not automated and has to be manually verified. Verification is still pending.|
 |Manual |NotAnIssue |Passed |Yes | 90| The control is not automated and has to be manually verified. User has reviewed the security concern and implemented the fix in another way.|
-|Manual |WillNotFix |Exception |Yes | Based on the control severity table below| The control is not automated and has to be manually verified. User has reviewed and found a security issue to be fixed.|
+|Manual |ApprovedException |Passed |Yes | Based on the configured approved exception expiry date| The control is not automated and has to be manually verified. User has reviewed and found a security issue to be fixed.|
+|Failed |ApprovedException |Passed |Yes | Based on the configured approved exception expiry date|Control has failed. However, the finding does not apply as the control has been implemented in another way.|
+|Error |ApprovedException |Passed |Yes |  Based on the configured approved exception expiry date| There was an error during evaluation. Manual verification by user indicates that the finding does not apply as the control has been implemented in another way.|
+
 
 -NA- => Not Applicable
 
@@ -323,8 +371,8 @@ Control Severity Table:
 |High   | 30|
 |Medium| 60|
 |Low| 90|
- 
-  
+
+
 <br>
 The following table describes the possible effective control evaluation results (taking attestation into consideration).
 
@@ -342,7 +390,7 @@ The following table describes the possible effective control evaluation results 
 ----------------------------------------------
 
 ## Permissions required for attesting controls:
-Attestation is supported for organization and project controls only with admin privileges on organization and project, respectively. 
+Attestation is supported for organization and project controls only with admin privileges on organization and project, respectively.
 
 In order to attest build, release, service connection and agent pool controls, user needs to have atleast contributor access on the 'ADOScanner_Attestation' repository of project these resources belong to.
 
@@ -350,7 +398,7 @@ Note: The attestation data stored in the 'ADOScanner_Atestation' repository is o
 
 Currently, attestation can be performed only via PowerShell session in local machine, but the scan results will be honored in both local as well as extension scan.
 
-> **Note**:   
+> **Note**:
 >* In order to attest organization control, user needs to be a member of the group 'Project Collection Administrators'.
 >* In order to attest project control, user needs to be a member of the group 'Project Administrators' of that particular project.
 >* In order to attest build, release, service connection, agent pool control, user needs to have write permission on the 'ADOScanner_Attestation' repository of that particular project.
@@ -360,11 +408,11 @@ Currently, attestation can be performed only via PowerShell session in local mac
 ----------------------------------------------
 
 ## Attestation expiry:
-All the control attestations done through AzSK.ADO is set with a default expiry. This would force teams to revisit the control attestation at regular intervals. 
-Expiry of an attestation is determined through different parameters like control severity, attestation status etc. 
+All the control attestations done through AzSK.ADO is set with a default expiry. This would force teams to revisit the control attestation at regular intervals.
+Expiry of an attestation is determined through different parameters like control severity, attestation status etc.
 There are two simple rules for determining the attestation expiry. Those are:
 
-Any control with evaluation result as not passed and, 
+Any control with evaluation result as not passed and,
  1. attested as 'NotAnIssue', such controls would expire in 90 days.
  2. attested as 'WillFixLater', such controls would expire based on the control severity table below.
 
