@@ -106,6 +106,16 @@ The CSV file and LOG file are generated under a org-specific sub-folder in the f
 E.g.  
 C:\Users\<UserName>\AppData\Local\Microsoft\AzSK.ADOLogs\Org_[yourOrganizationName]\20181218_103136_GADS
 
+## Customize location for scan reports
+The path for saving scan reports can be customized using below command:
+```Powershell
+Set-AzSKADOUserPreference -OutputFolderPath '<Custom folder path>'
+```
+To reset the path for saving scan reports to default location use below command:
+```Powershell
+Set-AzSKADOUserPreference -ResetOutputFolderPath
+```
+
 Refer [link](/ControlCoverage) for current control coverage for Azure DevOps
 
 ### FAQs
