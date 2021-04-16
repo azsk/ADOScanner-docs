@@ -107,11 +107,11 @@ E.g.
 C:\Users\<UserName>\AppData\Local\Microsoft\AzSK.ADOLogs\Org_[yourOrganizationName]\20181218_103136_GADS
 
 ## Customize location for scan reports
-The location to save scan reports can be customized using the command below::
+The location to save scan reports can be customized using the command below:
 ```Powershell
 Set-AzSKADOUserPreference -OutputFolderPath '<Custom folder path>'
 ```
-The location to save scan reports to default location can be done using below command:
+Resetting the scan report location to default can be done using command below:
 ```Powershell
 Set-AzSKADOUserPreference -ResetOutputFolderPath
 ```
