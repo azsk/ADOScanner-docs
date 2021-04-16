@@ -111,7 +111,7 @@ The location to save scan reports can be customized using the command below:
 ```Powershell
 Set-AzSKADOUserPreference -OutputFolderPath '<Custom folder path>'
 ```
-The location to scan report can be reset to default using command below:
+The location to save scan report can be reset to default using command below:
 ```Powershell
 Set-AzSKADOUserPreference -ResetOutputFolderPath
 ```
