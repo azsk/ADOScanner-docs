@@ -7,7 +7,7 @@
   		 * [How to setup attestation repository in a project?](README.md#how-to-setup-attestation-repository-in-a-project)
   		 * [How to setup host project to store attestation details for organization-specific controls?](README.md#how-to-setup-host-project-to-store-attestation-details-for-organization-specific-controls)
 	- [Starting attestation](README.md#starting-attestation)
-	- [Approved Exception](README.md#approved-exception)
+	- [By Design and Approved Exception](README.md#approved-exception)
 	- [How scanner determines the effective control result](README.md#how-scanner-determines-the-effective-control-result)
 	- [Permissions required for attesting controls](README.md#permissions-required-for-attesting-controls)
 	- [Attestation expiry](README.md#attestation-expiry)
@@ -278,8 +278,8 @@ If you wish to revisit previous attestations, it can be done by using 'AlreadyAt
 [Back to top...](README.md#contents)
 
 ----------------------------------------------
-## Approved Exception
-The approved exception feature empowers users to support attestation scenarios where valid approved exception id is required to attest the controls. This exception id can be generated as a part of bussiness process and can be used to track the approval and justification of the attestation.
+## By design and Approved Exception
+The exception feature empowers users to support attestation scenarios where valid exception/attestation id is required to attest the controls. This exception id can be generated as a part of bussiness process and can be used to track the approval and justification of the attestation.
 
 For e.g., to attest organization controls using approved exception, run the command below:
 ```PowerShell
@@ -291,7 +291,7 @@ $approvedExceptionExpiryDate = '<mm/dd/yy>'
 Get-AzSKADOSecurityStatus -OrganizationName $orgName -AttestationHostProjectName $attHotProjectName -ControlsToAttest NotAttested -ResourceTypeName Organization -AttestationStatus ApprovedException -ApprovedExceptionID $approvedExceptionId  -ApprovedExceptionExpiryDate $approvedExceptionExpiryDate
 
 ```
-Approved exception can be mandated to list of controls using the below properties in ControlSettings.json. When EnforceApprovedException is enabled with list of controls, those controls will obligatorily require exception id to attest irrespective of attestation status(NotAnIssue/WillNotFix/ApprovedException).
+By design/Approved exception can be mandated to list of controls using the below properties in ControlSettings.json. When EnforceApprovedException is enabled with list of controls, those controls will obligatorily require exception id to attest irrespective of attestation status(NotAnIssue/WillNotFix/ApprovedException).
 
 ```javascript
 {
@@ -300,18 +300,18 @@ Approved exception can be mandated to list of controls using the below propertie
 		"ControlsList": [],
 		"InvalidatePreviousAttestations": true/false,
 		"ApprovedExceptionPromptMessage": "",
-		"NonApprovedExceptionPromptMessage": "",
+		"ByDesignExceptionPromptMessage": "",
 		"DefaultPromptMessage": ""
 	}
 }
 ```
 
 The following table shows the description of above fields to enforce approved exception.
-- 'EnforceApprovedException' if enabled, will mandate the approved exception attesation for configured controls list.
-- 'ControlsList' represents the controls for which approved exception is mandated. The controls listed here are mandated to attest using exception id irrespective of attestation status.
+- 'EnforceApprovedException' if enabled, will mandate the  exception/attestation attesation for configured controls list.
+- 'ControlsList' represents the controls for which exception/attestation id is mandated. The controls listed here are mandated to attest using exception id irrespective of attestation status.
 - 'ApprovedExceptionPromptMessage' represents the message to be prompted to fetch the exception id for approved exception.
-- 'NonApprovedExceptionPromptMessage' represents the message to be prompted to fetch the exception id for non approved exceptions.
-- 'DefaultPromptMessage' will be prompted as default message if both ApprovedExceptionPromptMessage/NonApprovedExceptionPromptMessage is empty.
+- 'ByDesignExceptionPromptMessage' represents the message to be prompted to fetch the exception id forby design exceptions.
+- 'DefaultPromptMessage' will be prompted as default message if both ApprovedExceptionPromptMessage/ByDesignExceptionPromptMessage is empty.
 
 Sample approved exception attestation workflow in progress:
 <kbd>
