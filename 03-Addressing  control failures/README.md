@@ -7,7 +7,7 @@
   		 * [How to setup attestation repository in a project?](README.md#how-to-setup-attestation-repository-in-a-project)
   		 * [How to setup host project to store attestation details for organization-specific controls?](README.md#how-to-setup-host-project-to-store-attestation-details-for-organization-specific-controls)
 	- [Starting attestation](README.md#starting-attestation)
-	- [By Design and Approved Exception](README.md#approved-exception)
+	- [By Design Attesation or Approved Exception](README.md#approved-exception)
 	- [How scanner determines the effective control result](README.md#how-scanner-determines-the-effective-control-result)
 	- [Permissions required for attesting controls](README.md#permissions-required-for-attesting-controls)
 	- [Attestation expiry](README.md#attestation-expiry)
@@ -278,7 +278,7 @@ If you wish to revisit previous attestations, it can be done by using 'AlreadyAt
 [Back to top...](README.md#contents)
 
 ----------------------------------------------
-## By design and Approved Exception
+## By Design Attesation or Approved Exception
 The exception feature empowers users to support attestation scenarios where valid exception/attestation id is required to attest the controls. This exception id can be generated as a part of bussiness process and can be used to track the approval and justification of the attestation.
 
 For e.g., to attest organization controls using approved exception, run the command below:
