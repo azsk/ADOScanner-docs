@@ -7,7 +7,7 @@
   		 * [How to setup attestation repository in a project?](README.md#how-to-setup-attestation-repository-in-a-project)
   		 * [How to setup host project to store attestation details for organization-specific controls?](README.md#how-to-setup-host-project-to-store-attestation-details-for-organization-specific-controls)
 	- [Starting attestation](README.md#starting-attestation)
-	- [By Design Attesation or Approved Exception](README.md#approved-exception)
+	- [By Design attesation or approved exception](README.md#by-design-attestation-or-approved-exception)
 	- [How scanner determines the effective control result](README.md#how-scanner-determines-the-effective-control-result)
 	- [Permissions required for attesting controls](README.md#permissions-required-for-attesting-controls)
 	- [Attestation expiry](README.md#attestation-expiry)
