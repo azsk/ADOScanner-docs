@@ -126,7 +126,7 @@ Get-AzSKADOSecurityStatus-OrganizationName "<OrganizationName>" -ScanAllResource
 
 ### Execute SVTs using "-UseGraphAccess" switch
 
-Some AZSK.ADO controls require graph access for correct evaluation and by using a special flag "-UseGraphAccess" in the scan command which can be used to fetch the graph access token for the user. This switch is “off by default” and control results for controls that depend on AAD group expansion may not be accurate.
+Some AzSK.ADO controls require graph access for correct evaluation. To fetch the graph access token for the user a special flag "-UseGraphAccess" should be used in the scan command. This switch is “off by default” and control results for such controls that depend on AAD group expansion may not be accurate.
 
 ```PowerShell
 Get-AzSKADOSecurityStatus-OrganizationName "<OrganizationName>" -UseGraphAccess
