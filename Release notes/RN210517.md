@@ -36,8 +36,8 @@
     * The ```ADO_Project_DP_Inactive_Repos``` control will treat disabled repositories as inactive. 
 
 ### Other improvements/bug fixes
-    * Resolved an issue where stateful attestations were not being respected in CA scans in Linux environment due to encoding discrepancy.
-    * Added capability to extend attestation expiry of resources that need by-design exemptions from the backend.
+* Resolved an issue where stateful attestations were not being respected in CA scans in Linux environment due to encoding discrepancy.
+* Added capability to extend attestation expiry of resources that need by-design exemptions from the backend.
 
 
 
