@@ -121,3 +121,13 @@ The Get-AzSKADOSecurityStatus command now supports checkpointing via a "-UsePart
 ```PowerShell
 Get-AzSKADOSecurityStatus-OrganizationName "<OrganizationName>" -ScanAllResources -UsePartialCommits
 ```
+
+----------------------------------------------
+
+### Execute SVTs using "-UseGraphAccess" switch
+
+Some AZSK.ADO controls require graph access for correct evaluation and by using a special flag "-UseGraphAccess" in the scan command which can be used to fetch the graph access token for the user. This switch is “off by default” and control results for controls that depend on AAD group expansion may not be accurate.
+
+```PowerShell
+Get-AzSKADOSecurityStatus-OrganizationName "<OrganizationName>" -UseGraphAccess
+```
