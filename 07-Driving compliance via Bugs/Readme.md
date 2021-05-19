@@ -1,19 +1,19 @@
 ### [Auto Bug Logging](Readme.md#auto-bug-logging)
 - [Overview](Readme.md#Overview)
-- [Starting bug logging](Readme.md#starting-bug-logging)  
-- [Setting up host project for organization specific controls](Readme.md#setting-up-host-project-for-organization-specific-controls)  
-- [Defining area and iteration path](Readme.md#defining-area-and-iteration-path)  
-- [Determining the assignee of the bug](Readme.md#determining-the-assignee-of-the-bug) 
-- [Customizing resolved bug behaviour](Readme.md#customizing-resolved-bug-behaviour) 
-- [Auto close bugs](Readme.md#auto-close-bugs) 
-- [Permissions required for bug logging](Readme.md#permissions-required-for-bug-logging) 
+- [Starting bug logging](Readme.md#starting-bug-logging)
+- [Setting up host project for organization specific controls](Readme.md#setting-up-host-project-for-organization-specific-controls)
+- [Defining area and iteration path](Readme.md#defining-area-and-iteration-path)
+- [Determining the assignee of the bug](Readme.md#determining-the-assignee-of-the-bug)
+- [Customizing resolved bug behaviour](Readme.md#customizing-resolved-bug-behaviour)
+- [Auto close bugs](Readme.md#auto-close-bugs)
+- [Permissions required for bug logging](Readme.md#permissions-required-for-bug-logging)
 
 # Auto bug logging
 ## Overview
 
 The auto bug logging feature facilitates user to identify and keep  track of security control failures in ADO resources. Whenever a control failure is surfaced by the ADO Security Scanner, a bug will be logged in the ADO work items that would contain all the relevant details and remediation steps. The bug is assigned to the most relevant user (admin/creator/last known consumer) for the resource.
 
-Duplicate bugs are not logged again and are available in the summary as "active" bugs. 
+Duplicate bugs are not logged again and are available in the summary as "active" bugs.
 Upon the completion of all control scans, all passing controls whose bugs had been logged previously are closed automatically as well.
 
 ## Starting bug logging
@@ -25,11 +25,11 @@ The bug logging feature is implemented via a new switch called *-AutoBugLog*. Al
 Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>"  -ProjectNames "<ProjectName>" -ResourceTypeName Project -AutoBugLog All -AreaPath "<Area Path>" -IterationPath "<Iteration Path"
 ```
 To leverage the bug logging feature, following are the scan parameters that need to be included along with any security scan command.
-| Param Name | Purpose | Required?| Possible Values| 
+| Param Name | Purpose | Required?| Possible Values|
 |--|--|--|--|
-|  AutoBugLog|To enable bug logging and identify which subset of control failures are to be logged as bugs  | TRUE| All, BaselineControls, PreviewBaselineControls| 
-|  AreaPath|To specify the area path where the bugs are to be logged  | FALSE| Valid area path in ADO| 
-|  IterationPath|To specify the iteration path where the bugs are to be logged  | FALSE| Valid iteration path in ADO| 
+|  AutoBugLog|To enable bug logging and identify which subset of control failures are to be logged as bugs  | TRUE| All, BaselineControls, PreviewBaselineControls|
+|  AreaPath|To specify the area path where the bugs are to be logged  | FALSE| Valid area path in ADO|
+|  IterationPath|To specify the iteration path where the bugs are to be logged  | FALSE| Valid iteration path in ADO|
 
 The switch *-AutoBugLog*  takes up three values that specify which subset of control failures are to be logged. These are:
 | AutoBugLog option |  Description|
@@ -40,7 +40,7 @@ The switch *-AutoBugLog*  takes up three values that specify which subset of con
 
 ## Setting up host project for organization specific controls
 
-All organization control failures are logged in the work items of the host project. This host project is the same one which is used in the attestation process. If you haven't configured host project during attestation, you can do it during bug logging as well using the flag *-AttestationHostProjectName*. Read about attestation 
+All organization control failures are logged in the work items of the host project. This host project is the same one which is used in the attestation process. If you haven't configured host project during attestation, you can do it during bug logging as well using the flag *-AttestationHostProjectName*. Read about attestation
  [here](https://github.com/azsk/ADOScanner-docs/blob/users/ADOFinaldocs/03-Addressing%20%20control%20failures/README.md#Control-Attestation).
 > **Note:** Attestation host project can only be set once, so this project will be used for both attestation and bug logging and can't be updated later.
 
@@ -92,7 +92,7 @@ Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "
 	}
 }
 ```
-3.  Commit the file.    
+3.  Commit the file.
 4.  Add an entry for *ControlSettings.json* in *ServerConfigMetadata.json* (in the repo) as shown below.
 <kbd>
 <img src="../Images/ADO_BugLogging_OrgPolicy.png" alt="Bug Logging Org Policy">
@@ -114,7 +114,7 @@ There are three kinds of bugs shown in the summary:
  - **New Bug** : For freshly encountered control failures
  - **Active Bug** : For control failures that had been already logged and the controls are still failing.
  -  **Resolved Bug** : For bugs that had been resolved before, but the control failure has resurfaced. These bugs will be  reactivated by the scanner.
- 
+
 The details for all these bugs can be found in *BugSummary.json* file that is stored in the folder : *%LOCALAPPDATA%\Microsoft\AzSK.ADOLogs\Org_[yourOrganizationName]*. The information conveyed from this JSON looks as follows:
 <kbd>
 ![Bug Logging JSON](../Images/ADO_BugLogging_BugJSONNew.png)
@@ -124,14 +124,14 @@ A sample bug template is shown as below :
 ![Bug Logging Template](../Images/ADO_BugLogging_BugTemplateNew.png)
 </kbd>
 The following information is conveyed by the bug template:
--   The control that has failed    
--   The control description    
--   Rationale behind why the control is important    
--   Recommendation on how to fix it    
--   Control scan command to reproduce the steps on your end    
--   Detailed logs of the command result    
--   Severity of the failing control    
--   The person to whom the bug is assigned    
+-   The control that has failed
+-   The control description
+-   Rationale behind why the control is important
+-   Recommendation on how to fix it
+-   Control scan command to reproduce the steps on your end
+-   Detailed logs of the command result
+-   Severity of the failing control
+-   The person to whom the bug is assigned
 -   The area and iteration paths where the bug is logged
 
 ## Determining the assignee of the bug
@@ -171,7 +171,7 @@ After setting any one of the above policies, commit the file and add an entry fo
 
 ## Auto close bugs
 
-Using the *-AutoBugLog* switch, the scanner also evaluates all the passing control scans and checks for their corresponding bugs in the ADO. If such bugs are found, they are closed. This ensures only those bugs remain in your ADO work item whose control failures are to be fixed. 
+Using the *-AutoBugLog* switch, the scanner also evaluates all the passing control scans and checks for their corresponding bugs in the ADO. If such bugs are found, they are closed. This ensures only those bugs remain in your ADO work item whose control failures are to be fixed.
 For bugs logged against organization and project control failures, the user can control whether to auto close them or to leave them for manual inspection.
 This can be controlled via the org policy as follows:
 
@@ -185,10 +185,12 @@ This can be controlled via the org policy as follows:
 ```
 The *AutoCloseProjectBug* and *AutoCloseOrgBug* can be set to true, in which case bugs corresponding to organization and project control failures will be auto closed. If this is set to false, all bugs except organization and project level bugs will be closed. By default the behaviour is to auto close every bug.
 
+Using the *-AutoCloseBugs* switch, existing bugs for passed controls can be explicitly auto-closed towards end of the scan without bug logger being triggered.
+
 ## Permissions required for bug logging
 
 Bug logging is supported for organization and project controls only with admin privileges on organization and project, respectively.
->-   In order to log bugs for organization control, user needs to be a member of the group 'Project Collection Administrators'.    
+>-   In order to log bugs for organization control, user needs to be a member of the group 'Project Collection Administrators'.
 >-   In order to log bugs for project control, user needs to be a member of the group 'Project Administrators' of that particular project.
 
 [Back to top...](Readme.md#auto-bug-logging)
