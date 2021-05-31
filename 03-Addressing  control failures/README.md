@@ -107,7 +107,7 @@ In order to setup attestation repository inside a project, follow the below step
 
 ### How to setup host project to store attestation details for organization-specific controls?
 
-1. Host project to store attestation details for organization-specific controls can be set using a scan parameter named 'AttestationHostProjectName'. Before setting up the host project, ensure this project has 'ADOScanner_Attestation' repository setup.
+1. Host project to store attestation details for organization-specific controls can be set using a scan parameter named 'AttestationHostProjectName'. Before setting up the host project, ensure this project has 'ADOScannerAttestation' repository setup.
 2.  **Attestation host project can be set only once and can't be updated later**.
 
 For e.g., to attest organization controls, run the command below:
@@ -142,7 +142,7 @@ To manage attestation flow effectively, 4 options are provided for the *Controls
 |All|Attest all controls which can be attested (including those that have past attestations).|
 |None|N/A.|
 
-The attestation feature internally stores attestation details in a repository called 'ADOScannerAttestation'. As a prerequisite, you need to create a repository with the same name. Attestation details of projects, builds, releases, service connections, agent pools and variable groups will be stored in the 'ADOScanner_Attestation' repository of the project these resources belong to.    
+The attestation feature internally stores attestation details in a repository called 'ADOScannerAttestation'. As a prerequisite, you need to create a repository with the same name. Attestation details of projects, builds, releases, service connections, agent pools and variable groups will be stored in the 'ADOScannerAttestation' repository of the project these resources belong to.    
 
 To attest organization specific controls, you need to setup a similar repository in the host project which will store the attestation details for organization specific controls.
 > **Note**: Administrator needs to setup the attestation host project name to store organization specific control attestation details. It can be set using the parameter 'AttestationHostProjectName'. Attestation host project can be set only once and can not be update later.
@@ -344,7 +344,7 @@ The following table describes the possible effective control evaluation results 
 ## Permissions required for attesting controls:
 Attestation is supported for organization and project controls only with admin privileges on organization and project, respectively. 
 
-In order to attest build, release, service connection and agent pool controls, user needs to have atleast contributor access on the 'ADOScanner_Attestation' repository of project these resources belong to.
+In order to attest build, release, service connection and agent pool controls, user needs to have atleast contributor access on the 'ADOScannerAttestation' repository of project these resources belong to.
 
 Note: The attestation data stored in the 'ADOScanner_Atestation' repository is opaque from an end user standpoint. Any attempts to access/change it may impact correctness of security evaluation results.
 
@@ -353,7 +353,7 @@ Currently, attestation can be performed only via PowerShell session in local mac
 > **Note**:   
 >* In order to attest organization control, user needs to be a member of the group 'Project Collection Administrators'.
 >* In order to attest project control, user needs to be a member of the group 'Project Administrators' of that particular project.
->* In order to attest build, release, service connection, agent pool control, user needs to have write permission on the 'ADOScanner_Attestation' repository of that particular project.
+>* In order to attest build, release, service connection, agent pool control, user needs to have write permission on the 'ADOScannerAttestation' repository of that particular project.
 
 [Back to top...](README.md#contents)
 

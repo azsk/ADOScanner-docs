@@ -98,7 +98,7 @@ You will get Organization name from your ADO organization url e.g. http://sample
 Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "<PRJ1, PRJ2,...etc.>"
 ```
 
-The outcome of the security scan/analysis is printed on the console during SVT execution and a CSV and LOG files are 
+The outcome of the security scan/analysis is printed on the console during SVT(Security Verification Test) execution and a CSV and LOG files are 
 also generated for subsequent use.
 
 The CSV file and LOG file are generated under a org-specific sub-folder in the folder  
