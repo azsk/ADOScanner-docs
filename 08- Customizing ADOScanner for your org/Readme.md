@@ -97,11 +97,13 @@ To facilitate use of ADO Scanner locally (from desktop console) for driving comp
 
 ```PowerShell
 #Command to configure a local folder as source of org policy:
-Set-AzSKADOPolicySettings -LocalOrgPolicyFolderPath $folderpath
+Set-AzSKADOPolicySettings -LocalOrgPolicyFolderPath "<Folder path where the org policy is configured>"
 
 #To reset the org policy to default location:
 Set-AzSKADOPolicySettings -RestoreDefaultOrgPolicySettings
 ```
+```
+> **Note**: LocalOrgPolicyFolderPath should contain the file ServerConfigMetadata.json  with list of policy files mentioned in it.
 
 ## Modifying and customizing org policy
 
