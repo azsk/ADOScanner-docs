@@ -95,12 +95,11 @@ To set up CICD when using custom org policy, add 'ADO Security Scanner' extensio
 
 To facilitate use of ADO Scanner locally (from desktop console) for driving compliance for an org, we have added support to run against org policy (custom control settings, etc.) from a local folder. This capability can be used by org/project admins to evaluate ADO Scanner and fine tune its configuration for their org/environment before deploying the org policy as a policy repo.
 
-#Command to configure a local folder as source of org policy:
 ```PowerShell
+#Command to configure a local folder as source of org policy:
 Set-AzSKADOPolicySettings -LocalOrgPolicyFolderPath $folderpath
 
 #To reset the org policy to default location:
-```PowerShell
 Set-AzSKADOPolicySettings -RestoreDefaultOrgPolicySettings
 ```
 
