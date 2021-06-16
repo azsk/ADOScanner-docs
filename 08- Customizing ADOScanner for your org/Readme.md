@@ -102,7 +102,6 @@ Set-AzSKADOPolicySettings -LocalOrgPolicyFolderPath "<Folder path where the org 
 #To reset the org policy to default location:
 Set-AzSKADOPolicySettings -RestoreDefaultOrgPolicySettings
 ```
-```
 > **Note**: LocalOrgPolicyFolderPath should contain the file ServerConfigMetadata.json  with list of policy files mentioned in it.
 
 ## Modifying and customizing org policy
