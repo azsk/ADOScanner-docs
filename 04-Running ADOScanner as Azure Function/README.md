@@ -26,95 +26,10 @@ Besides 'drift tracking' there are also two other aspects of "staying secure" in
 
 An Azure-based continuous assurance scanning solution for ADO can be setup in subscription. It will run ADO security scanner inside a container image and the scanning infrastructure of this containerized model will be hosted in an Azure resource group. This provides an alternate option to running the scanner via ADO pipeline extension and is designed to be more suitable for larger environments.
 
-> **Note:** Refer below table for customizing your PAT permissions.
+>**Note:** 
+Due to some access permission changes in the devops apis, the custom PAT token is not supported for scanning. We are trying to figure out the solution.Intermittent use full access token to run the scan.
 
 
-<html>
-<head>
-
-</head><body>
-<H3> Customizing your PAT with minimum required privileges for Azure DevOps Connection</H3>
-
-Here is a scope-wise list of minimum privileges that needs to be assigned to your PAT to ensure a smooth experience of the security scan.
-
-<table><tr><th>Scope</th><th>Privilege</th></tr>
-<tr><td>
-Agent Pools
-</td><td>Read</tr>
-
-<tr><td>
-Auditing
-</td><td>Read Audit Log</tr>
-
-<tr><td>
-Build
-</td><td>Read</tr>
-
-<tr><td>
-Entitlements
-</td><td>Read</tr>
-
-<tr><td>
-Extension Data
-</td><td>Read & write</tr>
-
-<tr><td>
-Extensions
-</td><td>Read</tr>
-
-<tr><td>
-Graph
-</td><td>Read</tr>
-
-<tr><td>
-Identity
-</td><td>Read</tr>
-
-
-<tr><td>
-Member Entitlement Management
-</td><td>Read</tr>
-
-<tr><td>
-Project and Team
-</td><td>Read</tr>
-
-<tr><td>
-Release
-</td><td>Read</tr>
-
-<tr><td>
-Secure Files
-</td><td>Read</tr>
-
-<tr><td>
-Service Connections
-</td><td>Read</tr>
-
-<tr><td>
-Task Groups
-</td><td>Read</tr>
-
-<tr><td>
-Tokens
-</td><td>Read & manage</tr>
-
-<tr><td>
-User Profile
-</td><td>Read</tr>
-
-<tr><td>
-Variable Groups
-</td><td>Read</tr>
-
-<tr><td>
-Work Items
-</td><td>Read & write</tr>
-
-</table>
-<table>
-</table>
-</body></html>
 
 ### Setting up ADOScanner using Azure function - Step by Step
 In this section, we will walk through the steps of setting up a Azure DevOps Organization for Continuous Assurance coverage in a subscription. 
