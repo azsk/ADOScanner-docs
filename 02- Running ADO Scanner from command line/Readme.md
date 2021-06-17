@@ -131,3 +131,24 @@ Some AzSK.ADO controls require graph access for correct evaluation. To fetch the
 ```PowerShell
 Get-AzSKADOSecurityStatus-OrganizationName "<OrganizationName>" -UseGraphAccess
 ```
+
+----------------------------------------------
+
+### Scan ALT-account related controls using "-ALTControlEvaluationMethod" parameter
+
+The Get-AzSKADOSecurityStatus command now supports ALT control evaluation using Graph API. The following ALT-account related controls now perform Graph queries to resolve group membership:
+- ADO_Organization_AuthN_Use_ALT_Accounts_For_Admin
+- ADO_Project_AuthN_Use_ALT_Accounts_For_Admin
+
+The parameter can be used as follows:
+
+|Parameter|Information|
+|---------|-----------|
+|GraphThenRegEx|The scanner first check for graph access on user identity and try to evaluate using Graph queries. If user/identity doesn't have graph access then scanner will evaluate control using regular expression.|
+|Graph|The scanner will only use graph queries to evaluate the control.|
+|RegEx|The scanner will only use regular expressions to evaluate the control.|
+
+
+```PowerShell 
+Get-AzSKADOSecurityStatus -OrganizationName $orgName -UseGraphAccess -ALTControlEvaluationMethod Graph
+```
