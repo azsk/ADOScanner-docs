@@ -26,6 +26,10 @@ Besides 'drift tracking' there are also two other aspects of "staying secure" in
 
 An Azure-based continuous assurance scanning solution for ADO can be setup in subscription. It will run ADO security scanner inside a container image and the scanning infrastructure of this containerized model will be hosted in an Azure resource group. This provides an alternate option to running the scanner via ADO pipeline extension and is designed to be more suitable for larger environments.
 
+>**Note:** 
+Due to some access permission changes in the devops apis, the custom PAT token is not supported for scanning. We are trying to figure out the solution.Intermittent use full access token to run the scan.
+
+
 
 ### Setting up ADOScanner using Azure function - Step by Step
 In this section, we will walk through the steps of setting up a Azure DevOps Organization for Continuous Assurance coverage in a subscription. 

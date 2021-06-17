@@ -63,6 +63,8 @@ The "ADO Security Scanner" task starts showing in the "Run on Agent" list and di
 </kbd>
 > **Note:** This task also requires Azure DevOps connection containing org details and PAT to scan the required resources. Refer doc [here](https://docs.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?view=azure-devops&tabs=preview-page) to create token and provide it as part of connection
 
+>**Note:** 
+Due to some access permission changes in the devops apis, the custom PAT token is not supported for scanning. We are trying to figure out the solution.Intermittent use full access token to run the scan.
 
 <kbd>
 <img src="../Images/AddServiceConnection.png" alt="Add Service connection">
