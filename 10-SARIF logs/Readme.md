@@ -31,7 +31,7 @@ For other useful commands with SARIF files please refer [here](https://github.co
 
 Output of SARIF in Sarif WebViewer
 <kbd>
-![SarifLogs_WebView](../Images/SarifWebViewer.png)  
+![SarifLogs_WebView](../Images/SarifWebViewer.PNG)  
 </kbd>
 
 Image of SARIF Design document
