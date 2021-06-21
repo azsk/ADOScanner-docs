@@ -11,7 +11,7 @@
 
 These logs can be used with any SARIF tool available online. They can be used with [SARIF viewers](https://sarifweb.azurewebsites.net/#Viewers) to enhance user viewing and understanding of control failures. It can also be used with the SARIF [Software Development Kits](https://github.com/microsoft/sarif-sdk) to perform many functions like logging bugs and comparing control results with previous logs.
 
-#  Important SARIF commands for npm SDK
+###  Important SARIF commands for npm SDK
 
 This requires setting up the SDK first. After the setup is complete you can run the following commands:
 
@@ -29,6 +29,9 @@ Compare previous run SARIF logs with freshly generated SARIF logs
 
 For other useful commands with SARIF files please refer [here](https://github.com/microsoft/sarif-sdk/blob/main/docs/multitool-usage.md)
 
-Image of SARIF in WebViewer
+Output of SARIF in Sarif WebViewer
+<kbd>
+![SarifLogs_WebView](../Images/SarifWebViewer.png)  
+</kbd>
 
 Image of SARIF Design document
