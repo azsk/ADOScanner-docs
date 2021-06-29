@@ -24,7 +24,7 @@ Sample output of SARIF in the [web viewer](https://microsoft.github.io/sarif-web
 ![SarifLogs_WebView](../Images/SarifWebViewer.PNG)  
 </kbd>
 
-###  Important SARIF commands for npm SDK
+###  Useful SARIF commands for npm SDK
 
 Please [refer here](https://github.com/microsoft/sarif-sdk) to setup the SARIF SDK. After the setup is complete you can run the following commands:
 
