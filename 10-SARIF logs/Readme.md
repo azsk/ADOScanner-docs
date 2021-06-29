@@ -19,6 +19,11 @@ The generated logs can be used with any SARIF tool available online. A few funct
 - Comparing newly generated SARIF file with old SARIF files to find out what has changed from the last run.
 - Other functionalities provided by SARIF tools.
 
+### Sample output of SARIF in the [web viewer](https://microsoft.github.io/sarif-web-component/)
+<kbd>
+![SarifLogs_WebView](../Images/SarifWebViewer.PNG)  
+</kbd>
+
 ###  Important SARIF commands for npm SDK
 
 Please [refer here](https://github.com/microsoft/sarif-sdk) to setup the SARIF SDK. After the setup is complete you can run the following commands:
@@ -34,9 +39,5 @@ Compare previous run SARIF logs with newly generated SARIF logs:
     npx @microsoft/sarif-multitool match-results-forward newSARIFLogs.sarif -r oldSarifLogs.sarif -o ComparedLogsOutput.sarif
 ```
 
-For other useful commands and more details on the above commands, please refer [here].(https://github.com/microsoft/sarif-sdk/blob/main/docs/multitool-usage.md)
+For other useful commands and more details on the above commands, please refer [here](https://github.com/microsoft/sarif-sdk/blob/main/docs/multitool-usage.md).
 
-Sample output of SARIF in the [web viewer](https://microsoft.github.io/sarif-web-component/)
-<kbd>
-![SarifLogs_WebView](../Images/SarifWebViewer.PNG)  
-</kbd>
