@@ -39,5 +39,5 @@ Compare previous run SARIF logs with newly generated SARIF logs:
     npx @microsoft/sarif-multitool match-results-forward newSARIFLogs.sarif -r oldSarifLogs.sarif -o ComparedLogsOutput.sarif
 ```
 
-For other useful commands and more details on the above commands, please refer [here](https://github.com/microsoft/sarif-sdk/blob/main/docs/multitool-usage.md).git
+For other useful commands and more details on the above commands, please refer [here](https://github.com/microsoft/sarif-sdk/blob/main/docs/multitool-usage.md).
 
