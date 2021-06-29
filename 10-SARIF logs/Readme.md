@@ -20,6 +20,7 @@ The generated logs can be used with any SARIF tool available online. A few funct
 - Other functionalities provided by SARIF tools.
 
 ### Sample output of SARIF in the [web viewer](https://microsoft.github.io/sarif-web-component/)
+
 <kbd>
 ![SarifLogs_WebView](../Images/SarifWebViewer.PNG)  
 </kbd>
