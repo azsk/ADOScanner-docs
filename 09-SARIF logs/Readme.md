@@ -6,9 +6,7 @@
  ADO Scanner provides support to generate SARIF logs in both CA and local scanning modes. The logs are published as "ScanLog-TIMESTAMP.sarif" in the security report folder. Users can generate SARIF logs by adding a switch "-GenerateSarifLogs" or the alias "-gsl" on top of their regular "Get-AzSKADOSecurityStatus" commands. Please refer to the example shown below:
 
 ```PowerShell
-        $orgName=""
-        $projName=""
-	Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectName $projName -GenerateSarifLogs
+	Get-AzSKADOSecurityStatus -OrganizationName "<orgName>" -ProjectName "<projName>" -GenerateSarifLogs
 ```
 
 The generated logs can be used with any SARIF tool available online. A few functionalities with ADO Scanner sarif files include:
