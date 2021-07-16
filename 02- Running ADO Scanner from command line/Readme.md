@@ -134,10 +134,11 @@ Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectName "<
 ----------------------------------------------
 
 ### Execute path based scanning for builds and releases
-The Get-AzSKADOSecurityStatus command supports path based scanning by scanning build and release configs constrained to specific build and release folder paths. This is achieved via two switches : "-BuildsFolderPath" and "-ReleasesFolderPath". Consider the following build folder structure:
+The Get-AzSKADOSecurityStatus command supports path based scanning by scanning build and release configs constrained to specific build and release folder paths. This is achieved via two switches : "-BuildsFolderPath" and "-ReleasesFolderPath". Consider the following build folder structure: </br>
 <kbd>
 <img  src="../Images/02_Folder_Structure.PNG"  alt="Folder structure">
 </kbd>
+ </br>
 To scan builds inside "Folder 1", the path should be given as "Folder 1". This will scan all builds inside this folder (i.e., Build 1, Build 2 and Build 3). To scan all builds inside "Folder 2", the path should be "Folder 1\Folder 2". This will scan Build 1 and Build 2.
 ```PowerShell
 Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectName "<ProjectName>" -ReleaseNames * -ResourceTypeName Release -ReleasesFolderPath "<ReleasesFolderPath>"
