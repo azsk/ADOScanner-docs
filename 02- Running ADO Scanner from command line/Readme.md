@@ -125,7 +125,7 @@ Get-AzSKADOSecurityStatus-OrganizationName "<OrganizationName>" -ScanAllResource
 ```
 
 #### Speed up checkpointed scans with "-DoNotRefetchResources" switch
-The "-UsePartialCommits" switch also supports an optional switch: "-DoNotRefetchResources" in SDL mode. When this switch is used, resources are not re-fetched during the continuation of the checkpointed scan (i.e., when the "-upc" switch is used). This efficiently speeds up scans of subsequent batches after the initial one. Currently the resources supported with the switch are: Release, Agent Pool, Organization and Project. 
+The "-UsePartialCommits" switch also supports an optional switch: "-DoNotRefetchResources" in SDL mode. When this switch is used, resources are not re-fetched during the continuation of the checkpointed scan (i.e., when the "-upc" switch is used). This efficiently speeds up scans of subsequent batches after the initial one. Currently the resources supported with the switch are Release, Agent Pool, Organization and Project. 
 
 ```PowerShell
 Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectName "<ProjectName>" -ReleaseNames * -ResourceTypeName -Release -UsePartialCommits -DoNotRefetchResources
@@ -134,7 +134,11 @@ Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectName "<
 ----------------------------------------------
 
 ### Execute path based scanning for builds and releases
-The Get-AzSKADOSecurityStatus command supports path based scanning by scanning build and release configs constrained to specific paths using two switches: "-BuildsFolderPath" and "-ReleasesFolderPath"
+The Get-AzSKADOSecurityStatus command supports path based scanning by scanning build and release configs constrained to specific build and release folder paths. This is achieved via two switches : "-BuildsFolderPath" and "-ReleasesFolderPath". Consider the following build folder structure:
+<kbd>
+<img  src="../Images/02_Folder_Structure.PNG"  alt="Folder structure">
+</kbd>
+To scan builds inside "Folder 1", the path should be given as "Folder 1". This will scan all builds inside this folder (i.e., Build 1, Build 2 and Build 3). To scan all builds inside "Folder 2", the path should be "Folder 1\Folder 2". This will scan Build 1 and Build 2.
 ```PowerShell
 Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectName "<ProjectName>" -ReleaseNames * -ResourceTypeName Release -ReleasesFolderPath "<ReleasesFolderPath>"
 
