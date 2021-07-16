@@ -87,7 +87,7 @@ Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "
 #Scan resources with severity
 Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "<PRJ1,PRJ2,etc>" -Severity "High/Medium/Low"
 
-#Exclude controlIds in conjunction with other parameters such as ‘-ubc’ , 'Severity' or '-FilterTags' to scan all controls except the exclusions
+#Exclude controlIds in conjunction with other parameters such as ‘-ubc’ , '-Severity' or '-FilterTags' to scan all controls except the exclusions
 Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "PRJ1" -Severity "High/Medium/Low"  -ExcludeControlIds "<ControlIdsToExclude>"
 ```
 
