@@ -5,7 +5,7 @@
 ### ADO Security Scanner PowerShell Module:
 * Support for ‘path’ based scans:
     * To support scans of ‘compliant folder’ based projects (where governed build/release configs are       constrained to specific paths), we have added support for path-based scanning for builds and releases.       
-    * This can be used via the -BuildsFolderPath and -ReleasesFolderPath switches as shown below:
+    * This can be used via the ```-BuildsFolderPath``` and ```-ReleasesFolderPath switches``` as shown below:
         
         ```PowerShell
         gads –oz $org -pn $proj –bn *  –BuildsFolderPath $folderpath
@@ -13,11 +13,11 @@
         gads –oz $org –pn $proj –rn *  –ReleasesFolderPath $folderpath
         ``` 
 * Optimizing checkpointed scans: 
-    * Added a switch ‘-DoNotRefetchResources’ (or -dnrr) to request not re-fetching resources when continuation of a checkpointed scan (i.e., when the -upc switch is used).
+    * Added a switch ```-DoNotRefetchResources``` (or -dnrr) to request not re-fetching resources when continuation of a checkpointed scan (i.e., when the -upc switch is used).
     * This facilitates running batch scans efficiently by speeding up scans of subsequent batches after the initial one.
 
 * Automated control fixes (preview): 
-    * Added a switch ‘-PrepareForFix’ which will create a local backup of current state of a resource     configuration/settings.
+    * Added a switch ```-PrepareForFix``` which will create a local backup of current state of a resource     configuration/settings.
         ```PowerShell
         gads - oz $org -pn $proj  -Feednames * -cid 'ADO_Feed_AuthZ_Restrict_Broader_Group_Access' -upc    -PrepareForControlFix
         ```	
@@ -30,7 +30,7 @@
         Set-AzSKADOSecurityStatus -oz $org -pn $proj -cid 'ADO_Feed_AuthZ_Restrict_Broader_Group_Access'
         ```
     * Currently, this is available for the ```ADO_Feed_AuthZ_Restrict_Broader_Group_Access control```.
-    * The, -UndoFix switch can be used to revert the changes for one or more resources:
+    * The, ```-UndoFix switch``` can be used to revert the changes for one or more resources:
         ```PowerShell
         Set-AzSKADOSecurityStatus -oz $org -pn $proj -cid 'ADO_Feed_AuthZ_Restrict_Broader_Group_Access' -rns $rsrcNames -UndoFix
         ```
