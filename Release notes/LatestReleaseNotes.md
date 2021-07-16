@@ -19,16 +19,20 @@
 * Automated control fixes (preview): 
     * Added a switch ‘-PrepareForFix’ which will create a local backup of current state of a resource     configuration/settings.
         ```PowerShell
-        gads - oz $org -pn $proj  -Feednames * -cid ‘ADO_Feed_AuthZ_Restrict_Broader_Group_Access’ -upc    -PrepareForControlFix
+        gads - oz $org -pn $proj  -Feednames * -cid 'ADO_Feed_AuthZ_Restrict_Broader_Group_Access' -upc    -PrepareForControlFix
         ```	
-    * Thereafter, a new command, Set-AzSKADOSecurityStatus, can be used to fix the control for which a ‘state backup’ has been generated via the previous command.
+    * Thereafter, a new command, 
+      ```PowerShell 
+        Set-AzSKADOSecurityStatus
+      ```
+        can be used to fix the control for which a ‘state backup’ has been generated via the previous command.
         ```PowerShell
-        Set-AzSKADOSecurityStatus -oz $org -pn $proj -cid ’ADO_Feed_AuthZ_Restrict_Broader_Group_Access’
+        Set-AzSKADOSecurityStatus -oz $org -pn $proj -cid 'ADO_Feed_AuthZ_Restrict_Broader_Group_Access'
         ```
-    * Currently, this is available for the ADO_Feed_AuthZ_Restrict_Broader_Group_Access control.
+    * Currently, this is available for the ```ADO_Feed_AuthZ_Restrict_Broader_Group_Access control```.
     * The, -UndoFix switch can be used to revert the changes for one or more resources:
         ```PowerShell
-        Set-AzSKADOSecurityStatus -oz $org -pn $proj -cid ‘ADO_Feed_AuthZ_Restrict_Broader_Group_Access’ -rns $rsrcNames -UndoFix
+        Set-AzSKADOSecurityStatus -oz $org -pn $proj -cid 'ADO_Feed_AuthZ_Restrict_Broader_Group_Access' -rns $rsrcNames -UndoFix
         ```
 
 
