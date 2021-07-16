@@ -5,6 +5,7 @@
  -  [Execute SVTs using "-IncludeAdminControls" switch](Readme.md#execute-svts-using--includeadmincontrols-switch)
  -  [Execute SVTs using "-DetailedScan" switch](Readme.md#execute-svts-using--detailedscan-switch)
  -  [Execute SVTs using "-UsePartialCommits" switch](Readme.md#execute-svts-using--usepartialcommits-switch)
+ -  [Scan ALT-account related controls using "-ALTControlEvaluationMethod" parameter](Readme.md#Scan ALT-account related controls using "-ALTControlEvaluationMethod" parameter)
 
 ## Scan your Azure DevOps resources
 
@@ -150,5 +151,5 @@ The parameter can be used as follows:
 
 
 ```PowerShell 
-Get-AzSKADOSecurityStatus -OrganizationName $orgName -UseGraphAccess -ALTControlEvaluationMethod Graph
+Get-AzSKADOSecurityStatus -OrganizationName $orgName -ALTControlEvaluationMethod Graph
 ```
