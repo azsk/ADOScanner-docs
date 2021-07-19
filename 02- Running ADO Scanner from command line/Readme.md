@@ -126,6 +126,7 @@ The Get-AzSKADOSecurityStatus command now supports checkpointing via a "-UsePart
 ```PowerShell
 Get-AzSKADOSecurityStatus-OrganizationName "<OrganizationName>" -ScanAllResources -UsePartialCommits
 ```
+----------------------------------------------
 
 #### Speed up checkpointed scans with "-DoNotRefetchResources" switch
 The "-UsePartialCommits" switch also supports an optional switch: "-DoNotRefetchResources" in SDL mode. When this switch is used, resources are not re-fetched during the continuation of the checkpointed scan (i.e., when the "-upc" switch is used). This efficiently speeds up scans of subsequent batches after the initial one. Currently the resources supported with the switch are Release, Agent Pool, Organization and Project. 
@@ -150,12 +151,3 @@ Consider the following build folder structure: </br>
  </br>
 To scan builds inside "Folder 1", the path should be given as "Folder 1". This will scan all builds inside this folder (i.e., Build 1, Build 2 and Build 3). To scan all builds inside "Folder 2", the path should be "Folder 1\Folder 2". This will scan Build 1 and Build 2.
 
-----------------------------------------------
-
-### Execute SVTs using "-UseGraphAccess" switch
-
-Some AzSK.ADO controls require graph access for correct evaluation. To fetch the graph access token for the user a special flag "-UseGraphAccess" should be used in the scan command. This switch is “off by default” and control results for such controls that depend on AAD group expansion may not be accurate.
-
-```PowerShell
-Get-AzSKADOSecurityStatus-OrganizationName "<OrganizationName>" -UseGraphAccess
-```
