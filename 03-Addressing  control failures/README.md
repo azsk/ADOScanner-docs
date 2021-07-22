@@ -388,7 +388,7 @@ Any control with evaluation result as not passed and,
 This feature enables users to bulk fix a control and revert the fix to previous state, if required. Follow the below steps to use this feature.
 
 **Note**:
-This is currently in preview and only below controls fix is currently supported via this feature: 
+This is currently in preview and only below controls' fix are at present supported via this feature: 
 - ADO_Feed_AuthZ_Restrict_Broader_Group_Access
 
 ### Remediating control - Step by Step
