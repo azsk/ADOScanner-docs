@@ -225,7 +225,8 @@ Set-AzSKADOPolicySettings -RestoreDefaultOrgPolicySettings
 ```
 > **Note**: LocalOrgPolicyFolderPath should contain the file ServerConfigMetadata.json  with list of policy files mentioned in it.
 
-Check the advanced features of org policy  [here](https://github.com/azsk/ADOScanner-docs/tree/master/08-%20Customizing%20ADOScanner%20for%20your%20org).
+Check the advanced features supported by org policy [here](https://github.com/azsk/ADOScanner-docs/tree/master/08-%20Customizing%20ADOScanner%20for%20your%20org).
+
 ----------------------------------------------
 
 ## FAQs
