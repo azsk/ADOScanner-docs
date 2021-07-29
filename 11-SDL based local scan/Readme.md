@@ -15,8 +15,7 @@
 	 -  [Consuming custom org policy](Readme.md#consuming-custom-org-policy)
 	 -  [Changing a control setting for specific controls](Readme.md#changing-control-settings)
   -  [Compliance visibility](Readme.md#compliance-visibility)
-  	 -  [Setting up the AzSK.ADO Monitoring Solution](Readme.md#setting-up-the-azsk.ado-monitoring-solution)
-  	 -  [Deploy the AzSK.ADO Monitoring Solution](Readme.md#deploy-the-azsk.ado-monitoring-solution)
+  	 -  [Deploy the AzSK.ADO Monitoring Solution](Readme.md#deploy-the-azskado-monitoring-solution)
   	 -  [Using the Log Analytics Workspace Summary for scan logs](Readme.md#using-the-log-analytics-workspace-for-scan-logs)
   	 -  [Using the Log Analytics Workbook for monitoring](Readme.md#using-the-log-analytics-workbook-for-monitoring)
   -  [Advanced features](Readme.md#advanced-features)
@@ -280,14 +279,13 @@ Check the advanced features supported by org policy [here](https://github.com/az
 
 The AzSK.ADO Monitoring Solution is deployed to a Log Analytics workspace that can be used for monitoring and generating a dashboard for security monitoring.
 
-### Setting up the AzSK.ADO Monitoring Solution
+### Deploy the AzSK.ADO Monitoring Solution
+
 This section will walk you through the step-by-step experience of setting up the AzSK.ADO Monitoring Solution.
 
 This section assumes that:
 a) you have a Log Analytics worskpace**
 b) you have setup the local AzSK.ADO to send events to that workspace.
-
-### Deploy the AzSK.ADO Monitoring Solution
 
 #### Obtain the workspaceId and sharedKey for the Log Analytics workspace you'd like to use for monitoring.
 Go to the Log Analytics workspace and navigate to "Agents management -> Windows Servers" as shown in the image below:
