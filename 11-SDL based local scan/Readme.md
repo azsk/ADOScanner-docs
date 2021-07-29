@@ -9,6 +9,10 @@
   	 -  [Import ADO module](Readme.md#import-ado-module)
  	 -  [Scanning Admin Controls](Readme.md#scanning-admin-controls)
  	 -  [Scanning Non-Admin Controls](Readme.md#scanning-non-admin-controls)
+   -  [Org-specific customization](Readme.md#customizing-adoscanner)
+	- [Overview](Readme.md#Introduction)
+	- [Setting up org policy](Readme.md#setting-up-org-policy)
+	- [Consuming custom org policy](Readme.md#consuming-custom-org-policy)
   -  [FAQs](Readme.md#faqs)
   -  [Support](Readme.md#Support)
  
@@ -140,7 +144,87 @@ Set-AzSKADOUserPreference -ResetOutputFolderPath
 
 Refer [link](/ControlCoverage) for current control coverage for Azure DevOps
 
-### FAQs
+## Customizing ADOScanner
+#### Introduction
+
+#### When and why should I setup org policy
+
+When you run any scan command from AzSK.ADO, it relies on JSON-based policy files to determine various parameters that effect the behavior of the command it is about to run. These policy files are downloaded 'on the fly' from a policy server. When you run the public version of the scanner, the offline policy files present in the module are accessed. Thus, whenever you run a scan from a vanilla installation, AzSK.ADO accesses the offline file present in the module to get the policy configuration and runs the scan using it.
+
+The JSON inside the policy files dictate the behavior of the security scan.
+This includes things such as:
+ - Which set of controls to evaluate?
+ - What control set to use as a baseline?
+ - What settings/values to use for individual controls?
+ - What messages to display for recommendations? Etc.
+
+ While the out-of-box files in the module may be good for limited use, in many contexts you may want to "customize" the behavior of the security scans for your environment. You may want to do things such as: (a) enable/disable
+some controls, (b) change control settings to better match specific security policies within your project, (c) change various messages, (d) add additional filter criteria for certain regulatory requirements that teams in your project can leverage, etc. When faced with such a need, you need a way to create and manage
+a dedicated policy endpoint customized to the needs of your environment. The organization policy setup feature helps you do that in an automated fashion.
+
+
+#### How does AzSK.ADO use online policy?
+
+Let us look at how policy files are leveraged in a little more detail.
+
+When you install AzSK.ADO, it downloads the latest AzSK.ADO module from the PS Gallery. Along with this module there is an *offline* set of policy files that go in a sub-folder under the %userprofile%\documents\WindowsPowerShell\Modules\AzSK.ADO\<version> folder. It also places (or updates) an AzSKSettings.JSON file in your %LocalAppData%\Microsoft\AzSK.ADO folder that contains the policy endpoint (or policy server) URL that is used by all local commands.
+
+Whenever any command is run, AzSK.ADO uses the policy server URL to access the policy endpoint. It first downloads a 'metadata' file that contains information about what other files are available on the policy server. After
+that, whenever AzSK.ADO needs a specific policy file to actually perform a scan, it loads the local copy of the policy file into memory and 'overlays' any settings *if* the corresponding file was also found on the
+server-side.
+
+It then accesses the policy to download a 'metadata' file that helps it determine the actual policy files list that is present on the server. Thereafter, the scan runs by overlaying the settings obtained from the server with
+the ones that are available in the local installation module folder. This means that if there hasn't been anything overridden for a specific feature (e.g., Project), then it won't find a policy file for that listed in the server
+ metadata file and the local policy file for that feature will get used.
+
+## Setting up org policy
+
+#### Steps to setup org policy setup
+
+1. Create a Git repository in your project by importing this [repo](https://github.com/azsk/ADOScanner_Policy.git). [Project -> Repos -> Import repository -> Select 'Git' as repository type -> Enter 'https://github.com/azsk/ADOScanner_Policy.git' as clone URL -> Enter 'ADOScannerPolicy' as name].
+
+It will import a very basic 'customized' policy involving below files uploaded to the policy repository.
+
+##### Basic files setup during policy setup
+
+| File | Description
+| ---- | ---- |
+| AzSK.json | Includes org-specific message, installation command etc.
+| ServerConfigMetadata.json | Index file with list of policy files.
+
+### Consuming custom org policy
+
+Follow the steps below for consuming the org policy:
+
+#### 1. Running scan in local machine with custom org policy
+
+ To run scan with custom org policy from any machine, run the below command
+
+```PowerShell
+#Run scan cmdlet and validate if it is running with org policy
+Get-AzSKADOSecurityStatus -OrganizationName "<Organization name>" -ProjectNames "<Project name where the org policy is configured>"
+
+#Using 'PolicyProject' parameter
+Get-AzSKADOSecurityStatus -OrganizationName "<Organization name>" -PolicyProject "<Name of the project hosting organization policy with which the scan should run.>"
+
+```
+> **Note**: Using PolicyProject parameter you can specify the name of the project hosting organization policy with which the scan should run.
+
+#### 2. Local folder-based org policy support
+
+To facilitate use of ADO Scanner locally (from desktop console) for driving compliance for an org, we have added support to run against org policy (custom control settings, etc.) from a local folder. This capability can be used by org/project admins to evaluate ADO Scanner and fine tune its configuration for their org/environment before deploying the org policy as a policy repo.
+
+```PowerShell
+#Command to configure a local folder as source of org policy:
+Set-AzSKADOPolicySettings -LocalOrgPolicyFolderPath "<Folder path where the org policy is configured>"
+
+#To reset the org policy to default location:
+Set-AzSKADOPolicySettings -RestoreDefaultOrgPolicySettings
+```
+> **Note**: LocalOrgPolicyFolderPath should contain the file ServerConfigMetadata.json  with list of policy files mentioned in it.
+
+
+## FAQs
 
 #### Error message: "Running scripts is disabled on this system..."
 This is an indication that PowerShell script loading and execution is disabled on your machine. You will need to enable it before the ADOScanner installation script (which itself is a PowerShell script) can run. 
