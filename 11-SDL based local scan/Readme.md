@@ -108,7 +108,7 @@ Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "
 #Scan controls with particular tags only
 Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "<PRJName>"  -ResourceTypeName Build  -FilterTags "<Comma sepated tags to filter>"
 ```
-Check other parameters supported by command  [here](https://github.com/azsk/ADOScanner-docs/blob/master/02-%20Running%20ADO%20Scanner%20from%20command%20line/Readme.md).
+Check the other parameters supported by command  [here](https://github.com/azsk/ADOScanner-docs/blob/master/02-%20Running%20ADO%20Scanner%20from%20command%20line/Readme.md).
 
 > **Note:** Use the switch "-AllowLongRunningScan" if the number of resources scanning are morethan 1000 to acknowledge the acceptance of long running scan.
 
@@ -141,8 +141,6 @@ The location to save scan report can be reset to default using command below:
 ```Powershell
 Set-AzSKADOUserPreference -ResetOutputFolderPath
 ```
-
-Refer [link](/ControlCoverage) for current control coverage for Azure DevOps
 
 ----------------------------------------------
 ## Customizing ADOScanner using org policy
@@ -226,6 +224,8 @@ Set-AzSKADOPolicySettings -LocalOrgPolicyFolderPath "<Folder path where the org 
 Set-AzSKADOPolicySettings -RestoreDefaultOrgPolicySettings
 ```
 > **Note**: LocalOrgPolicyFolderPath should contain the file ServerConfigMetadata.json  with list of policy files mentioned in it.
+
+Check the advanced features of org policy  [here](https://github.com/azsk/ADOScanner-docs/tree/master/08-%20Customizing%20ADOScanner%20for%20your%20org).
 ----------------------------------------------
 
 ## FAQs
