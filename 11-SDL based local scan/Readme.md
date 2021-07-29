@@ -118,7 +118,7 @@ Get-AzSKADOSecurityStatus-OrganizationName "<OrganizationName>" -ScanAllResource
 ```
 ----------------------------------------------
 
-#### Speed up checkpointed scans with "-DoNotRefetchResources" switch
+### Speed up checkpointed scans with "-DoNotRefetchResources" switch
 The "-UsePartialCommits" switch also supports an optional switch: "-DoNotRefetchResources" in SDL mode. When this switch is used, resources are not re-fetched during the continuation of the checkpointed scan (i.e., when the "-upc" switch is used). This efficiently speeds up scans of subsequent batches after the initial one. Currently the resources supported with the switch are Release, Agent Pool, Organization and Project. 
 
 ```PowerShell
@@ -128,7 +128,7 @@ Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectName "<
 ----------------------------------------------
 
 
-## Customize location for scan reports
+### Customize location for scan reports
 The location to save scan reports can be customized using the command below:
 ```Powershell
 Set-AzSKADOUserPreference -OutputFolderPath '<Custom folder path>'
