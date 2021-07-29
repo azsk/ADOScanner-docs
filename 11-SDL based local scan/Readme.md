@@ -147,7 +147,7 @@ Set-AzSKADOUserPreference -ResetOutputFolderPath
 ----------------------------------------------
 ## Customizing ADOScanner using org policy
 
-###Introduction
+### Introduction
 
 ### When and why should I setup org policy
 
