@@ -57,8 +57,11 @@ Import-Module AzSK.ADO
 ```
 ## Scanning Admin Controls
 
+Admin controls always refer to the controls associated with organization and project.
+
 Project Control Administration access (PCA) and Project Administrator access is required to scan Organization and Project Controls respectively. Otherwise, the scan results depends on the access levels of the identity running the scanner.
-To scan admin controls, it is always recommended to use "-IncludeAdminControls" switch
+
+To scan admin controls, it is always recommended to use "-IncludeAdminControls" switch.
 
 Run the command below after replacing `<OrganizationName>` with your Azure DevOps org Name 
 and `<PRJ1, PRJ2, ..`> with a comma-separated list of project names where your Azure DevOps resources are hosted.
@@ -78,7 +81,7 @@ C:\Users\<UserName>\AppData\Local\Microsoft\AzSK.ADOLogs\Org_[yourOrganizationNa
 
 ## Scanning Non-Admin Controls
 
-Non-admin controls always refer to the controls associate with any of the resource types other than Organization and project. i.e Build/Release/AgentPool/ServiceConnection/VariableGroup/SecureFile/Repo/Feeds
+Non-admin controls always refer to the controls associated with any of the resource types other than Organization and project. i.e Build/Release/AgentPool/ServiceConnection/VariableGroup/SecureFile/Repo/Feeds.
 
 For example, to scan all builds in a project, run the command below after replacing `<OrganizationName>` with your Azure DevOps org Name 
 and `<PRJName> with a  project name where your Azure DevOps resources are hosted.
@@ -124,13 +127,6 @@ Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectName "<
 
 ----------------------------------------------
 
-The outcome of the security scan/analysis is printed on the console during SVT execution and a CSV and LOG files are 
-also generated for subsequent use.
-
-The CSV file and LOG file are generated under a org-specific sub-folder in the folder  
-*%LOCALAPPDATA%\Microsoft\AzSK.ADOLogs\Org_[yourOrganizationName]*  
-E.g.  
-C:\Users\<UserName>\AppData\Local\Microsoft\AzSK.ADOLogs\Org_[yourOrganizationName]\20181218_103136_GADS
 
 ## Customize location for scan reports
 The location to save scan reports can be customized using the command below:
