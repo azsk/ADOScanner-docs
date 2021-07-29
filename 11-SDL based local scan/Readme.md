@@ -308,7 +308,7 @@ Run the commands below in PS after replacing the various '<>' with
     $lawsId ='<Log Analytics workspace id>'
     $lawsRGName ='<Log Analytics workspace resource group name>'     #RG where the Log Analytics workspace is hosted (See 1-a)
     $ADOViewName = '<unique_name_for_your_AzSK.ADO_view>' #This will identify the tile for AzSK.ADO view in Log Analytics workspace. E.g., MyApp-View-1
-    $dashboardType = '<View/Workbook>' #Type of dashboard you want to deploy in log analytics workspace. 
+    $dashboardType = 'Workbook' #Type of dashboard you want to deploy in log analytics workspace. 
 
     #This command will deploy the AzSK.ADO view in the Log Analytics workspace. Happy monitoring!
     Install-AzSKADOMonitoringSolution -LAWSSubscriptionId $lawsSubId `
