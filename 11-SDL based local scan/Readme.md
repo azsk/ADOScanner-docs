@@ -276,7 +276,7 @@ effect. (E.g., if you change the period to 90 days and if the pipeline was inact
 Check the advanced features supported by org policy [here](https://github.com/azsk/ADOScanner-docs/tree/master/08-%20Customizing%20ADOScanner%20for%20your%20org).
 
 ----------------------------------------------
-##Compliance visibility
+## Compliance visibility
 
 The AzSK.ADO Monitoring Solution is deployed to a Log Analytics workspace that is used by the dev ops team for monitoring and generating a dashboard for security monitoring.
 
