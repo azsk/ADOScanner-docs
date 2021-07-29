@@ -67,7 +67,7 @@ Import-Module AzSK.ADO
 ```
 ### Scanning Admin Controls
 
-Admin controls always refer to the controls associated with organization and project.
+Admin controls always refer to the controls associated with organization or project.
 
 Project Control Administration access (PCA) and Project Administrator access is required to scan Organization and Project Controls respectively. Otherwise, the scan results depends on the access levels of the identity running the scanner.
 
@@ -91,7 +91,7 @@ C:\Users\<UserName>\AppData\Local\Microsoft\AzSK.ADOLogs\Org_[yourOrganizationNa
 
 ## Scanning non-admin Controls
 
-Non-admin controls always refer to the controls associated with any of the resource types other than Organization and project. i.e Build/Release/AgentPool/ServiceConnection/VariableGroup/SecureFile/Repo/Feeds.
+Non-admin controls always refer to the controls associated with any of the resource types other than organization or project. i.e Build/Release/AgentPool/ServiceConnection/VariableGroup/SecureFile/Repo/Feeds.
 
 For example, to scan all builds in a project, run the command below after replacing `<OrganizationName>` with your Azure DevOps org Name 
 and `<PRJName> with a  project name where your Azure DevOps resources are hosted.
