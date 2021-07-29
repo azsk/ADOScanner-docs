@@ -193,6 +193,7 @@ It will import a very basic 'customized' policy involving below files uploaded t
 | ---- | ---- |
 | AzSK.json | Includes org-specific message, installation command etc.
 | ServerConfigMetadata.json | Index file with list of policy files.
+| ControlSettings.json | Configuration file with settings which can drive the scan behaviour.
 
 ----------------------------------------------
 
