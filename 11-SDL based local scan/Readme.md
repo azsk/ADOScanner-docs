@@ -15,11 +15,10 @@
 	 -  [Consuming custom org policy](Readme.md#consuming-custom-org-policy)
 	 -  [Changing a control setting for specific controls](Readme.md#changing-control-settings)
   -  [Compliance visibility](Readme.md#compliance-visibility)
-  		-  [Setting up the AzSK.ADO Monitoring Solution](README.md#setting-up-the-azskado-monitoring-solution-step-by-step)
-  			*  [Step-1: Deploy the AzSK.ADO Monitoring Solution](README.md#step-1-deploy-the-azskado-monitoring-solution)
-  			*  [Step-2: Using the Log Analytics Workspace Summary (Overview) for monitoring](README.md#step-2-Using-the-Log-Analytics-Workspace-Summary-Overview-for-monitoring)
+  		-  [Setting up the AzSK.ADO Monitoring Solution](README.md#setting-up-the-azskado-monitoring-solution)
+  			*  [Step-1: Deploy the AzSK.ADO Monitoring Solution](README.md#1.deploy-the-azskado-monitoring-solution)
+  			*  [Step-2: Using the Log Analytics Workspace Summary (Overview) for monitoring](README.md#2.using-the-log-analytics-workspace-for-scan-logs)
   			*  [Step-3: Using the Log Analytics Workbook for monitoring](README.md#step-3-using-the-log-analytics-workbook-for-monitoring)
-  			*  [Appendix](README.md#appendix)
   -  [Advanced features](Readme.md#advanced-features)
   -  [FAQs](Readme.md#faqs)
   -  [Support](Readme.md#Support)
@@ -281,14 +280,14 @@ Check the advanced features supported by org policy [here](https://github.com/az
 
 The AzSK.ADO Monitoring Solution is deployed to a Log Analytics workspace that can be used for monitoring and generating a dashboard for security monitoring.
 
-### Setting up the AzSK.ADO Monitoring Solution (Step by Step)
+### Setting up the AzSK.ADO Monitoring Solution
 This section will walk you through the step-by-step experience of setting up the AzSK.ADO Monitoring Solution.
 
 This section assumes that:
 a) you have a Log Analytics worskpace**
 b) you have setup the local AzSK.ADO to send events to that workspace.
 
-### Step-1: Deploy the AzSK.ADO Monitoring Solution
+### 1.Deploy the AzSK.ADO Monitoring Solution
 
 **[1-a]**
 Obtain the workspaceId and sharedKey for the Log Analytics workspace you'd like to use for monitoring.
@@ -337,7 +336,7 @@ The installation command will display output like the below:
 </kbd>
 ----------------------------------------------
 
-### Step-2: Using the Log Analytics Workspace Summary (Overview) for monitoring
+### 2.Using the Log Analytics Workspace for scan logs
 
 **[2-a]** Viewing raw events from AzSK.ADO (sanity check)
 
@@ -353,7 +352,7 @@ control scan results are being sent to this workspace.
 </kbd>
 ----------------------------------------------
 
-### Step-3: Using the Log Analytics Workbook for monitoring**
+### 3.Using the Log Analytics Workbook for monitoring**
 
 You should start seeing a tile such as the one below:
 
