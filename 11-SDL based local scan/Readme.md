@@ -9,7 +9,7 @@
   	 -  [Import ADO module](Readme.md#import-ado-module)
  	 -  [Scanning Admin Controls](Readme.md#scanning-admin-controls)
  	 -  [Scanning Non-Admin Controls](Readme.md#scanning-non-admin-controls)
-   -  [Org-specific customization](Readme.md#customizing-adoscanner)
+  -  [Org-specific customization](Readme.md#customizing-adoscanner-using-org-policy)
 	 -  [Overview](Readme.md#Introduction)
 	 -  [Setting up org policy](Readme.md#setting-up-org-policy)
 	 -  [Consuming custom org policy](Readme.md#consuming-custom-org-policy)
@@ -83,7 +83,7 @@ The CSV file and LOG file are generated under a org-specific sub-folder in the f
 E.g.  
 C:\Users\<UserName>\AppData\Local\Microsoft\AzSK.ADOLogs\Org_[yourOrganizationName]\20181218_103136_GADS
 
-## Scanning Non-Admin Controls
+## Scanning non-admin Controls
 
 Non-admin controls always refer to the controls associated with any of the resource types other than Organization and project. i.e Build/Release/AgentPool/ServiceConnection/VariableGroup/SecureFile/Repo/Feeds.
 
@@ -144,7 +144,10 @@ Set-AzSKADOUserPreference -ResetOutputFolderPath
 
 Refer [link](/ControlCoverage) for current control coverage for Azure DevOps
 
-## Customizing ADOScanner
+----------------------------------------------
+## Customizing ADOScanner using org policy
+
+###Introduction
 
 ### When and why should I setup org policy
 
