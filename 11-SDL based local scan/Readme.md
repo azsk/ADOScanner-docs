@@ -7,7 +7,8 @@
   	 -  [Installation Guide](Readme.md#installation-guide)
   -  [Getting Started](Readme.md#getting-started)
   	 -  [Import ADO module](Readme.md#import-ado-module)
- 	 -  [Begin scanning your Organisation and Project](Readme.md#begin-scanning-your-organisation-and-project)
+ 	 -  [Scanning Admin Controls](Readme.md#scanning-admin-controls)
+ 	 -  [Scanning Non-Admin Controls](Readme.md#scanning-non-admin-controls)
   -  [FAQs](Readme.md#faqs)
   -  [Support](Readme.md#Support)
  
@@ -54,15 +55,74 @@ Firstly ADO module should be imported in the powershell session before using the
 ```PowerShell
 Import-Module AzSK.ADO
 ```
-## Begin scanning your Organisation and Project
+## Scanning Admin Controls
+
+Project Control Administration access (PCA) and Project Administrator access is required to scan Organization and Project Controls respectively. Otherwise, the scan results depends on the access levels of the identity running the scanner.
+To scan admin controls, it is always recommended to use "-IncludeAdminControls" switch
 
 Run the command below after replacing `<OrganizationName>` with your Azure DevOps org Name 
 and `<PRJ1, PRJ2, ..`> with a comma-separated list of project names where your Azure DevOps resources are hosted.
 You will get Organization name from your ADO organization url e.g. http://sampleadoorg.visualstudio.com. In this 'sampleadoorg' is org name.
 
 ```PowerShell
-Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "<PRJ1, PRJ2,...etc.>"
+Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "<PRJ1, PRJ2,...etc.>" -IncludeAdminControls
 ```
+
+The outcome of the security scan/analysis is printed on the console during SVT execution and a CSV and LOG files are 
+also generated for subsequent use.
+
+The CSV file and LOG file are generated under a org-specific sub-folder in the folder  
+*%LOCALAPPDATA%\Microsoft\AzSK.ADOLogs\Org_[yourOrganizationName]*  
+E.g.  
+C:\Users\<UserName>\AppData\Local\Microsoft\AzSK.ADOLogs\Org_[yourOrganizationName]\20181218_103136_GADS
+
+## Scanning Non-Admin Controls
+
+Non-admin controls always refer to the controls associate with any of the resource types other than Organization and project. i.e Build/Release/AgentPool/ServiceConnection/VariableGroup/SecureFile/Repo/Feeds
+
+For example, to scan all builds in a project, run the command below after replacing `<OrganizationName>` with your Azure DevOps org Name 
+and `<PRJName> with a  project name where your Azure DevOps resources are hosted.
+
+```PowerShell
+Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "<PRJName>" -ResourceTypeName Build 
+```
+Command also supports other parameters of filtering resources.
+
+```PowerShell
+#To scan selected builds in a project
+Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "<PRJName>" -ResourceTypeName Build  -BuildNames "<Build1,Build2...>"
+
+#Scan all supported artifacts
+Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ScanAllResources
+
+#Scan resources for baseline controls only
+Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "<PRJName>"  -ResourceTypeName Build  -ubc
+
+#Scan controls with particular tags only
+Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "<PRJName>"  -ResourceTypeName Build  -FilterTags "<Comma sepated tags to filter>"
+```
+Check other parameters supported by command  [here](https://github.com/azsk/ADOScanner-docs/blob/master/02-%20Running%20ADO%20Scanner%20from%20command%20line/Readme.md).
+
+> **Note:** Use the switch "-AllowLongRunningScan" if the number of resources scanning are morethan 1000 to acknowledge the acceptance of long running scan.
+
+----------------------------------------------
+
+### Execute SVTs using "-UsePartialCommits" switch
+
+The Get-AzSKADOSecurityStatus command now supports checkpointing via a "-UsePartialCommits" switch. When this switch is used, the command periodically persists scan progress to disk. That way, if the scan is interrupted or an error occurs, a future retry can resume from the last saved state. This capability also helps in Continuous Assurance scans if scan gets suspended due to any unforeseen reason.The cmdlet below checks security control state via a "-UsePartialCommits" switch:
+```PowerShell
+Get-AzSKADOSecurityStatus-OrganizationName "<OrganizationName>" -ScanAllResources -UsePartialCommits
+```
+----------------------------------------------
+
+#### Speed up checkpointed scans with "-DoNotRefetchResources" switch
+The "-UsePartialCommits" switch also supports an optional switch: "-DoNotRefetchResources" in SDL mode. When this switch is used, resources are not re-fetched during the continuation of the checkpointed scan (i.e., when the "-upc" switch is used). This efficiently speeds up scans of subsequent batches after the initial one. Currently the resources supported with the switch are Release, Agent Pool, Organization and Project. 
+
+```PowerShell
+Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectName "<ProjectName>" -ReleaseNames * -ResourceTypeName Release -UsePartialCommits -DoNotRefetchResources
+```
+
+----------------------------------------------
 
 The outcome of the security scan/analysis is printed on the console during SVT execution and a CSV and LOG files are 
 also generated for subsequent use.
