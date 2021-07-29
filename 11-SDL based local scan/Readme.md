@@ -352,6 +352,7 @@ control scan results are being sent to this workspace.
 You should start seeing a tile such as the one below:
 
 #### Workbook 
+
 <kbd>
 ![09_Log_Analytics_Workbook_View](../Images/09_Log_Analytics_Workbook_View.png)
 </kbd>
