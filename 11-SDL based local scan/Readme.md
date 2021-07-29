@@ -5,7 +5,6 @@
   -  [Overview](Readme.md#overview)
   -  [Setup](Readme.md#Setup)
   	 -  [Installation Guide](Readme.md#installation-guide)
-  	 -  [Auto Update](Readme.md#auto-update)
   -  [Getting Started](Readme.md#getting-started)
   	 -  [Import ADO module](Readme.md#import-ado-module)
  	 -  [Begin scanning your Organisation and Project](Readme.md#begin-scanning-your-organisation-and-project)
@@ -46,39 +45,6 @@ Security Scanner for Azure DevOps (ADO) performs security scanning for core area
 ```PowerShell
   Install-Module AzSK.ADO -Scope CurrentUser -AllowClobber -Force
 ```
-------------------------------------------------
-
-### Auto Update
-As Azure DevOps features evolve and add more security controls, "AzSK.ADO" also evolves every month respecting the latest security features.
-It is always recommended to scan your organization with the latest AzSK.ADO module, thus ensuring to evaluate latest security controls that are available through the module.
-"AzSK.ADO" module provides different auto update capabilities w.r.t different stages of devops. More details are below:
-
-**Adhoc Scans:**
-Users running the older version of AzSK.ADO scan from their local machine will get a warning as shown in the image below.
-It would also provide the user with required instructions to upgrade the module.
-<kbd>	
-![Install_Autoupdate](../Images/Updatecommand.PNG) 
-</kbd>
-The users can leverage the auto update feature which has been introduced from the AzSDK.ADO version 1.15.x.
-As shown in the image above, user can go with update by running the command below:
-
-```PowerShell
-  Set-AzSKADOPolicySettings -AutoUpdate On|Off
-```
-
-User needs to close and reopen a fresh session once the command is run.
-Going forward, if the latest version of AzSK.ADO is released, then during execution of any AzSK.ADO command it would start the auto update workflow automatically 
-as shown in the image below:
-<kbd>
-![Install_Autoupdate_Workflow](../Images/AutoUpdate.png)
-</kbd>
-Step 1: It would take user consent before it starts the auto update workflow. (1 in the image above) <br/>
-Step 2: Users need to close all the displayed PS sessions. Typically open PS sessions would lock the module and fail the installation. (2 in the image above) <br/>
-Step 3: Even the current session must be closed. It would again take the user consent before it starts the auto update flow to avoid the loss of any unsaved work. (3 in the image above)
-
-**ADOScanner Extension:**
-No impact to default behavior of ADOScanner extension. It always runs the scan with the latest version available in the PS Gallery. 
-
 ----------------------------------------------
 
 ## Getting Started
