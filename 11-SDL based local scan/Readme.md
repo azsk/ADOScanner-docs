@@ -278,13 +278,10 @@ Check the advanced features supported by org policy [here](https://github.com/az
 ----------------------------------------------
 ## Compliance visibility
 
-The AzSK.ADO Monitoring Solution is deployed to a Log Analytics workspace that is used by the dev ops team for monitoring and generating a dashboard for security monitoring.
-
-----------------------------------------------
+The AzSK.ADO Monitoring Solution is deployed to a Log Analytics workspace that can be used for monitoring and generating a dashboard for security monitoring.
 
 ### Setting up the AzSK.ADO Monitoring Solution (Step by Step)
 This section will walk you through the step-by-step experience of setting up the AzSK.ADO Monitoring Solution.
-If you do not have a Log Analytics workspace yet, see [Appendix](README.md#appendix) to create one.
 
 This section assumes that:
 a) you have a Log Analytics worskpace**
@@ -339,11 +336,6 @@ The installation command will display output like the below:
 ----------------------------------------------
 
 ### Step-2: Using the Log Analytics Workspace Summary (Overview) for monitoring
-At this point, assuming that AzSK.ADO events were already being sent to the Log Analytics workspace, you should start
-seeing a tile such as the one below:
-<kbd>
-![09_Workspace_Summary_View](../Images/09_Workspace_Summary_View.png)
-</kbd>
 
 **[2-a]** Viewing raw events from AzSK.ADO (sanity check)
 
@@ -353,18 +345,10 @@ Enter "AzSK_ADO_CL" in the query field.
 
 
 You should see data about AzSK.ADO events as query results. (Again, this assumes that by now AzSK.ADO 
-control scan results are being sent to this workspace. See [this](Readme.md#b-testing-log-anaytics-workspace-connectivity) for
-how that is done.)
+control scan results are being sent to this workspace.
 <kbd>
 ![09_Log_Analytics_Workspace_Logs_Query](../Images/09_Log_Analytics_Workspace_Logs_Query.png) 
 </kbd>
-
-If you are certain that events are being sent to the Log Analytics workspace but you are seeing blank views/no query results, 
-you may need to extend the duration applicable to the queries. (This can be done using the 'Time range' selector next to the 'Run' button at the top of the query window.)
-<kbd>
-![09_Log_Analytics_Workspace_Query_Duration](../Images/09_Log_Analytics_Workspace_Query_Duration.png)
-</kbd>
-
 ----------------------------------------------
 
 ### Step-3: Using the Log Analytics Workbook for monitoring**
