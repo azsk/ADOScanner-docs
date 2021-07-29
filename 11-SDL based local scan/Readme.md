@@ -13,6 +13,7 @@
 	 -  [Overview](Readme.md#Introduction)
 	 -  [Setting up org policy](Readme.md#setting-up-org-policy)
 	 -  [Consuming custom org policy](Readme.md#consuming-custom-org-policy)
+	 -  [Changing a control setting for specific controls](Readme.md#changing-control-settings)
   -  [Compliance visibility](Readme.md#compliance-visibility)
   -  [Advanced features](Readme.md#advanced-features)
   -  [FAQs](Readme.md#faqs)
@@ -191,9 +192,11 @@ It will import a very basic 'customized' policy involving below files uploaded t
 
 | File | Description
 | ---- | ---- |
+| AzSK.Pre.json | This file contains a setting that controls/defines the AzSK.ADO version that is 'in effect' in a project. A project can use this file to specify the specific version of AzSK.ADO that will get used in SDL/CICD scenarios at the project level.<br/> <br/>  **Note:** Whenever a new AzSK.ADO version is released, the org policy owner should update the AzSK.ADO version in this file with the latest released version after performing any compatibility tests in a test setup.<br/> You can get notified of new releases by following the AzSK.ADO module in PowerShell Gallery or release notes section [here](https://azsk.azurewebsites.net/ReleaseNotes/LatestReleaseNotes.html).
 | AzSK.json | Includes org-specific message, installation command etc.
 | ServerConfigMetadata.json | Index file with list of policy files.
-| ControlSettings.json | Configuration file with settings which can drive the scan behaviour.
+
+Check the advanced features supported by org policy [here](https://github.com/azsk/ADOScanner-docs/tree/master/08-%20Customizing%20ADOScanner%20for%20your%20org).
 
 ----------------------------------------------
 
@@ -227,6 +230,44 @@ Set-AzSKADOPolicySettings -LocalOrgPolicyFolderPath "<Folder path where the org 
 Set-AzSKADOPolicySettings -RestoreDefaultOrgPolicySettings
 ```
 > **Note**: LocalOrgPolicyFolderPath should contain the file ServerConfigMetadata.json  with list of policy files mentioned in it.
+
+----------------------------------------------
+
+### Changing control settings
+The settings  that alter scan behaviour, metrics, control results are generally configured in a file named ControlSettings.json. Using this file we can modify baseline control set for each  resource type, change the update frequency of partial scan, modify the thresolds, parameters for each control etc. Because the first-time org policy setup does not customize anything from this, we will first need to copy this file from the local AzSK.ADO installation.
+
+The local version of this file should be in the following folder:
+```PowerShell
+    %userprofile%\Documents\WindowsPowerShell\Modules\AzSK.ADO\<version>\Framework\Configurations\SVT
+```
+<kbd>
+   <img src="../Images/09_ADO_Org_Policy2.png" alt="Local AzSK.AzureDevOps Policies">
+</kbd>
+Note that the 'Configurations' folder in the above picture holds all policy files (for all features) of AzSK.ADO. We
+will make copies of files we need to change from here and place the changed versions in the org-policy repo.
+Again, you should **never** edit any file directly in the local installation policy folder of AzSK.ADO.
+Rather, **always** copy the file and edit it.
+
+###### Steps:
+
+ i) Copy the ControlSettings.json from the AzSK.ADO installation to your org-policy repo.
+
+ ii) Remove everything except the "BuildHistoryPeriodInDays" line while keeping the JSON object hierarchy/structure intact.
+<kbd>
+  ![Edit Number of build history period in days](../Images/09_ADO_Org_Policy3.png)
+</kbd>
+ iii) Commit the file.
+
+ iv) Add an entry for *ControlSettings.json* in *ServerConfigMetadata.json* (in the repo) as shown below.
+<kbd>
+ ![Update control settings in ServerConfigMetadata](../Images/09_ADO_Org_Policy4.png)
+ </kbd>
+###### Testing:
+
+Anyone in your project can now start a fresh PS console and the result of the evaluation whether a build pipeline is inactive in
+the build security scan (Get-AzSKADOBuildSecurityStatus) should reflect that the new setting is in
+effect. (E.g., if you change the period to 90 days and if the pipeline was inactive from past 120 days, then the result for control (ADO_Build_SI_Review_Inactive_Build) will change from 'Passed' to 'Failed'.)
+
 
 Check the advanced features supported by org policy [here](https://github.com/azsk/ADOScanner-docs/tree/master/08-%20Customizing%20ADOScanner%20for%20your%20org).
 
