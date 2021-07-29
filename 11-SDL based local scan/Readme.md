@@ -15,10 +15,10 @@
 	 -  [Consuming custom org policy](Readme.md#consuming-custom-org-policy)
 	 -  [Changing a control setting for specific controls](Readme.md#changing-control-settings)
   -  [Compliance visibility](Readme.md#compliance-visibility)
-  		-  [Setting up the AzSK.ADO Monitoring Solution](README.md#setting-up-the-azskado-monitoring-solution)
-  			*  [Step-1: Deploy the AzSK.ADO Monitoring Solution](README.md#1.deploy-the-azskado-monitoring-solution)
-  			*  [Step-2: Using the Log Analytics Workspace Summary (Overview) for monitoring](README.md#2.using-the-log-analytics-workspace-for-scan-logs)
-  			*  [Step-3: Using the Log Analytics Workbook for monitoring](README.md#step-3-using-the-log-analytics-workbook-for-monitoring)
+  	 -  [Setting up the AzSK.ADO Monitoring Solution](README.md#setting-up-the-azsk.ado-monitoring-solution)
+  		-  [Step-1: Deploy the AzSK.ADO Monitoring Solution](README.md#deploy-the-azsk.ado-monitoring-solution)
+  		-  [Step-2: Using the Log Analytics Workspace Summary (Overview) for monitoring](README.md#using-the-log-analytics-workspace-for-scan-logs)
+  		-  [Step-3: Using the Log Analytics Workbook for monitoring](README.md#using-the-log-analytics-workbook-for-monitoring)
   -  [Advanced features](Readme.md#advanced-features)
   -  [FAQs](Readme.md#faqs)
   -  [Support](Readme.md#Support)
@@ -287,10 +287,9 @@ This section assumes that:
 a) you have a Log Analytics worskpace**
 b) you have setup the local AzSK.ADO to send events to that workspace.
 
-### 1.Deploy the AzSK.ADO Monitoring Solution
+### Deploy the AzSK.ADO Monitoring Solution
 
-**[1-a]**
-Obtain the workspaceId and sharedKey for the Log Analytics workspace you'd like to use for monitoring.
+#### Obtain the workspaceId and sharedKey for the Log Analytics workspace you'd like to use for monitoring.
 Go to the Log Analytics workspace and navigate to "Agents management -> Windows Servers" as shown in the image below:
 > **Note**: The "Agents management" option will be visible only if you have 'Owners' access (and have elevated to Owner if using PIM). It will not be visible if you are 'Reader'.
 
@@ -298,9 +297,7 @@ Go to the Log Analytics workspace and navigate to "Agents management -> Windows 
 <img src ="../Images/Log_Analytics_Workspace_WsId_ShrKey.png" alt ="05_Log_Analytics_Workspace_WsId_ShrKey">
 </kbd>
 
-
-**[1-b]**
-Run the commands below in PS after replacing the various '<>' with
+#### Run the commands below in PS after replacing the various '<>' with
   (a) respective values for the Log Analytics workspace to be used
   and (b) a unique name to identify the view with in the Log Analytics workspace summary (Overview).
 
@@ -336,9 +333,9 @@ The installation command will display output like the below:
 </kbd>
 ----------------------------------------------
 
-### 2.Using the Log Analytics Workspace for scan logs
+### Using the Log Analytics Workspace for scan logs
 
-**[2-a]** Viewing raw events from AzSK.ADO (sanity check)
+####  Viewing raw events from AzSK.ADO (sanity check)
 
 Click on the 'Logs' in the menu bar on the left to open the "Logs" query page.
 
@@ -352,16 +349,16 @@ control scan results are being sent to this workspace.
 </kbd>
 ----------------------------------------------
 
-### 3.Using the Log Analytics Workbook for monitoring**
+### Using the Log Analytics Workbook for monitoring
 
 You should start seeing a tile such as the one below:
 
-**[3-a]** Workbook 
+#### Workbook 
 <kbd>
 ![09_Log_Analytics_Workbook_View](../Images/09_Log_Analytics_Workbook_View.png)
 </kbd>
 
-**[3-b]** Workbook Overview tiles
+#### Workbook Overview tiles
 
 The solution workbook contains multiple blades representing various types of security activity, 
 security trends, etc. This view shows up when you click on the view tile and looks like the picture
