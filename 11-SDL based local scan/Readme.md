@@ -10,9 +10,9 @@
  	 -  [Scanning Admin Controls](Readme.md#scanning-admin-controls)
  	 -  [Scanning Non-Admin Controls](Readme.md#scanning-non-admin-controls)
    -  [Org-specific customization](Readme.md#customizing-adoscanner)
-	- [Overview](Readme.md#Introduction)
-	- [Setting up org policy](Readme.md#setting-up-org-policy)
-	- [Consuming custom org policy](Readme.md#consuming-custom-org-policy)
+	 -  [Overview](Readme.md#Introduction)
+	 -  [Setting up org policy](Readme.md#setting-up-org-policy)
+	 -  [Consuming custom org policy](Readme.md#consuming-custom-org-policy)
   -  [FAQs](Readme.md#faqs)
   -  [Support](Readme.md#Support)
  
@@ -29,9 +29,9 @@ Security Scanner for Azure DevOps (ADO) performs security scanning for core area
 
 ----------------------------------------------
 
-### Setup 
+## Setup 
 
-## Installation Guide
+### Installation Guide
 
 >**Pre-requisites**:
 > - PowerShell 5.0 or higher. 
@@ -54,12 +54,12 @@ Security Scanner for Azure DevOps (ADO) performs security scanning for core area
 
 ## Getting Started
 
-## Import ADO module
+### Import ADO module
 Firstly ADO module should be imported in the powershell session before using the scan commands. To import ADO module run below command.
 ```PowerShell
 Import-Module AzSK.ADO
 ```
-## Scanning Admin Controls
+### Scanning Admin Controls
 
 Admin controls always refer to the controls associated with organization and project.
 
@@ -145,9 +145,8 @@ Set-AzSKADOUserPreference -ResetOutputFolderPath
 Refer [link](/ControlCoverage) for current control coverage for Azure DevOps
 
 ## Customizing ADOScanner
-#### Introduction
 
-#### When and why should I setup org policy
+### When and why should I setup org policy
 
 When you run any scan command from AzSK.ADO, it relies on JSON-based policy files to determine various parameters that effect the behavior of the command it is about to run. These policy files are downloaded 'on the fly' from a policy server. When you run the public version of the scanner, the offline policy files present in the module are accessed. Thus, whenever you run a scan from a vanilla installation, AzSK.ADO accesses the offline file present in the module to get the policy configuration and runs the scan using it.
 
@@ -163,7 +162,7 @@ some controls, (b) change control settings to better match specific security pol
 a dedicated policy endpoint customized to the needs of your environment. The organization policy setup feature helps you do that in an automated fashion.
 
 
-#### How does AzSK.ADO use online policy?
+### How does AzSK.ADO use online policy?
 
 Let us look at how policy files are leveraged in a little more detail.
 
@@ -177,7 +176,7 @@ It then accesses the policy to download a 'metadata' file that helps it determin
 the ones that are available in the local installation module folder. This means that if there hasn't been anything overridden for a specific feature (e.g., Project), then it won't find a policy file for that listed in the server
  metadata file and the local policy file for that feature will get used.
 
-## Setting up org policy
+### Setting up org policy
 
 #### Steps to setup org policy setup
 
@@ -191,6 +190,8 @@ It will import a very basic 'customized' policy involving below files uploaded t
 | ---- | ---- |
 | AzSK.json | Includes org-specific message, installation command etc.
 | ServerConfigMetadata.json | Index file with list of policy files.
+
+----------------------------------------------
 
 ### Consuming custom org policy
 
@@ -222,7 +223,7 @@ Set-AzSKADOPolicySettings -LocalOrgPolicyFolderPath "<Folder path where the org 
 Set-AzSKADOPolicySettings -RestoreDefaultOrgPolicySettings
 ```
 > **Note**: LocalOrgPolicyFolderPath should contain the file ServerConfigMetadata.json  with list of policy files mentioned in it.
-
+----------------------------------------------
 
 ## FAQs
 
