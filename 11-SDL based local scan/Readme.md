@@ -349,13 +349,8 @@ control scan results are being sent to this workspace.
 
 ### Using the Log Analytics Workbook for monitoring
 
-You should start seeing a tile such as the one below:
-
-#### Workbook 
-
-<kbd>
-![09_Log_Analytics_Workbook_View](../Images/09_Log_Analytics_Workbook_View.png)
-</kbd>
+Once the scan events are published to Log Analytics Workspace, the workbook created above will have compliance details with various security trends.
+To view the workbook created, Goto : Log Analytics Workspace --> General --> Workbook --> click on the newly created workbook.
 
 #### Workbook Overview tiles
 
