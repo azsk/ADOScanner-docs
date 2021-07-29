@@ -13,6 +13,8 @@
 	 -  [Overview](Readme.md#Introduction)
 	 -  [Setting up org policy](Readme.md#setting-up-org-policy)
 	 -  [Consuming custom org policy](Readme.md#consuming-custom-org-policy)
+  -  [Compliance visibility](Readme.md#compliance-visibility)
+  -  [Advanced features](Readme.md#advanced-features)
   -  [FAQs](Readme.md#faqs)
   -  [Support](Readme.md#Support)
  
