@@ -298,6 +298,7 @@ Go to the Log Analytics workspace and navigate to "Agents management -> Windows 
 <img src ="../Images/Log_Analytics_Workspace_WsId_ShrKey.png" alt ="05_Log_Analytics_Workspace_WsId_ShrKey">
 </kbd>
 
+
 **[1-b]**
 Run the commands below in PS after replacing the various '<>' with
   (a) respective values for the Log Analytics workspace to be used
