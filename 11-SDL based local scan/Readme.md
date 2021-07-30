@@ -19,8 +19,9 @@
   	 -  [Using the Log Analytics Workspace Summary for scan logs](Readme.md#using-the-log-analytics-workspace-for-scan-logs)
   	 -  [Using the Log Analytics Workbook for monitoring](Readme.md#using-the-log-analytics-workbook-for-monitoring)
   -  [Auto Bug Logging](Readme.md#auto-bug-logging)
-  	 - [Overview](Readme.md#Overview)
-  -  [Advanced features](Readme.md#advanced-features)
+  	 - [Bug logging Overview](Readme.md#buglogging-overview)
+    	 - [Starting bug logging ](Readme.md#starting-bug-logging)
+     	 - [The bug logging summary](Readme.md#the-bug-logging-summary)
   -  [FAQs](Readme.md#faqs)
   -  [Support](Readme.md#Support)
  
@@ -367,7 +368,7 @@ blade takes a different pivot to show the resource compliance data.
 ----------------------------------------------
 
 ## Auto bug logging
-### Overview
+### Buglogging Overview
 
 The auto bug logging feature facilitates user to identify and keep  track of security control failures in ADO resources. Whenever a control failure is surfaced by the ADO Security Scanner, a bug will be logged in the ADO work items that would contain all the relevant details and remediation steps. The bug is assigned to the most relevant user (admin/creator/last known consumer) for the resource.
 
@@ -430,7 +431,7 @@ The following information is conveyed by the bug template:
 
 > Using the -AutoBugLog switch, the scanner also evaluates all the passing control scans and checks for their corresponding bugs in the ADO. If such bugs are found, they are closed. 
 
-To check additional features or to customize the buglogging behaviour, refere the document [here](https://github.com/azsk/ADOScanner-docs/tree/master/08-%20Customizing%20ADOScanner%20for%20your%20org).
+To check additional features or to customize the buglogging behaviour, refere the document [here](https://github.com/azsk/ADOScanner-docs/tree/master/07-Driving%20compliance%20via%20Bugs).
 
 ----------------------------------------------
 
