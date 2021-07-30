@@ -19,9 +19,9 @@
   	 -  [Using the Log Analytics Workspace Summary for scan logs](Readme.md#using-the-log-analytics-workspace-for-scan-logs)
   	 -  [Using the Log Analytics Workbook for monitoring](Readme.md#using-the-log-analytics-workbook-for-monitoring)
   -  [Auto Bug Logging](Readme.md#auto-bug-logging)
-  	 - [Bug logging Overview](Readme.md#buglogging-overview)
-    	 - [Starting bug logging ](Readme.md#starting-bug-logging)
-     	 - [The bug logging summary](Readme.md#the-bug-logging-summary)
+  	 -  [Bug logging Overview](Readme.md#buglogging-overview)
+    	 -  [Starting bug logging ](Readme.md#starting-bug-logging)
+     	 -  [The bug logging summary](Readme.md#the-bug-logging-summary)
   -  [FAQs](Readme.md#faqs)
   -  [Support](Readme.md#Support)
  
