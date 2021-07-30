@@ -27,11 +27,7 @@
 ----------------------------------------------
 
 ## Overview
-Security Scanner for Azure DevOps (ADO) helps you keep your ADO artifacts such as various org/project settings, build/release configurations, service connections, agent pools, etc. configured securely. You can run the ADO Security Scanner standalone in a PowerShell console or in an ADO pipeline via a marketplace extension.
-
-Security Scanner for Azure DevOps (ADO) performs security scanning for core areas of Azure DevOps like Organization, Projects, Users, Pipelines (Build & Release), Connections and Agent Pools. 
-
-> At its core, the Security Scanner for ADO is a PowerShell module. This can be run locally from the PS console after installation. This is as simple as running PS in non-Admin mode and running the cmds as shown below:
+Security Scanner for Azure DevOps (ADO) helps you keep your ADO artifacts such as various org/project settings, build/release configurations, service connections, agent pools, , feeds, repos, securefiles, environments etc. configured securely. You can run the ADO Security Scanner standalone in a PowerShell console and this section demonstrates varios features of ADOScanner to get the compliance results and show visibility.
 
 ----------------------------------------------
 
@@ -69,9 +65,9 @@ Import-Module AzSK.ADO
 
 Admin controls always refer to the controls associated with organization or project.
 
-Project Control Administration access (PCA) and Project Administrator access is required to scan Organization and Project Controls respectively. Otherwise, the scan results depends on the access levels of the identity running the scanner.
+> Project Control Administration access (PCA) and Project Administrator(PA) access is required to scan organization and Pproject Controls respectively. Otherwise, the scan results depends on the access levels of the identity running the scanner.
 
-To scan admin controls, it is always recommended to use "-IncludeAdminControls" switch.
+To scan admin controls, it is always recommended to use `-IncludeAdminControls` switch.
 
 Run the command below after replacing `<OrganizationName>` with your Azure DevOps org Name 
 and `<PRJ1, PRJ2, ..`> with a comma-separated list of project names where your Azure DevOps resources are hosted.
@@ -86,8 +82,7 @@ also generated for subsequent use.
 
 The CSV file and LOG file are generated under a org-specific sub-folder in the folder  
 *%LOCALAPPDATA%\Microsoft\AzSK.ADOLogs\Org_[yourOrganizationName]*  
-E.g.  
-C:\Users\<UserName>\AppData\Local\Microsoft\AzSK.ADOLogs\Org_[yourOrganizationName]\20181218_103136_GADS
+E.g.  C:\Users\<UserName>\AppData\Local\Microsoft\AzSK.ADOLogs\Org_[yourOrganizationName]\20181218_103136_GADS
 
 ## Scanning non-admin Controls
 
@@ -199,7 +194,7 @@ It will import a very basic 'customized' policy involving below files uploaded t
 | AzSK.json | Includes org-specific message, installation command etc.
 | ServerConfigMetadata.json | Index file with list of policy files.
 
-Check the other advanced features supported by org policy [here](https://github.com/azsk/ADOScanner-docs/tree/master/08-%20Customizing%20ADOScanner%20for%20your%20org).
+> Check the other advanced features supported by org policy [here](https://github.com/azsk/ADOScanner-docs/tree/master/08-%20Customizing%20ADOScanner%20for%20your%20org).
 
 ----------------------------------------------
 
