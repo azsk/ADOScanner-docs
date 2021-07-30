@@ -18,6 +18,8 @@
   	 -  [Deploy the AzSK.ADO Monitoring Solution](Readme.md#deploy-the-azskado-monitoring-solution)
   	 -  [Using the Log Analytics Workspace Summary for scan logs](Readme.md#using-the-log-analytics-workspace-for-scan-logs)
   	 -  [Using the Log Analytics Workbook for monitoring](Readme.md#using-the-log-analytics-workbook-for-monitoring)
+  -  [Auto Bug Logging](Readme.md#auto-bug-logging)
+  	 - [Overview](Readme.md#Overview)
   -  [Advanced features](Readme.md#advanced-features)
   -  [FAQs](Readme.md#faqs)
   -  [Support](Readme.md#Support)
@@ -364,6 +366,73 @@ blade takes a different pivot to show the resource compliance data.
 
 ----------------------------------------------
 
+## Auto bug logging
+### Overview
+
+The auto bug logging feature facilitates user to identify and keep  track of security control failures in ADO resources. Whenever a control failure is surfaced by the ADO Security Scanner, a bug will be logged in the ADO work items that would contain all the relevant details and remediation steps. The bug is assigned to the most relevant user (admin/creator/last known consumer) for the resource.
+
+Duplicate bugs are not logged again and are available in the summary as "active" bugs.
+Upon the completion of all control scans, all passing controls whose bugs had been logged previously are closed automatically as well.
+
+### Starting bug logging
+
+The bug logging feature is implemented via a new switch called *-AutoBugLog*. All controls that emit an evaluation status as "failed" or "verify" are considered as valid targets for bug logging. A typical security scan command with auto bug logging feature would look as :
+
+```Powershell
+#Setting attestation host project and auto bug logging for organization controls
+Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>"  -ProjectNames "<ProjectName>" -ResourceTypeName Project -AutoBugLog All -AreaPath "<Area Path>" -IterationPath "<Iteration Path"
+```
+To leverage the bug logging feature, following are the scan parameters that need to be included along with any security scan command.
+| Param Name | Purpose | Required?| Possible Values|
+|--|--|--|--|
+|  AutoBugLog|To enable bug logging and identify which subset of control failures are to be logged as bugs  | TRUE| All, BaselineControls, PreviewBaselineControls|
+|  AreaPath|To specify the area path where the bugs are to be logged  | FALSE| Valid area path in ADO|
+|  IterationPath|To specify the iteration path where the bugs are to be logged  | FALSE| Valid iteration path in ADO|
+
+The switch *-AutoBugLog*  takes up three values that specify which subset of control failures are to be logged. These are:
+| AutoBugLog option |  Description|
+|--|--|
+| All | Log all control failures |
+| BaselineControls | Log only baseline control failures|
+| PreviewBaselineControls | Log only preview baseline control failures|
+
+### The bug logging summary
+After the scan is complete and bugs have been logged, you will get a summary as follows:
+<kbd>
+<img src="../Images/ADO_BugLogging_BugSummary.png" alt="Bug Logging Summary">
+</kbd>
+
+
+There are three kinds of bugs shown in the summary:
+
+ - **New Bug** : For freshly encountered control failures
+ - **Active Bug** : For control failures that had been already logged and the controls are still failing.
+ -  **Resolved Bug** : For bugs that had been resolved before, but the control failure has resurfaced. These bugs will be  reactivated by the scanner.
+
+The details for all these bugs can be found in *BugSummary.json* file that is stored in the folder : *%LOCALAPPDATA%\Microsoft\AzSK.ADOLogs\Org_[yourOrganizationName]*. The information conveyed from this JSON looks as follows:
+<kbd>
+![Bug Logging JSON](../Images/ADO_BugLogging_BugJSONNew.png)
+</kbd>
+A sample bug template is shown as below :
+<kbd>
+![Bug Logging Template](../Images/ADO_BugLogging_BugTemplateNew.png)
+</kbd>
+The following information is conveyed by the bug template:
+-   The control that has failed
+-   The control description
+-   Rationale behind why the control is important
+-   Recommendation on how to fix it
+-   Control scan command to reproduce the steps on your end
+-   Detailed logs of the command result
+-   Severity of the failing control
+-   The person to whom the bug is assigned
+-   The area and iteration paths where the bug is logged
+
+> Using the -AutoBugLog switch, the scanner also evaluates all the passing control scans and checks for their corresponding bugs in the ADO. If such bugs are found, they are closed. 
+
+To check additional features or to customize the buglogging behaviour, refere the document [here](https://github.com/azsk/ADOScanner-docs/tree/master/08-%20Customizing%20ADOScanner%20for%20your%20org).
+
+----------------------------------------------
 
 ## FAQs
 
