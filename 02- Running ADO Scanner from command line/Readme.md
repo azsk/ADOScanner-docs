@@ -7,6 +7,13 @@
  -  [Execute SVTs using "-UsePartialCommits" switch](Readme.md#execute-svts-using--usepartialcommits-switch)
   	 - [Speed up checkpointed scans with "-DoNotRefetchResources" switch](Readme.md#speed-up-checkpointed-scans-with--donotrefetchresources-switch) 
  -  [Execute path based scanning for builds and releases](Readme.md#execute-path-based-scanning-for-builds-and-releases)
+ -  [Scan pipelines incrementally](Readme.md#scan-pipelines-incrementally)
+	 - [Incremental Scan in CA](Readme.md#incremental-scan-in-ca)
+	 - [Scanning incrementally from a given date](Readme.md#scanning-incrementally-from-a-given-date)
+ -  [Execute SVTs for large projects in batch mode](Readme.md#execute-svts-for-large-projects-in-batch-mode)
+	 - [Understanding the batch mode flow](Readme.md#understanding-the-batch-mode-flow)
+	 - [Running batch mode in a VM](Readme.md#running-batch-mode-in-a-vm)
+	 - [Combining security reports from all batches using GADSBMR](Readme.md#combining-security-reports-from-all-batches-using-gadbmr)
 
 ## Scan your Azure DevOps resources
 
@@ -80,6 +87,11 @@ Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "
 #Scan Variable group
 Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "PRJ1"  -ResourceTypeName VariableGroup
 
+#Scan all resources except organization, project and pipelines
+Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "PRJ1" -VariableGroupNames "*" -AgentPoolNames "*"`
+-ServiceConnectionNames "*" -FeedNames "*" -SecureFileNames "*" -ReporsitoryNames "*"`
+-ResourceTypeName SvcConn_AgentPool_VarGroup_CommonSVTResources 
+
 #Scan using service Id
 Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "PRJ1"  -ServiceId "<service Id>"
 
@@ -151,3 +163,134 @@ Consider the following build folder structure: </br>
  </br>
 To scan builds inside "Folder 1", the path should be given as "Folder 1". This will scan all builds inside this folder (i.e., Build 1, Build 2 and Build 3). To scan all builds inside "Folder 2", the path should be "Folder 1\Folder 2". This will scan Build 1 and Build 2.
 
+
+### Scan pipelines incrementally
+The Get-AzSKADOSecurityStatus command by default scans all the resources whose resource type you have specified. Situations may arise when pipelines have not been used/changed since the last scan was executed. In such scenarios, you may want to scan only those resources that have the potential to drift from compliance rather than every resource all over again. This will save the scan time as well as give you the most recent and relevant security status. You can achieve this using the *-IncrementalScan* switch.
+ When you use this switch for the first time the scanner stores the timestamp as a reference for future scans. When you scan pipelines the next time, not all of them will be scanned. Rather using the time from last scan only those pipelines will be scanned that have been modified/created since then.
+ ```PowerShell
+ #------------Scan builds incrementally------------------#
+ Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>"  -ProjectName "<ProjectName>"  -BuildNames *  -ResourceTypeName Build -IncrementalScan
+ 
+ #------------Scan releases incrementally----------------#
+ Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>"  -ProjectName "<ProjectName>"  -ReleaseNames *  -ResourceTypeName Release -IncrementalScan
+ 
+ #------------Scan builds and releases incrementally----------------#
+ Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>"  -ProjectName "<ProjectName>"  -ResourceTypeName Build_Release -IncrementalScan
+```
+>The incremental scan switch currently supports build and release pipelines, 
+#### Incremental Scan in CA
+You can also leverage the feature of incremental scans in CA mode as well. Read more about CA [here](https://github.com/azsk/ADOScanner-docs/tree/master/04-Running%20ADOScanner%20as%20Azure%20Function).
+To use incremental scan in CA, setup the CA mode for your project by following steps from [here](https://github.com/azsk/ADOScanner-docs/blob/master/04-Running%20ADOScanner%20as%20Azure%20Function/README.md#setting-up-adoscanner-using-azure-function---step-by-step). In the Extended Command configuration add the following:
+```PowerShell
+#------------Scan releases incrementally----------------#
+-ResourceTypeName Release -IncrementalScan
+
+#------------Scan builds incrementally------------------#
+-ResourceTypeName Build -IncrementalScan
+
+#------------Scan builds and releases incrementally----------------#
+-ResourceTypeName Build_Release -IncrementalScan
+```
+
+#### Scanning incrementally from a given date
+You can also scan pipelines incrementally from a specified date rather than using the last scan time stamp. In such cases, all pipelines that have been modified/created since the given date will be eligible for scanning. To leverage this use the switch *-IncrementalDate*.
+ ```PowerShell
+ #------------Scan builds incrementally------------------#
+ Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>"  -ProjectName "<ProjectName>"  -BuildNames *  -ResourceTypeName Build -IncrementalScan -IncrementalDate "<Date>"
+ 
+ #------------Scan releases incrementally----------------#
+ Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>"  -ProjectName "<ProjectName>"  -ReleaseNames *  -ResourceTypeName Release -IncrementalScan -IncrementalDate "<Date>"
+ 
+ #------------Scan builds and releases incrementally----------------#
+ Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>"  -ProjectName "<ProjectName>"  -ResourceTypeName Build_Release -IncrementalScan -IncrementalDate "<Date>"
+```
+
+You can use the *-IncrementalDate* switch with CA as well by adding the switch in Extended Command as described above.
+>Keep the date format for *-IncrementalDate* switch as MM:DD:YYYY
+
+### Execute SVTs for large projects in batch mode
+
+ADO Scanner supports another command, *Get-AzSKADOSecurityStatusBatchMode (gadsbm)*, to facilitate scanning of large projects whose scanning may continue across hours on an end. In such scenarios the gadsbm command scans your pipelines in batches that reduces the load on your RAM and storage. In case the scan interrupts in between, you can resume the scan from the last unscanned batch without having to go through the process of collecting pipelines again. It uses the 
+ -upc switch implicitly  ensuring you double checkpoints - batch wise as well as inside a batch.
+ > - Consider scanning your projects in batch mode when the number of pipelines in the project is greater than 20K
+ > -  Batch mode currently supports build and release pipelines. For all other resources, you can scan using GADS command
+ #### The GADSBM command and its parameters
+A typical security scan command in batch mode will look like as follows:
+```PowerShell
+GADSBM -OrganizationName "<OrganizationName>" -ProjectName "<ProjectName>" -ResourceTypeName Build_Release -BatchSize <BatchSize> -FolderName "<FolderName>" -PATTokenURL "<KeyVaultUrlContainingPAT>"
+```
+> Make sure you have the latest version of AzSK.ADO installed. After installation, if there are any older versions of the module imported in the current session already, you should start the batch mode in a fresh console. This is to make sure that the changes from the latest module take effect.
+
+ Following are the scan parameters that are specific to the GADSBM command :
+ 
+| Parameter name |Purpose  | Required?| Possible values
+|--|--|--|--|
+| OrganizationName | Name of the organization being scanned |True | Valid organization name
+|ProjectName | Name of the project being scanned |True | Valid project name
+| PATTokenURL | KeyVault URL for PAT | True | Valid key vault url
+| ResourceTypeName | Resource type to be scanned | True | Build, Release, Build_Release|
+| FolderName | Name of the folder where batch results are to be stored| True| Folder name (if folder doesn't exists, it will be created)
+|BatchSize| The number of pipelines to be scanned in one batch |False| Valid batch size number
+
+Apart from the above parameters, you can also use the following parameters that are supported in *gads* as well :
+
+ - UseBaselineControls
+ - FilterTags
+ - ControlIds
+ - BuildsFolderPath
+ - ReleasesFolderPath
+ - PolicyProject
+ - All bug logging related parameters
+ 
+ #### Customizing batch size
+ In addition to using the -BatchSize parameter to define the number of pipelines to scan in one batch, you can also configure the batch size value using org policy. To leverage this, make sure the org policy setup is complete in your project. Read more about org policy [here](https://github.com/azsk/ADOScanner-docs/tree/master/08-%20Customizing%20ADOScanner%20for%20your%20org).
+	 - Copy the ControlSettings.json from the AzSK.ADO installation to your org-policy repo.
+	 - Remove everything except the "*BatchTrackerUpdateFrequency*" line while keeping the JSON object hierarchy/structure intact.
+```json
+{
+	"BatchScan":{
+		"BatchTrackerUpdateFrequency":5000
+	}
+}
+```
+3.  Commit the file.
+4.  Add an entry for *ControlSettings.json* in *ServerConfigMetadata.json*.
+
+By default, the size is 5000 which you can configure. On specifying the -BatchScan parameter, this value will be overriden.
+
+#### Understanding the batch mode flow
+On running the GADSBM command, the scanner fetches only a specified number of pipelines in one go (via org policy or -BatchSize). It scans those pipelines and stores the results of the current batch in the folder *%LOCALAPPDATA%\Microsoft\AzSK.ADOLogs\Org_[yourOrganizationName]\BatchScan\\[FolderName]*. Here folder name is the name of the folder you specified in -FolderName parameter. </br>
+<kbd>
+<img  src="../Images/BatchModeFolderStructure.PNG"  alt="Batch mode folder structure">
+</kbd>
+ </br>
+Once the current batch is complete, a fresh PS console opens which will fetch and scan the next batch of pipelines. The process continues until all pipelines have been scanned, after which no new console will open. In case the scan is interrupted at any point, you can rescan using the same command which will result in starting the scan from the last unscanned batch. 
+
+#### Running batch mode in a VM
+Since batch mode is specifically designed for scanning large projects that can take several hours, you may wish to run the scanner in a VM. To run the scanner in the VM, you would have to provide Managed Identity access to the VM on your key vault. To do that follow the given steps:
+
+ - Create a VM in Azure
+ - Create a Key Vault and add your PAT as a secret in the vault. The URL for this secret is what you can use for the gadsbm command.
+ - Navigate to the Key Vault. Under 'Settings' go to 'Access Policies'.
+ - Click on 'Add Access Policy'.
+ - Under 'Configure from template' select 'Secret Management'.
+ - Click on 'Select Principle' and add your VM here as the principal. Click on 'Select'.
+ - Click on 'Add'
+ </br>
+ <kbd>
+<img  src="../Images/BatchModeMI-1.PNG"  alt="Batch mode add MI">
+</kbd>
+ </br>
+  </br>
+ <kbd>
+<img  src="../Images/BatchModeMI-2.PNG"  alt="Batch mode add MI">
+</kbd>
+ </br>
+#### Combining security reports from all batches using GADSBMR
+The results of each individual batch will be in the respective folders in the folder path as defined above. For a consolidated summary and easy viewing of the logs, you may want to combine the security reports from all batch results folders into one combined security report. You can do this using the _Get-AzSKADOSecurityStatusBatchMode (gadsbmr)_ command.
+
+```Powershell
+GADSBMR -OrganizationName "<OrganizationName>"  -ProjectName "<ProjectName>" -FolderName "<FolderName>"
+```
+All security reports will be combined in one security report. The security report will contain the path to the logs for each resource which you can use to analyse the results. 
+ 
