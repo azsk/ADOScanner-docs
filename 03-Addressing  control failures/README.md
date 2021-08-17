@@ -10,7 +10,8 @@
 	- [How scanner determines the effective control result](README.md#how-scanner-determines-the-effective-control-result)  
 	- [Permissions required for attesting controls](README.md#permissions-required-for-attesting-controls) 
 	- [Attestation expiry](README.md#attestation-expiry)  
-
+- [Automated control fix](README.md#Automated-control-fix)
+    - [Remediating control - Step by Step](README.md#Remediating-control---Step-by-Step)
 ----------------------------------------------
 
 ## Understanding scan logs and CSV report
@@ -378,4 +379,67 @@ Any control with evaluation result as not passed and,
 > **Note**:
 >* Attestation may also expire before actual expiry in cases when the attested state for the control doesn't match with current control state.
 
+[Back to top...](README.md#contents)
+
+----------------------------------------------
+
+## Automated control fix
+
+This feature enables users to bulk fix a control and revert the fix to previous state, if required. Follow the below steps to use this feature.
+
+**Note**:
+This is currently in preview and only below controls' fix are at present supported via this feature: 
+- ADO_AgentPool_AuthZ_Restrict_Broader_Group_Access
+- ADO_Build_AuthZ_Restrict_Broader_Group_Access 
+- ADO_Build_DP_Review_Inactive_Build
+- ADO_Feed_AuthZ_Restrict_Broader_Group_Access
+- ADO_Feed_AuthZ_Dont_Grant_BuildSvcAcct_Permission
+- ADO_Project_AuthZ_Restrict_Broader_Group_Access_on_Agentpool
+- ADO_Project_AuthZ_Restrict_Broader_Group_Access_on_Builds 
+- ADO_Project_AuthZ_Restrict_Broader_Group_Access_on_SvcConn
+- ADO_Project_AuthZ_Restrict_Broader_Group_Access_on_VarGrp
+- ADO_Release_AuthZ_Restrict_Broader_Group_Access 
+- ADO_Release_DP_Review_Inactive_Release
+- ADO_ServiceConnection_AuthZ_Restrict_Broader_Group_Access
+- ADO_VariableGroup_AuthZ_Restrict_Broader_Group_Access
+
+### Remediating control - Step by Step
+
+#### 1. Create backup of current control state
+
+To generate backup of the resource configurations locally, run below cmdlet: 
+
+```PowerShell  
+# e.g., create backup for ADO_Feed_AuthZ_Restrict_Broader_Group_Access control
+$orgName = '<Organization name>'
+$projectName = '<Project name>'
+  	
+Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectName $projectName -ResourceTypeName Feed -controlids 'ADO_Feed_AuthZ_Restrict_Broader_Group_Access' -upc -PrepareForControlFix  
+
+```
+
+#### 2. Fix the control
+
+Set-AzSKADOSecurityStatus command can be used to fix the control for which a 'state backup' has been generated via the previous command.
+
+```PowerShell  
+$orgName = '<Organization name>'
+$projectName = '<Project name>'
+  	
+Set-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectName $projectName -controlids 'ADO_Feed_AuthZ_Restrict_Broader_Group_Access' 
+
+```
+
+#### 3. Undo control fix 
+
+Set-AzSKADOSecurityStatus command supports -UndoFix switch which can be used to revert the changes for one or more resources.
+
+```PowerShell  
+$orgName = '<Organization name>'
+$projectName = '<Project name>'
+$resourceNames = '<resource1, resource2,...>'
+  	
+Set-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectName $projectName -controlids 'ADO_Feed_AuthZ_Restrict_Broader_Group_Access' -resourcenames $resourceNames -UndoFix
+
+```
 [Back to top...](README.md#contents)
