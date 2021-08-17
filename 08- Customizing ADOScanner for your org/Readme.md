@@ -526,7 +526,7 @@ class SubscriptionCore: SVTBase
 	}
   ```
 
-  4. 	Now you need to prepare the json for the above new control. You can get started by copying the default base json, rename it to ADO_<Feature>.ext.json. In this case you need to rename it as ADO_Project.ext.json. Remove all the other controls except for one and update it with new control details. See additional instructions as '//comments' on each line in the example JSON below. Note: Remove the comments from JSON if you happen to use the below as-is.
+  4. 	Now you need to prepare the json for the above new control. You can get started by copying the default base json, rename it to ADO_<Feature>.ext.json. In this case you need to rename it as ADO.Project.ext.json. Remove all the other controls except for one and update it with new control details. See additional instructions as '//comments' on each line in the example JSON below. Note: Remove the comments from JSON if you happen to use the below as-is.
 
   > IMPT: Do *not* tag 'Ext' to the 'FeatureName' here. Make sure you have updated the MethodName to the new method name.
   > Note: Remove the comments in the below JSON before saving the file
@@ -570,20 +570,20 @@ class SubscriptionCore: SVTBase
 6. 	 That's it!! You can now scan the new extended control like any other control.
 
 ```PowerShell
-	Get-AzSKADOSecurityStatus -OrganizationName "org_name" -ProjectNames "<Org_Policy_Project_Name>" -ControlIds 'Azure_Subscription_AuthZ_Limit_Admin_Count_Ext'
+	Get-AzSKADOSecurityStatus -OrganizationName "<org_name>" -ProjectNames "<Org_Policy_Project_Name>" -ControlIds 'ADO_Organization_AuthZ_Limit_Admin_Count'
 ```
 
 ### Steps to override the logic of existing SVT:
 
 1. Add new Feature.ext.ps1/Project.ext.ps1 file with the new function that needs to be executed as per the above documentation.
-2. Customize ADO.Feature.json/ADO.Project.json file as per by overriding "MethodName" property value with the new function name that needs to be executed.
+2. Customize ADO.Feature.ext.json/ADO.Project.ext.json file as per by overriding "MethodName" property value with the new function name that needs to be executed.
 3. That's it!! You can now scan the older control with overridden functionality.
 
 ### Steps to add extended control in baseline control list:
 
-1. Add new control to ADO.Feature.json/ADO.Project.json file as per the above documentation.
+1. Add new control to ADO.Feature.ext.json/ADO.Project.ext.json file as per the above documentation.
 2. Add the new ControlId in baseline control list.
-3. That's it!! The newly added control will be scanned while passing "-UseBaselineControls" switch to GSS/GRS cmdlets.
+3. That's it!! The newly added control will be scanned while passing "-UseBaselineControls" switch to GADS cmdlet.
 
 
 ## Frequently Asked Questions
