@@ -407,7 +407,7 @@ This is currently in preview and only below controls' fix are at present support
 
 #### 1. Create backup of current control state
 
-To generate backup of the control locally, run below cmdlet:
+To generate backup of the resource configurations locally, run below cmdlet: 
 
 ```PowerShell  
 # e.g., create backup for ADO_Feed_AuthZ_Restrict_Broader_Group_Access control
