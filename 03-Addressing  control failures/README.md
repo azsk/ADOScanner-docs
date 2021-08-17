@@ -389,7 +389,19 @@ This feature enables users to bulk fix a control and revert the fix to previous 
 
 **Note**:
 This is currently in preview and only below controls' fix are at present supported via this feature: 
+- ADO_AgentPool_AuthZ_Restrict_Broader_Group_Access
+- ADO_Build_AuthZ_Restrict_Broader_Group_Access 
+- ADO_Build_DP_Review_Inactive_Build
 - ADO_Feed_AuthZ_Restrict_Broader_Group_Access
+- ADO_Feed_AuthZ_Dont_Grant_BuildSvcAcct_Permission
+- ADO_Project_AuthZ_Restrict_Broader_Group_Access_on_Agentpool
+- ADO_Project_AuthZ_Restrict_Broader_Group_Access_on_Builds 
+- ADO_Project_AuthZ_Restrict_Broader_Group_Access_on_SvcConn
+- ADO_Project_AuthZ_Restrict_Broader_Group_Access_on_VarGrp
+- ADO_Release_AuthZ_Restrict_Broader_Group_Access 
+- ADO_Release_DP_Review_Inactive_Release
+- ADO_ServiceConnection_AuthZ_Restrict_Broader_Group_Access
+- ADO_VariableGroup_AuthZ_Restrict_Broader_Group_Access
 
 ### Remediating control - Step by Step
 
