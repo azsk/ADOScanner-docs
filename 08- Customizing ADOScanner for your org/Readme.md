@@ -526,7 +526,7 @@ class SubscriptionCore: SVTBase
 	}
   ```
 
-  4. 	Now you need to prepare the json for the above new control. You can get started by copying the default base json, rename it to ADO_<Feature>.ext.json. In this case you need to rename it as ADO.Project.ext.json. Remove all the other controls except for one and update it with new control details. See additional instructions as '//comments' on each line in the example JSON below. Note: Remove the comments from JSON if you happen to use the below as-is.
+  4. 	Now you need to prepare the json for the above new control. You can get started by copying the default base json, rename it to ADO.<Feature>.ext.json. In this case you need to rename it as ADO.Project.ext.json. Remove all the other controls except for one and update it with new control details. See additional instructions as '//comments' on each line in the example JSON below. Note: Remove the comments from JSON if you happen to use the below as-is.
 
   > IMPT: Do *not* tag 'Ext' to the 'FeatureName' here. Make sure you have updated the MethodName to the new method name.
   > Note: Remove the comments in the below JSON before saving the file
