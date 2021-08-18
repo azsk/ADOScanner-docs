@@ -469,8 +469,8 @@ class SubscriptionCore: SVTBase
 ```
 
 ### Steps to extend the control SVT:
-##### A. Extending a GSS SVT
-1. 	 Copy the SVT ps1 script that you want to extend and rename the file by replacing "ADO_<Feature>.ps1" with "<Feature>.ext.ps1".
+##### A. Extending a SVT
+1. 	 Copy the SVT ps1 script that you want to extend and rename the file by replacing "ADO.<Feature>.ps1" with "<Feature>.ext.ps1".
 	For example, if you want to extend ADO.Project.ps1, copy the file and rename it to Project.ext.ps1.
 
 2. 	 You need to rename the class, inherit from the core feature class, and then update the constructor to reflect the new name as shown below:
