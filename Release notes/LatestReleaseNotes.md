@@ -1,79 +1,80 @@
-# 210715 (AzSK.ADO v.1.9.0)
+# 210816 (AzSK.ADO v.1.10.0)
 
 ## Feature Updates
 
 ### ADO Security Scanner PowerShell Module:
-* Support for ‘path’ based scans:
-    * To support scans of ‘compliant folder’ based projects (where governed build/release configs are       constrained to specific paths), we have added support for path-based scanning for builds and releases.       
-    * This can be used via the ```-BuildsFolderPath``` and ```-ReleasesFolderPath switches``` as shown below:
-        
-        ```PowerShell
-        gads –oz $org -pn $proj –bn *  –BuildsFolderPath $folderpath
-        
-        gads –oz $org –pn $proj –rn *  –ReleasesFolderPath $folderpath
-        ``` 
-* Optimizing checkpointed scans: 
-    * Added a switch ```-DoNotRefetchResources``` (or -dnrr) to request not re-fetching resources when continuation of a checkpointed scan (i.e., when the -upc switch is used).
-    * This facilitates running batch scans efficiently by speeding up scans of subsequent batches after the initial one.
+* Incremental Scan:
+    * Introduced a new switch ```-IncrementalScan``` that can be used to scan only those pipelines that have been modified since the last scan was executed.       
+    * ```-IncrementalScan``` also supports an extra switch ```-IncrementalDate``` which can be used to scan only those pipelines that have been modified after the date defined via this switch.  
 
-* Automated control fixes (preview): 
-    * Added a switch ```-PrepareForFix``` which will create a local backup of current state of a resource     configuration/settings.
-        ```PowerShell
-        gads - oz $org -pn $proj  -Feednames * -cid 'ADO_Feed_AuthZ_Restrict_Broader_Group_Access' -upc    -PrepareForControlFix
-        ```	
-    * Thereafter, a new command, ```Set-AzSKADOSecurityStatus``` can be used to fix the control for which a   ‘state backup’ has been generated via the previous command.
-        ```PowerShell
-        Set-AzSKADOSecurityStatus -oz $org -pn $proj -cid 'ADO_Feed_AuthZ_Restrict_Broader_Group_Access'
-        ```
-    * Currently, this is available for the ```ADO_Feed_AuthZ_Restrict_Broader_Group_Access control```.
-    * The, ```-UndoFix switch``` can be used to revert the changes for one or more resources:
-        ```PowerShell
-        Set-AzSKADOSecurityStatus -oz $org -pn $proj -cid 'ADO_Feed_AuthZ_Restrict_Broader_Group_Access' -rns $rsrcNames -UndoFix
-        ```
+* Batch Scan: 
+    * Introduced a new command ```Get-AzSKADOSecurityStatusBatchMode``` (gadsbm), to scan large projects with huge number of pipelines. The new command runs 'gads' in a batch mode by scanning resources in a defined batch size. It will resume scan from last unscanned batch in case of any interruption.  
+    * Another command ```Get-AzSKADOSecurityStatusBatchModeResults``` (gadsbmr) can be used to combine security reports from all batches in one collated report. 
+
+* Added CommonSVT resources : 
+    * Common SVT resources added in Service tree id based scan (Repository, Feed, SecureFile, Environment) 
+
+* Automated bulk remediation extended for:  
+    * ADO_Build_DP_Review_Inactive_Build 
+    * ADO_Release_DP_Review_Inactive_Release 
+    * ADO_Feed_AuthZ_Dont_Grant_BuildSvcAcct_Permission 
+    * ADO_Project_AuthZ_Restrict_Broader_Group_Access_on_Builds  
+    * ADO_Release_AuthZ_Restrict_Broader_Group_Access  
+    * ADO_Build_AuthZ_Restrict_Broader_Group_Access  
+    * ADO_Project_AuthZ_Restrict_Broader_Group_Access_on_Agentpool 
+    * ADO_Project_AuthZ_Restrict_Broader_Group_Access_on_VarGrp 
+    * ADO_AgentPool_AuthZ_Restrict_Broader_Group_Access 
+    * ADO_ServiceConnection_AuthZ_Restrict_Broader_Group_Access 
+    * ADO_VariableGroup_AuthZ_Restrict_Broader_Group_Access
+    * ADO_Project_AuthZ_Restrict_Broader_Group_Access_on_SvcConn
+
+* GitHub based default policy  : 
+    * Introduced GitHub  as  a storage for default policy when there is no server based  org policy used in scan command. 
+    * This will help us in adding/modifying/fixing  the controls/configurations using org policy.  
+ 
 
 
 ### Security controls updates
 * New controls:
    The following new controls have been added in this release:
-   * ```ADO_Build_AuthZ_Restrict_Access_To_OAuth_Token_For_Agent_Jobs```: Do not allow excessive permissions on OAuth access token to agent jobs in a build pipeline.
-   * ```ADO_Release_AuthZ_Restrict_Access_To_OAuth_Token_For_Agent_Jobs```: Do not allow excessive permissions on OAuth access token to agent jobs in a release pipeline.
-   * ```ADO_VariableGroup_AuthZ_Restrict_Broader_Group_Access_On_VG_With_Secrets```: Broader groups (contributors, project valid users, etc.) should not have user/administrator privileges on variable group which contains secrets.
-   * ```ADO_Repository_AuthZ_Dont_Grant_All_Pipelines_Access```: Do not make repository accessible to all pipelines.
-   * ```ADO_SecureFile_AuthZ_Restrict_Broader_Group_Access```: Do not allow secure file to have excessive permissions for a broad group of users.
-   * ```ADO_Environment_AuthZ_Dont_Grant_All_Pipelines_Access```: Do not make environment accessible to all pipelines.
-   * ```ADO_Environment_AuthZ_Restrict_Broader_Group_Access```: Do not allow environment to have excessive permissions for a broad group of users.
+   * ```ADO_Feed_AuthZ_Dont_Grant_BuildSvcAcct_Permission```: Do not grant build service account direct access to feed.
+   * ```ADO_Project_AuthZ_Restrict_Broader_Group_Access_on_SecureFile```: Do not allow secure files to inherit excessive permissions for a broad group of users at project level .
+   * ```ADO_Project_AuthZ_Restrict_Broader_Group_Access_on_Repo```: Do not allow repositories to inherit excessive permissions for a broad group of users at project level.
+   * ```ADO_Project_AuthZ_Restrict_Broader_Group_Access_on_Env```: Do not allow environments to inherit excessive permissions for a broad group of users at project level.
+   * ```ADO_Repository_AuthZ_Dont_Grant_BuildSvcAcct_Permission```: Do not grant Build Service Account direct access to repositories.
 
-* Changes to existing controls:
-   * ```ADO_Organization_AuthZ_Review_Project_Collection_Service_Accounts```control now extracts all users from nested groups in Project Collection Service Accounts.
-   * ```Disabled ADO_Project_AuthZ_Disable_Repo_Inherited_Permissions```control for all resource types as most projects appear to be reliant on permission inheritance. (We will introduce an org level settings to choose to reenable this in the next sprint.)
-   * Moved from project scope to individual control ```ADO_Project_AuthZ_Dont_Grant_All_Pipelines_Access_To_Environment```  
+
+* Changes to existing controls :
+   * ```ADO_Build_SI_Restrict_Task_Group_Edit_Permission```
+   * ```ADO_Release_SI_Restrict_Task_Group_Edit_Permission```
+   * ```ADO_ServiceConnection_AuthZ_Dont_Grant_BuildSvcAcct_Permission```
+   * ```ADO_Build_SI_Review_URL_Variables_Settable_At_Queue_Time```
+   * ```ADO_Release_SI_Review_URL_Variables_Settable_At_Release_Time```
+   * ```ADO_Build_DP_Review_Inactive_Build```
+   * ```ADO_Release_DP_Review_Inactive_Release```
+   * ```ADO_Build_SI_Dont_Use_Broadly_Editable_Variable_Group```
+   * ```ADO_Release_SI_Dont_Use_Broadly_Editable_Variable_Group```
+
 * Control Name Changes:
     * The following control ids were changed to ensure consistent control names across different resource types for similar controls:
 
         |Old Control id |New Control Id|
         |---------------|--------------|
-        |ADO_Organization_AuthZ_Limit_Non_Release_Pipeline_Access|                               ADO_Organization_AuthZ_Limit_Non_Release_Pipeline_Scope|ADO_Organization_AuthZ_Limit_Release_Pipeline_Access|	ADO_Organization_AuthZ_Limit_Release_Pipeline_Scope|
-        ADO_Organization_AuthZ_Limit_Pipeline_Access_To_Referenced_Repos|	ADO_Organization_AuthZ_Limit_Pipeline_Scope_To_Referenced_Repos|
-        ADO_Organization_AuthZ_Limit_Release_Pipeline_Access|ADO_Organization_AuthZ_Limit_Release_Pipeline_Scope|ADO_Organization_AuthZ_Limit_Pipeline_Access_To_Referenced_Repos|	ADO_Organization_AuthZ_Limit_Pipeline_Scope_To_Referenced_Repos|
-        ADO_Project_AuthZ_Limit_Non_Release_Pipeline_Access|ADO_Project_AuthZ_Limit_Non_Release_Pipeline_Scope|
-        ADO_Project_AuthZ_Limit_Release_Pipeline_Access|ADO_Project_AuthZ_Limit_Release_Pipeline_Scope|
-        ADO_Project_AuthZ_Limit_Pipeline_Access_To_Referenced_Repos|ADO_Project_AuthZ_Limit_Pipeline_Scope_To_Referenced_Repos|
-        ADO_Build_SI_Limit_Task_Group_Edit_Permission|ADO_Build_SI_Restrict_Task_Group_Edit_Permission|
-        ADO_Release_SI_Limit_Task_Group_Edit_Permission|ADO_Release_SI_Restrict_Task_Group_Edit_Permission|
-        ADO_Project_AuthZ_Dont_Grant_All_Pipelines_Access_Environment|	ADO_Environment_AuthZ_Dont_Grant_All_Pipelines_Access|
-        ADO_Feed_AuthZ_Restrict_Permissions|ADO_Feed_AuthZ_Restrict_Broader_Group_Access|
+        |ADO_Build_SI_Restrict_Task_Group_Edit_Permission|                               ADO_Build_SI_Dont_Use_Broadly_Editable_Task_Group|ADO_Build_SI_Restrict_Variable_Group_Edit_Permission|	ADO_Build_SI_Dont_Use_Broadly_Editable_Variable_Group|
+        ADO_Build_AuthZ_Limit_Pipeline_Access|ADO_Build_AuthZ_Limit_Pipeline_Scope|
+        ADO_Release_SI_Restrict_Task_Group_Edit_Permission|ADO_Release_SI_Dont_Use_Broadly_Editable_Task_Group|ADO_Release_SI_Restrict_Variable_Group_Edit_Permission|	ADO_Release_SI_Dont_Use_Broadly_Editable_Variable_Group|
+        ADO_VariableGroup_AuthZ_Dont_Grant_All_Pipelines_Access_To_Secrets|ADO_VariableGroup_AuthZ_Dont_Grant_All_Pipelines_Access_On_VG_With_Secrets|
 
 
 ### Other Improvements/Bug fixes
-* Enabled support for the ```-ExcludeControlIds``` switch which can be used in conjunction with other switches such as ```-ubc``` or ```-msw``` to scan all controls except the exclusions.
-* Removed the switch ```-UseGraphAccess``` as we have made Graph-based evaluation as the default.
-* Extended the ```-detailedScan``` switch to support deep scans of shared and auto-Injected extensions in the same vein as the installed extensions control.
-* Enabled bug logging for CommonSVT controls (Repository, Environment, Feed, Secure File) in preparation for subsequent compliance drive waves.
-* Bug log summary is sent to LA and closed bugs summary has been added to bug log summary
-* Get ```-AzSKADOServiceMapping``` command now supports ```-pattoken```,```-pattokenurl``` and ```-promptforpat``` parameters.
-* Perf improvements in scan preparation stage by fetching and processing the resources in batches.
-* Nested groups resolution performance improvements by caching the results of  resolved groups.
-* Add filters for MSW controls, projects, and control ids in workbook.
+* Gads now supports another resource type in ```-rtn SvcConn_AgentPool_VarGroup_CommonSVTResources``` switch to scan all resources except pipelines.
+* GADI is now showing actual resource type name (Repository, Feed, SecureFile, Environment) for CommonSVT resources.
+* Gads now supports scanning using multiple service id's. 
+* Added MaxObj scan support in Service tree id based scan.
+* Gadi inventory info can now be pushed to LA workspace for better analysis. 
+* Fixed attestation drift issue, if there is only 1 object in attested state. 
+* Determining inactive project control now consider inactivity for Work items, Test plans, Feeds and packages, Wiki's .
+* Updated risky permissions list for the release control: ADO_Release_AuthZ_Restrict_Broader_Group_Access .
 
 
 
