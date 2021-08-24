@@ -68,7 +68,7 @@ Import-Module AzSK.ADO
 
 Admin controls always refer to the controls associated with organization or project.
 
-> Project Control Administration access (PCA) and Project Administrator(PA) access is required to scan organization and Pproject Controls respectively. Otherwise, the scan results depends on the access levels of the identity running the scanner.
+> Project Control Administration access (PCA) and Project Administrator(PA) access is required to scan organization and project Controls respectively. Otherwise, the scan results depends on the access levels of the identity running the scanner.
 
 To scan admin controls, it is always recommended to use `-IncludeAdminControls` switch.
 
