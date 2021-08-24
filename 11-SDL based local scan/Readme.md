@@ -73,11 +73,11 @@ Admin controls always refer to the controls associated with organization or proj
 To scan admin controls, it is always recommended to use `-IncludeAdminControls` switch.
 
 Run the command below after replacing `<OrganizationName>` with your Azure DevOps org Name 
-and `<PRJ1, PRJ2, ..`> with a comma-separated list of project names where your Azure DevOps resources are hosted.
+and `<PRJName>` with a  project name where your Azure DevOps resources are hosted.
 You will get Organization name from your ADO organization url e.g. http://sampleadoorg.visualstudio.com. In this 'sampleadoorg' is org name.
 
 ```PowerShell
-Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "<PRJ1, PRJ2,...etc.>" -IncludeAdminControls
+Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "<PRJName>" -IncludeAdminControls
 ```
 
 The outcome of the security scan/analysis is printed on the console during SVT execution and a CSV and LOG files are 
@@ -92,7 +92,7 @@ E.g.  C:\Users\<UserName>\AppData\Local\Microsoft\AzSK.ADOLogs\Org_[yourOrganiza
 Non-admin controls always refer to the controls associated with any of the resource types other than organization or project. i.e Build/Release/AgentPool/ServiceConnection/VariableGroup/SecureFile/Repo/Feeds.
 
 For example, to scan all builds in a project, run the command below after replacing `<OrganizationName>` with your Azure DevOps org Name 
-and `<PRJName> with a  project name where your Azure DevOps resources are hosted.
+and `<PRJName>` with a  project name where your Azure DevOps resources are hosted.
 
 ```PowerShell
 Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "<PRJName>" -ResourceTypeName Build 
