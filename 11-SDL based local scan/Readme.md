@@ -100,7 +100,7 @@ Command also supports other parameters of filtering resources.
 Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "<PRJName>" -ResourceTypeName Build  -BuildNames "<Build1,Build2...>"
 
 #Scan all supported artifacts
-Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ScanAllResources
+Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>"  -ProjectNames "<PRJName>" -ScanAllResources
 
 #Scan resources for baseline controls only
 Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "<PRJName>"  -ResourceTypeName Build  -ubc
