@@ -189,7 +189,6 @@ It will import a very basic 'customized' policy involving below files uploaded t
 
 | File | Description
 | ---- | ---- |
-| AzSK.Pre.json | This file contains a setting that controls/defines the AzSK.ADO version that is 'in effect' in a project. A project can use this file to specify the specific version of AzSK.ADO that will get used in SDL/CICD scenarios at the project level.<br/> <br/>  **Note:** Whenever a new AzSK.ADO version is released, the org policy owner should update the AzSK.ADO version in this file with the latest released version after performing any compatibility tests in a test setup.<br/> You can get notified of new releases by following the AzSK.ADO module in PowerShell Gallery or release notes section [here](https://azsk.azurewebsites.net/ReleaseNotes/LatestReleaseNotes.html).
 | AzSK.json | Includes org-specific message, installation command etc.
 | ServerConfigMetadata.json | Index file with list of policy files.
 
