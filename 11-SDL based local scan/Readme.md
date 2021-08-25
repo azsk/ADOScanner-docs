@@ -268,6 +268,7 @@ Rather, **always** copy the file and edit it.
 <kbd>
   ![Edit Number of build history period in days](../Images/09_ADO_Org_Policy3.png)
 </kbd>
+
  iii) Commit the file.
 
  iv) Add an entry for *ControlSettings.json* in *ServerConfigMetadata.json* (in the repo) as shown below.
