@@ -1,4 +1,4 @@
-# 210816 (AzSK.ADO v.1.10.0)
+# 210915 (AzSK.ADO v.1.11.0)
 
 ## Feature Updates
 
@@ -48,10 +48,3 @@
 * Disabled attestation error message in case if attestation is not enabled for org controls.
 * Scan report folder name will come with UBC/UPC/TAG/SVCBasedScan if any of these used in GADS command.
 * Count of Agent pools displayed via ```GADI -infotype OrganizationInfo -ProjectNames $projName``` will not include legacy agent pools.
-
-
-
-
-
-
-
