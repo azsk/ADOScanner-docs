@@ -402,6 +402,17 @@ This is currently in preview and only below controls' fix are at present support
 - ADO_Release_DP_Review_Inactive_Release
 - ADO_ServiceConnection_AuthZ_Restrict_Broader_Group_Access
 - ADO_VariableGroup_AuthZ_Restrict_Broader_Group_Access
+- ADO_Organization_AuthZ_Revoke_Admin_Access_for_Guest_Users
+- ADO_Organization_AuthZ_Revoke_Admin_Access_for_Inactive_Users
+- ADO_Project_AuthZ_Revoke_Admin_Access_for_Guest_Users
+- ADO_Project_AuthZ_Revoke_Admin_Access_for_Inactive_Users
+- ADO_Project_AuthZ_Restrict_Broader_Group_Access_on_Repo
+- ADO_Project_AuthZ_Restrict_Broader_Group_Access_on_Releases
+- ADO_Project_AuthZ_Restrict_Broader_Group_Access_on_SecureFile
+- ADO_SecureFile_AuthZ_Restrict_Broader_Group_Access
+- ADO_VariableGroup_AuthZ_Restrict_Broader_Group_Access_On_VG_With_Secrets
+- ADO_Build_SI_Dont_Use_Broadly_Editable_Task_Group
+- ADO_Release_SI_Dont_Use_Broadly_Editable_Task_Group
 
 ### Remediating control - Step by Step
 
