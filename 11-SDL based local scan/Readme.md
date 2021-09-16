@@ -75,7 +75,7 @@ To scan the admin controls, it is always recommended to use `-IncludeAdminContro
 
 Run the command below after replacing `<OrganizationName>` with your ADO org name 
 and `<ProjectNames>` with the comma separated list of project names where your ADO resources are hosted.
-You will get organization name from your ADO organization url e.g. http://SampleADOOrg.visualstudio.com. In this 'SampleADOOrg' is org name.
+You will get organization name from your ADO organization url e.g. http://SampleAdoOrg.visualstudio.com. In this 'SampleAdoOrg' is the org name.
 
 ```PowerShell
 $orgName = "<OrganizationName>"
