@@ -69,16 +69,18 @@ Import-Module AzSK.ADO
 
 Admin controls always refer to the controls associated with organization or project.
 
-> Project Control Administration access (PCA) and Project Administrator(PA) access is required to scan organization and project Controls respectively. Otherwise, the scan results depends on the access levels of the identity running the scanner.
+> Project Collection Administrator access (PCA) and Project Administrator(PA) access is required to scan organization and project controls respectively. Otherwise, the scan results depends on the access/permission level of the identity running the scanner.
 
-To scan admin controls, it is always recommended to use `-IncludeAdminControls` switch.
+To scan the admin controls, it is always recommended to use `-IncludeAdminControls` switch.
 
-Run the command below after replacing `<OrganizationName>` with your Azure DevOps org Name 
-and `<PRJName>` with a  project name where your Azure DevOps resources are hosted.
+Run the command below after replacing `<OrganizationName>` with your ADO org Name 
+and `<ProjectNames>` with the project names where your ADO resources are hosted.
 You will get Organization name from your ADO organization url e.g. http://sampleadoorg.visualstudio.com. In this 'sampleadoorg' is org name.
 
 ```PowerShell
-Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "<PRJName>" -IncludeAdminControls
+$orgName = "<OrganizationName>"
+$projName = "<ProjectNames>"
+Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectNames $projName -IncludeAdminControls
 ```
 
 The outcome of the security scan/analysis is printed on the console during SVT execution and a CSV and LOG files are 
@@ -96,22 +98,25 @@ For example, to scan all builds in a project, run the command below after replac
 and `<PRJName>` with a  project name where your Azure DevOps resources are hosted.
 
 ```PowerShell
-Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "<PRJName>" -ResourceTypeName Build 
+$orgName = "<OrganizationName>"
+$projName = "<ProjectNames>"
+Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectNames $projName -ResourceTypeName Build 
 ```
 Command also supports other parameters of filtering resources.
 
 ```PowerShell
 #To scan selected builds in a project
-Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "<PRJName>" -ResourceTypeName Build  -BuildNames "<Build1,Build2...>"
+$buildNames = <Comma sepated build names to filter>
+Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectNames $projName -ResourceTypeName Build  -BuildNames $buildNames"
 
 #Scan all supported artifacts
-Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>"  -ProjectNames "<PRJName>" -ScanAllResources
+Get-AzSKADOSecurityStatus -OrganizationName $orgName  -ProjectNames $projName -ScanAllResources
 
 #Scan resources for baseline controls only
-Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "<PRJName>"  -ResourceTypeName Build  -ubc
+Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectNames $projName  -ResourceTypeName Build  -ubc
 
 #Scan controls with particular tags only
-Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "<PRJName>"  -ResourceTypeName Build  -FilterTags "<Comma sepated tags to filter>"
+Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectNames $projName  -ResourceTypeName Build  -FilterTags "<Comma sepated tags to filter>"
 ```
 Check the other parameters supported by command  [here](https://github.com/azsk/ADOScanner-docs/blob/master/02-%20Running%20ADO%20Scanner%20from%20command%20line/Readme.md).
 
