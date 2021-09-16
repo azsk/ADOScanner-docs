@@ -30,7 +30,7 @@
 ----------------------------------------------
 
 ## Overview
-Security Scanner for Azure DevOps (AzSK.ADO) helps you keep your ADO resource types such as various org/project settings, build/release configurations, service connections, agent pools, , feeds, repositories, securefiles, environments etc. configured securely. 
+Security Scanner for Azure DevOps (AzSK.ADO) helps you keep your ADO resource types such as various org/project settings, build/release configurations, service connections, agent pools, feeds, repositories, securefiles, environments etc. configured securely. 
 
 > At its core, the Security Scanner for ADO is a PowerShell module. This can be run locally from the PS console after installation. This is as simple as running PS in non-Admin mode and running the scan cmds.
 
@@ -111,7 +111,7 @@ Command also supports other parameters of filtering resources.
 ```PowerShell
 #To scan selected builds in a project
 $buildNames = <Comma sepated build names to filter>
-Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectNames $projNames -ResourceTypeName Build  -BuildNames $buildNames"
+Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectNames $projNames -ResourceTypeName Build  -BuildNames $buildNames
 
 #Scan all supported artifacts
 Get-AzSKADOSecurityStatus -OrganizationName $orgName  -ProjectNames $projNames -ScanAllResources
@@ -132,7 +132,7 @@ Check the other parameters supported by command  [here](https://github.com/azsk/
 
 The Get-AzSKADOSecurityStatus command now supports checkpointing via a "-UsePartialCommits" switch. When this switch is used, the command periodically persists scan progress to disk. That way, if the scan is interrupted or an error occurs, a future retry can resume from the last saved state. The cmdlet below checks security control state via a "-UsePartialCommits" switch:
 ```PowerShell
-Get-AzSKADOSecurityStatus-OrganizationName $orgName -ScanAllResources -UsePartialCommits
+Get-AzSKADOSecurityStatus -OrganizationName $orgName -ScanAllResources -UsePartialCommits
 ```
 ----------------------------------------------
 
@@ -324,7 +324,7 @@ It will import a very basic 'customized' policy involving below files uploaded t
 ----------------------------------------------
 
 ### Changing control settings
-The settings  that alter scan behaviour, metrics, control results are generally configured in a file named ControlSettings.json. Using this file we can modify baseline control set for each  resource type, change the update frequency of partial scan, modify the thresolds, parameters for each control etc. Because the first-time org policy setup does not customize anything from this, we will first need to copy this file from the local AzSK.ADO installation.
+The settings  that alter scan behaviour, metrics, control results are generally configured in a file named ControlSettings.json. Using this file we can modify baseline control set for each  resource type, change the update frequency of partial scan, modify the thresholds, parameters for each control etc. Because the first-time org policy setup does not customize anything from this, we will first need to copy this file from the local AzSK.ADO installation.
 
 The local version of this file should be in the following folder:
 ```PowerShell
