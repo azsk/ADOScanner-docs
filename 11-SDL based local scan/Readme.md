@@ -80,7 +80,7 @@ You will get organization name from your ADO organization url e.g. http://Sample
 ```PowerShell
 $orgName = "<OrganizationName>"
 $projNames = "<ProjectNames>"
-Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectNames $projName -IncludeAdminControls
+Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectNames $projNames -IncludeAdminControls
 ```
 
 The outcome of the security scan/analysis is printed on the console during SVT execution and a CSV and LOG files are 
@@ -100,23 +100,23 @@ and `<ProjectNames>` with a comma separated list of project names where your ADO
 ```PowerShell
 $orgName = "<OrganizationName>"
 $projNames = "<ProjectNames>"
-Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectNames $projName -ResourceTypeName Build 
+Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectNames $projNames -ResourceTypeName Build 
 ```
 Command also supports other parameters of filtering resources.
 
 ```PowerShell
 #To scan selected builds in a project
 $buildNames = <Comma sepated build names to filter>
-Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectNames $projName -ResourceTypeName Build  -BuildNames $buildNames"
+Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectNames $projNames -ResourceTypeName Build  -BuildNames $buildNames"
 
 #Scan all supported artifacts
-Get-AzSKADOSecurityStatus -OrganizationName $orgName  -ProjectNames $projName -ScanAllResources
+Get-AzSKADOSecurityStatus -OrganizationName $orgName  -ProjectNames $projNames -ScanAllResources
 
 #Scan resources for baseline controls only
-Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectNames $projName  -ResourceTypeName Build  -ubc
+Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectNames $projNames  -ResourceTypeName Build  -ubc
 
 #Scan controls with particular tags only
-Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectNames $projName  -ResourceTypeName Build  -FilterTags "<Comma sepated tags to filter>"
+Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectNames $projNames  -ResourceTypeName Build  -FilterTags "<Comma sepated tags to filter>"
 ```
 Check the other parameters supported by command  [here](https://github.com/azsk/ADOScanner-docs/blob/master/02-%20Running%20ADO%20Scanner%20from%20command%20line/Readme.md).
 
