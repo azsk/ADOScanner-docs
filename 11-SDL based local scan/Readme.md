@@ -292,7 +292,7 @@ Rather, **always** copy the file and edit it.
 
 Anyone in your project can now start a fresh PS console and the result of the evaluation whether a build pipeline is inactive in
 the build security scan (Get-AzSKADOSecurityStatus) should reflect that the new setting is in
-effect. (E.g., if you change the period to 90 days and if the pipeline was inactive from past 120 days, then the result for control (ADO_Build_SI_Review_Inactive_Build) will change from 'Passed' to 'Failed'.)
+effect. (E.g., Incase you change the period to 90 days and if the pipeline was inactive from past 120 days, then the result for control (ADO_Build_SI_Review_Inactive_Build) will change from 'Passed' to 'Failed'.)
 
 
 Check the advanced features supported by org policy [here](https://github.com/azsk/ADOScanner-docs/tree/master/08-%20Customizing%20ADOScanner%20for%20your%20org).
