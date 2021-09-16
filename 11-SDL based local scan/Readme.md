@@ -28,6 +28,8 @@
 ## Overview
 Security Scanner for Azure DevOps (AzSK.ADO) helps you keep your ADO artifacts such as various org/project settings, build/release configurations, service connections, agent pools, , feeds, repos, securefiles, environments etc. configured securely. You can run the ADO Security Scanner standalone in a PowerShell console and this section demonstrates various features of ADOScanner to get the compliance results and show visibility.
 
+The purpose of this document is to help the end users to install, configure and use various feature of ADOScanner to drive the compliance in SDL mode.
+
 ----------------------------------------------
 
 ## Setup 
