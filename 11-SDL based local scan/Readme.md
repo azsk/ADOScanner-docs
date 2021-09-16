@@ -120,7 +120,7 @@ Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectNames $projName  -R
 ```
 Check the other parameters supported by command  [here](https://github.com/azsk/ADOScanner-docs/blob/master/02-%20Running%20ADO%20Scanner%20from%20command%20line/Readme.md).
 
-> **Note:** Use the switch "-AllowLongRunningScan" if the number of resources scanning are morethan 1000 to acknowledge the acceptance of long running scan.
+> **Note:** Use the switch "-AllowLongRunningScan" if the number of resources scanning are more than 1000 to acknowledge the acceptance of long running scan.
 
 ----------------------------------------------
 
