@@ -232,17 +232,19 @@ Follow the steps below for consuming the org policy:
 
 ```PowerShell
 #Run scan cmdlet and validate if it is running with org policy
-Get-AzSKADOSecurityStatus -OrganizationName "<Organization name>" -ProjectNames "<Project name where the org policy is configured>"
+$orgName = "<Organization name>"
+$projName = "<Name of the project hosting organization policy with which the scan should run.>"
+Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectNames $projName
 
 #Using 'PolicyProject' parameter
-Get-AzSKADOSecurityStatus -OrganizationName "<Organization name>" -PolicyProject "<Name of the project hosting organization policy with which the scan should run.>"
+Get-AzSKADOSecurityStatus -OrganizationName $orgName -PolicyProject $projName
 
 ```
 > **Note**: Using PolicyProject parameter you can specify the name of the project hosting organization policy with which the scan should run.
 
 #### 2. Local folder-based org policy support
 
-To facilitate use of ADO Scanner locally (from desktop console) for driving compliance for an org, we have added support to run against org policy (custom control settings, etc.) from a local folder. This capability can be used by org/project admins to evaluate ADO Scanner and fine tune its configuration for their org/environment before deploying the org policy as a policy repo.
+To facilitate use of ADO Scanner locally (from desktop console) for driving compliance for an org, we have added support to run against org policy (custom control settings, etc.) from a local folder instead of reading policy files from ADO policy repo. This capability can be used by org/project admins to evaluate ADOScanner and fine tune its configuration for their org/environment before deploying the org policy as a policy repo.
 
 ```PowerShell
 #Command to configure a local folder as source of org policy:
@@ -288,7 +290,7 @@ Rather, **always** copy the file and edit it.
 ###### Testing:
 
 Anyone in your project can now start a fresh PS console and the result of the evaluation whether a build pipeline is inactive in
-the build security scan (Get-AzSKADOBuildSecurityStatus) should reflect that the new setting is in
+the build security scan (Get-AzSKADOSecurityStatus) should reflect that the new setting is in
 effect. (E.g., if you change the period to 90 days and if the pipeline was inactive from past 120 days, then the result for control (ADO_Build_SI_Review_Inactive_Build) will change from 'Passed' to 'Failed'.)
 
 
