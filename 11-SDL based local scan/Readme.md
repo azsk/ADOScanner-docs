@@ -128,7 +128,7 @@ Check the other parameters supported by command  [here](https://github.com/azsk/
 
 The Get-AzSKADOSecurityStatus command now supports checkpointing via a "-UsePartialCommits" switch. When this switch is used, the command periodically persists scan progress to disk. That way, if the scan is interrupted or an error occurs, a future retry can resume from the last saved state. The cmdlet below checks security control state via a "-UsePartialCommits" switch:
 ```PowerShell
-Get-AzSKADOSecurityStatus-OrganizationName "<OrganizationName>" -ScanAllResources -UsePartialCommits
+Get-AzSKADOSecurityStatus-OrganizationName $orgName -ScanAllResources -UsePartialCommits
 ```
 ----------------------------------------------
 
@@ -136,7 +136,7 @@ Get-AzSKADOSecurityStatus-OrganizationName "<OrganizationName>" -ScanAllResource
 The "-UsePartialCommits" switch also supports an optional switch: "-DoNotRefetchResources" in SDL mode. When this switch is used, resources are not re-fetched during the continuation of the checkpointed scan (i.e., when the "-upc" switch is used). This efficiently speeds up scans of subsequent batches after the initial one. Currently the resources supported with the switch are Release, Agent Pool, Organization and Project. 
 
 ```PowerShell
-Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectName "<ProjectName>" -ReleaseNames * -ResourceTypeName Release -UsePartialCommits -DoNotRefetchResources
+Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectName $projNames -ReleaseNames * -ResourceTypeName Release -UsePartialCommits -DoNotRefetchResources
 ```
 
 ----------------------------------------------
@@ -144,9 +144,9 @@ Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectName "<
 ### Execute path based scanning for builds and releases
 The Get-AzSKADOSecurityStatus command supports path based scanning by scanning build and release configs constrained to specific build and release folder paths. This is achieved via two switches : "-BuildsFolderPath" and "-ReleasesFolderPath".
 ```PowerShell
-Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectName "<ProjectName>" -ReleaseNames * -ResourceTypeName Release -ReleasesFolderPath "<ReleasesFolderPath>"
+Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectName $projNames -ReleaseNames * -ResourceTypeName Release -ReleasesFolderPath "<ReleasesFolderPath>"
 
-Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectName "<ProjectName>" -BuildNames * -ResourceTypeName Build -BuildsFolderPath "<BuildsFolderPath>"
+Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectName $projNames -BuildNames * -ResourceTypeName Build -BuildsFolderPath "<BuildsFolderPath>"
 ```
 Consider the following build folder structure: </br>
 <kbd>
