@@ -10,7 +10,7 @@
  -  [Execute SVTs for large organizationss in batch mode](Readme.md#execute-svts-for-large-organizations-in-batch-mode)
 	 - [Understanding the batch mode flow](Readme.md#understanding-the-batch-mode-flow)
 	 - [Running batch mode in a VM](Readme.md#running-batch-mode-in-a-vm)
-	 - [Combining security reports from all batches using GADSBMR](Readme.md#combining-security-reports-from-all-batches-using-gadbmr)
+	 - [Combining security reports from all batches using GADSBMR](Readme.md#combining-security-reports-from-all-batches-using-gadsbmr)
 
 ## Scan your Azure DevOps resources
 
@@ -248,6 +248,7 @@ Since batch mode is specifically designed for scanning large projects that can t
 <img  src="../Images/BatchModeMI-2.png"  alt="Batch mode add MI">
 </kbd>
  </br>
+ 
 #### Combining security reports from all batches using GADSBMR
 The results of each individual batch will be in the respective folders in the folder path as defined above. For a consolidated summary and easy viewing of the logs, you may want to combine the security reports from all batch results folders into one combined security report. You can do this using the _Get-AzSKADOSecurityStatusBatchMode (gadsbmr)_ command.
 
