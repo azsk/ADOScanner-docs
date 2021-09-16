@@ -300,7 +300,7 @@ Check the advanced features supported by org policy [here](https://github.com/az
 ----------------------------------------------
 ## Compliance visibility
 
-The AzSK.ADO Monitoring Solution is deployed to a Log Analytics workspace that can be used for monitoring and generating a dashboard for security monitoring.
+The AzSK.ADO Monitoring Solution is deployed to a Log Analytics workspace that can be used for monitoring and generating a dashboard for compliance visibility and security monitoring.
 
 ### Deploy the AzSK.ADO Monitoring Solution
 
