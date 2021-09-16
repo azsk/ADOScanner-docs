@@ -95,7 +95,7 @@ E.g.  C:\Users\<UserName>\AppData\Local\Microsoft\AzSK.ADOLogs\Org_[yourOrganiza
 Non-admin controls always refer to the controls associated with any of the resource types other than organization or project. i.e Build/Release/AgentPool/ServiceConnection/VariableGroup/SecureFile/Repo/Feeds.
 
 For example, to scan all builds in a project, run the command below after replacing `<OrganizationName>` with your Azure DevOps org Name 
-and `<PRJName>` with a  project name where your Azure DevOps resources are hosted.
+and `<ProjectNames>` with a  project name where your Azure DevOps resources are hosted.
 
 ```PowerShell
 $orgName = "<OrganizationName>"
