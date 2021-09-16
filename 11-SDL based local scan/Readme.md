@@ -116,7 +116,7 @@ Get-AzSKADOSecurityStatus -OrganizationName $orgName  -ProjectNames $projNames -
 Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectNames $projNames  -ResourceTypeName Build  -ubc
 
 #Scan controls with particular tags only
-Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectNames $projNames  -ResourceTypeName Build  -FilterTags "<Comma sepated tags to filter>"
+Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectNames $projNames  -ResourceTypeName Build  -FilterTags "<Comma separated tags to filter>"
 ```
 Check the other parameters supported by command  [here](https://github.com/azsk/ADOScanner-docs/blob/master/02-%20Running%20ADO%20Scanner%20from%20command%20line/Readme.md).
 
