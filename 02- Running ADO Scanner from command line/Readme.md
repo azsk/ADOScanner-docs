@@ -7,7 +7,7 @@
  -  [Execute SVTs using "-UsePartialCommits" switch](Readme.md#execute-svts-using--usepartialcommits-switch)
   	 - [Speed up checkpointed scans with "-DoNotRefetchResources" switch](Readme.md#speed-up-checkpointed-scans-with--donotrefetchresources-switch) 
  -  [Execute path based scanning for builds and releases](Readme.md#execute-path-based-scanning-for-builds-and-releases)
- -  [Execute SVTs for large projects in batch mode](Readme.md#execute-svts-for-large-organizations-in-batch-mode)
+ -  [Execute SVTs for large organizationss in batch mode](Readme.md#execute-svts-for-large-organizations-in-batch-mode)
 	 - [Understanding the batch mode flow](Readme.md#understanding-the-batch-mode-flow)
 	 - [Running batch mode in a VM](Readme.md#running-batch-mode-in-a-vm)
 	 - [Combining security reports from all batches using GADSBMR](Readme.md#combining-security-reports-from-all-batches-using-gadbmr)
