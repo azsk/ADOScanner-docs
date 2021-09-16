@@ -79,7 +79,7 @@ You will get organization name from your ADO organization url e.g. http://Sample
 
 ```PowerShell
 $orgName = "<OrganizationName>"
-$projName = "<ProjectNames>"
+$projNames = "<ProjectNames>"
 Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectNames $projName -IncludeAdminControls
 ```
 
@@ -99,7 +99,7 @@ and `<ProjectNames>` with a comma separated list of project names where your ADO
 
 ```PowerShell
 $orgName = "<OrganizationName>"
-$projName = "<ProjectNames>"
+$projNames = "<ProjectNames>"
 Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectNames $projName -ResourceTypeName Build 
 ```
 Command also supports other parameters of filtering resources.
