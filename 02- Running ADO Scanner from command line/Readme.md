@@ -164,7 +164,7 @@ To scan builds inside "Folder 1", the path should be given as "Folder 1". This w
 
 ### Execute SVTs for large organizations in batch mode
 
-ADO Scanner supports another command, *Get-AzSKADOSecurityStatusBatchMode (gadsbm)*, to facilitate scanning of large organizations whose scanning may continue across hours on an end. In such scenarios the *gadsbm* command scans your pipelines in batches that reduces the load on your RAM and storage. In case the scan interrupts in between, you can resume the scan from the last unscanned batch without having to go through the process of collecting pipelines again. It uses the -upc switch implicitly  ensuring you double checkpoints - batch wise as well as inside a batch.
+ADO Scanner supports another command, **Get-AzSKADOSecurityStatusBatchMode (gadsbm)**, to facilitate scanning of large organizations whose scanning may continue across hours on an end. In such scenarios the *gadsbm* command scans your pipelines in batches that reduces the load on your RAM and storage. In case the scan interrupts in between, you can resume the scan from the last unscanned batch without having to go through the process of collecting pipelines again. It uses the -upc switch implicitly  ensuring you double checkpoints - batch wise as well as inside a batch.
  > - Consider scanning your projects in batch mode when the number of pipelines in the project is greater than 20K
  > -  Batch mode currently supports build and release pipelines. For all other resources, you can scan using GADS command
  #### The GADSBM command and its parameters
