@@ -267,6 +267,7 @@ The local version of this file should be in the following folder:
 <kbd>
    <img src="../Images/09_ADO_Org_Policy2.png" alt="Local AzSK.AzureDevOps Policies">
 </kbd>
+
 Note that the 'Configurations' folder in the above picture holds all policy files (for all features) of AzSK.ADO. We
 will make copies of files we need to change from here and place the changed versions in the org-policy repo.
 Again, you should **never** edit any file directly in the local installation policy folder of AzSK.ADO.
