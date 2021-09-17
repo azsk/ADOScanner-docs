@@ -323,7 +323,7 @@ It will import a very basic 'customized' policy involving below files uploaded t
 ----------------------------------------------
 
 ### Changing control settings
-The settings  that alter scan behaviour, metrics, control results are generally configured in a file named ControlSettings.json. Using this file we can modify baseline control set for each  resource type, change the update frequency of partial scan, modify the thresholds, parameters for each control etc. Because the first-time org policy setup does not customize anything from this, we will first need to copy this file from the local AzSK.ADO installation.
+The settings  that alter scan behaviour, metrics, control results are generally configured in a file named ControlSettings.json. Using this file we can modify baseline control set for each  resource type, change the update frequency of partial scan, modify the thresholds, parameters for each control etc. Because the first-time org policy setup does not customize anything from this file, we will first need to copy this file from the local AzSK.ADO installation.
 
 The local version of this file should be in the following folder:
 ```PowerShell
