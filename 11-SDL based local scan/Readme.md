@@ -453,6 +453,34 @@ The installation command will display output like the below:
 ![09_Install-AzSKMonitoringSolution](../Images/ADO_Install-AzSKMonitoringSolution.png)
 </kbd>
 ----------------------------------------------
+###  Enabling Log Anaytics workspace connectivity into AzSK.ADO and routing AzSK.ADO events to Log Analytics
+
+**Step-1 :** Connect the local (dev box) installation of AzSK.ADO to your Log Analytics workspace for sending AzSK.ADO control evaluation events.
+
+Run the below in a PS session (this assumes that you have the latest AzSK.ADO installed).
+```PowerShell
+ $wsID = 'workspace_ID_here'       #See pictures in [A] above for how to get wsId and shrKey
+ $shrKey = 'workspace_PrimaryKey_here'
+	
+ Set-AzSKADOMonitoringSettings -WorkspaceID $wsID -SharedKey $shrKey
+```
+Close the current PS window and start a new one. (This is required for the new settings to take effect.)
+After this, all AzSK.ADO cmdlets, SVTs, etc. run on the local machine will start sending events (outcomes of 
+security scans) into the Log Analytics repository corresponding to the workspace ID above. To send logs from the ADOScanner added pipeline, add two pipeline variable LAWSId and LAWSSharedKey. 
+
+
+**Step-2 :** Generate some AzSK.ADO events and validate that they are reaching the configured Log Analytics workspace.
+
+Run a few AzSK.ADO cmdlets to generate events for the Log Analytics repo. 
+For example, you can run one or both of the following:
+
+```PowerShell
+ Get-AzSKADOSecurityStatus -OrganizationName "OrgName" 
+ Get-AzSKADOSecurityStatus -OrganizationName "OrgName" -ProjectNames "PrjName"
+```
+
+After the above scans finish, Wait for few minutes and go into Log Analytics workspace Logs and search for 'AzSK_ADO_CL', it should show 
+AzSK.ADO events similar to the below ("_CL" stands for "custom log"):
 
 ### Using the Log Analytics Workspace for scan logs
 
