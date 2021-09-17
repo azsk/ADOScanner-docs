@@ -299,15 +299,13 @@ Let us look at how policy files are leveraged in a little more detail.
 
 When you install AzSK.ADO, it downloads the latest AzSK.ADO module from the PS Gallery. Along with this module there is an *offline* set of policy files that go in a sub-folder under the %userprofile%\documents\WindowsPowerShell\Modules\AzSK.ADO\<version> folder. It also places (or updates) an AzSKSettings.JSON file in your %LocalAppData%\Microsoft\AzSK.ADO folder that contains the policy endpoint (or policy server) URL that is used by all local commands.
 
-Whenever any command is run, AzSK.ADO uses the policy server URL to access the policy endpoint. It first downloads a 'metadata' file that contains information about other relevant files on policy server to run the scan. After that, whenever AzSK.ADO needs a specific policy file to actually perform a scan, it loads the local copy of the policy file into memory and 'overlays' any settings *if* the corresponding file was also found on the server-side.
+Whenever any command is run, AzSK.ADO uses the policy server URL to access the policy endpoint. It first downloads a 'metadata' file that contains information about other relevant files on policy server to run the scan. After that, whenever AzSK.ADO needs a specific policy file to actually perform a scan, it loads the local copy of the policy file into memory and 'overlays' any settings *if* the corresponding file was also found on the server-side i.e on the repo where org policy files are hosted.
 
-It then accesses the policy to download a 'metadata' file that helps it determine the actual policy files list that is present on the server. Thereafter, the scan runs by overlaying the settings obtained from the server with
-the ones that are available in the local installation module folder. This means that if there hasn't been anything overridden for a specific feature (e.g., Project), then it won't find a policy file for that listed in the server
- metadata file and the local policy file for that feature will get used.
+If the policy file is not present on server, then the local copy of policy file which comes as a part of the module will get used. 
 
 ### Setting up org policy
 
-#### Steps to setup org policy setup
+#### Steps to setup org policy
 
 1. Create a Git repository in your project by importing this [repo](https://github.com/azsk/ADOScanner_Policy.git). [Project -> Repos -> Import repository -> Select 'Git' as repository type -> Enter 'https://github.com/azsk/ADOScanner_Policy.git' as clone URL -> Enter 'ADOScannerPolicy' as name].
 
@@ -374,7 +372,7 @@ Follow the steps below for consuming the org policy:
 ```PowerShell
 #Run scan cmdlet and validate if it is running with org policy
 $orgName = "<Organization name>"
-$projName = "<Name of the project hosting organization policy with which the scan should run.>"
+$projName = "<Name of the project hosting org policy with which the scan should run.>"
 Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectNames $projName
 
 #Using 'PolicyProject' parameter
@@ -435,7 +433,7 @@ Go to the Log Analytics workspace and navigate to "Agents management -> Windows 
     Install-AzSKADOMonitoringSolution -LAWSSubscriptionId $lawsSubId `
 			-LAWSResourceGroup $lawsRGName `
 			-WorkspaceId $lawsId `
-			-ViewName $ADOViewName,
+			-ViewName $ADOViewName `
 			-DashboardType $dashboardType
 ```
 
