@@ -466,8 +466,7 @@ Run the below in a PS session (this assumes that you have the latest AzSK.ADO in
 ```
 Close the current PS window and start a new one. (This is required for the new settings to take effect.)
 After this, all AzSK.ADO cmdlets, SVTs, etc. run on the local machine will start sending events (outcomes of 
-security scans) into the Log Analytics repository corresponding to the workspace ID above. To send logs from the ADOScanner added pipeline, add two pipeline variable LAWSId and LAWSSharedKey. 
-
+security scans) into the Log Analytics repository corresponding to the workspace ID above.
 
 **Step-2 :** Generate some AzSK.ADO events and validate that they are reaching the configured Log Analytics workspace.
 
