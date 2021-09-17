@@ -144,6 +144,11 @@ Import-Module AzSK.ADO
 # > Run your commands again now.
 ```
 
+#### Error message: "Cannot process argument transformation on parameter 'ResourceTypeName'. Cannot convert value....."
+
+While using ADOScanner as pipeline extension ,If you encounter the error message Cannot process argument transformation on parameter 'ResourceTypeName'. Cannot convert value..., this could mean that the pipeline got corrupted due to known.
+To fix this issue, Please clone you pipeline and run again.
+
 #### How to register with PSGallery
 Use below command :
 ```PowerShell
