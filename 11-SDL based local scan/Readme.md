@@ -407,7 +407,7 @@ The AzSK.ADO Monitoring Solution is deployed to a Log Analytics workspace that c
 This section will walk you through the step-by-step experience of setting up the AzSK.ADO Monitoring Solution.
 
 This section assumes that:
-a) you have a Log Analytics worskpace**
+a) you have a Log Analytics worskpace
 b) you have setup the local AzSK.ADO to send events to that workspace.
 
 #### Obtain the workspaceId and sharedKey for the Log Analytics workspace you'd like to use for monitoring.
@@ -513,9 +513,10 @@ To ensure the tool use the correct identity, you can force the sign-in dialog to
 Here's how you can accomplish this: 
 
 ```PowerShell
-$AzSKADOLoginUI = 1       ## Helps you ensure you log in with the correct identity
 Import-Module AzSK.ADO
-# > Run your commands again now.
+#Run the gads command with "-ResetCredentials" parameter
+gads -OrganizationName $orgName -ProjectNames $projNames -ResetCredentials
+
 ```
 
 #### How to register with PSGallery
