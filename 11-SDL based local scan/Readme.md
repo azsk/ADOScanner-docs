@@ -509,7 +509,7 @@ The execution policy setting will be remembered and all future PS consoles opene
 #### Error message: The remote server returned an error: (401) Unauthorized
 Incase you encounter the error message `Organization not found: Incorrect organization name or you do not have necessary permission to access the organization. InvalidOperation: The remote server returned an error: (401) Unauthorized`, this could mean that the logged in identity does not have access to the organization. 
 
-To ensure the tool use the correct identity, you can force the sign-in dialog to appear by setting a variable. 
+To ensure the tool use the correct identity, you can force reset the credentials by using "-ResetCredentials" parameter. 
 Here's how you can accomplish this: 
 
 ```PowerShell
