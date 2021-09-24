@@ -8,7 +8,10 @@
  -  [Speed up checkpointed scans with "-DoNotRefetchResources" switch](Readme.md#speed-up-checkpointed-scans-with--donotrefetchresources-switch) 
  -  [Execute path based scanning for builds and releases](Readme.md#execute-path-based-scanning-for-builds-and-releases)
  -  [Scan ALT-account related controls using "-ALTControlEvaluationMethod" parameter](Readme.md#scan-alt-account-related-controls-using--altcontrolevaluationmethod-parameter)
-
+ -  [Execute SVTs for large organizationss in batch mode](Readme.md#execute-svts-for-large-organizations-in-batch-mode)
+	 - [Understanding the batch mode flow](Readme.md#understanding-the-batch-mode-flow)
+	 - [Running batch mode in a VM](Readme.md#running-batch-mode-in-a-vm)
+	 - [Combining security reports from all batches using GADSBMR](Readme.md#combining-security-reports-from-all-batches-using-gadsbmr)
 
 ## Scan your Azure DevOps resources
 
@@ -82,6 +85,13 @@ Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "
 #Scan Variable group
 Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "PRJ1"  -ResourceTypeName VariableGroup
 
+#Scan all resources except organization, project and pipelines
+Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "PRJ1" -ResourceTypeName SvcConn_AgentPool_VarGroup_CommonSVTResources 
+
+#Scan any combination of resources (provide resource names for the resources you want to scan in any combination)
+#The following command will scan all builds and repositories
+Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "PRJ1" -BuildNames * -RepositoryNames * -ResourceTypeName Build_Release_SvcConn_AgentPool_VarGroup_User_CommonSVTResources 
+
 #Scan using service Id
 Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectNames "PRJ1"  -ServiceId "<service Id>"
 
@@ -128,6 +138,7 @@ The Get-AzSKADOSecurityStatus command now supports checkpointing via a "-UsePart
 ```PowerShell
 Get-AzSKADOSecurityStatus-OrganizationName "<OrganizationName>" -ScanAllResources -UsePartialCommits
 ```
+----------------------------------------------
 
 #### Speed up checkpointed scans with "-DoNotRefetchResources" switch
 The "-UsePartialCommits" switch also supports an optional switch: "-DoNotRefetchResources" in SDL mode. When this switch is used, resources are not re-fetched during the continuation of the checkpointed scan (i.e., when the "-upc" switch is used). This efficiently speeds up scans of subsequent batches after the initial one. Currently the resources supported with the switch are Release, Agent Pool, Organization and Project. 
@@ -152,16 +163,101 @@ Consider the following build folder structure: </br>
  </br>
 To scan builds inside "Folder 1", the path should be given as "Folder 1". This will scan all builds inside this folder (i.e., Build 1, Build 2 and Build 3). To scan all builds inside "Folder 2", the path should be "Folder 1\Folder 2". This will scan Build 1 and Build 2.
 
-----------------------------------------------
+### Execute SVTs for large organizations in batch mode
 
-### Execute SVTs using "-UseGraphAccess" switch
-
-Some AzSK.ADO controls require graph access for correct evaluation. To fetch the graph access token for the user a special flag "-UseGraphAccess" should be used in the scan command. This switch is “off by default” and control results for such controls that depend on AAD group expansion may not be accurate.
-
+ADO Scanner supports another command, **Get-AzSKADOSecurityStatusBatchMode (gadsbm)**, to facilitate scanning of large organizations whose scanning may continue across hours on an end. In such scenarios the *gadsbm* command scans your pipelines in batches that reduces the load on your RAM and storage. In case the scan interrupts in between, you can resume the scan from the last unscanned batch without having to go through the process of collecting pipelines again. It uses the -upc switch implicitly  ensuring you double checkpoints - batch wise as well as inside a batch.
+ > - Consider scanning your projects in batch mode when the number of pipelines in the project is greater than 20K
+ > -  Batch mode currently supports build and release pipelines. For all other resources, you can scan using GADS command
+ #### The GADSBM command and its parameters
+A typical security scan command in batch mode will look like as follows:
 ```PowerShell
-Get-AzSKADOSecurityStatus-OrganizationName "<OrganizationName>" -UseGraphAccess
-```
+#-----------Scan given projects-----------------#
+GADSBM -OrganizationName "<OrganizationName>" -ProjectNames "<ProjectName1>, <ProjectName2>" -ResourceTypeName Build_Release -BatchSize <BatchSize> -FolderName "<FolderName>" -PATTokenURL "<KeyVaultUrlContainingPAT>"
 
+#----------Scan all projects------------#
+GADSBM -OrganizationName "<OrganizationName>" -ProjectNames "*" -ResourceTypeName Build_Release -BatchSize <BatchSize> -FolderName "<FolderName>" -PATTokenURL "<KeyVaultUrlContainingPAT>"
+```
+> Make sure you have the latest version of AzSK.ADO installed. After installation, if there are any older versions of the module imported in the current session already, you should start the batch mode in a fresh console. This is to make sure that the changes from the latest module take effect.
+
+ Following are the scan parameters that are specific to the GADSBM command :
+ 
+| Parameter name |Purpose  | Required?| Possible values
+|--|--|--|--|
+| OrganizationName | Name of the organization being scanned |True | Valid organization name
+|ProjectName | Name of the project being scanned |True | Valid project name
+| PATTokenURL | KeyVault URL for PAT | True | Valid key vault url
+| ResourceTypeName | Resource type to be scanned | True | Build, Release, Build_Release|
+| FolderName | Name of the folder where batch results are to be stored| True| Folder name (if folder doesn't exists, it will be created)
+|BatchSize| The number of pipelines to be scanned in one batch |False| Valid batch size number
+|KeepConsoleOpen| Keep powershell console open after a batch completes| False
+
+Apart from the above parameters, you can also use the following parameters that are supported in *gads* as well :
+
+ - UseBaselineControls
+ - FilterTags
+ - ControlIds
+ - BuildsFolderPath
+ - ReleasesFolderPath
+ - PolicyProject
+ - DoNotOpenFolder
+ - All bug logging related parameters
+ 
+ #### Customizing batch size
+ In addition to using the -BatchSize parameter to define the number of pipelines to scan in one batch, you can also configure the batch size value using org policy. To leverage this, make sure the org policy setup is complete in your project. Read more about org policy [here](https://github.com/azsk/ADOScanner-docs/tree/master/08-%20Customizing%20ADOScanner%20for%20your%20org).
+	 - Copy the ControlSettings.json from the AzSK.ADO installation to your org-policy repo.
+	 - Remove everything except the "*BatchTrackerUpdateFrequency*" line while keeping the JSON object hierarchy/structure intact.
+```json
+{
+	"BatchScan":{
+		"BatchTrackerUpdateFrequency":5000
+	}
+}
+```
+3.  Commit the file.
+4.  Add an entry for *ControlSettings.json* in *ServerConfigMetadata.json*.
+
+By default, the size is 5000 which you can configure. On specifying the -BatchScan parameter, this value will be overriden.
+
+#### Understanding the batch mode flow
+On running the GADSBM command, the scanner fetches only a specified number of pipelines in one go (via org policy or -BatchSize). It scans those pipelines and stores the results of the current batch in the folder *%LOCALAPPDATA%\Microsoft\AzSK.ADOLogs\Org_[yourOrganizationName]\BatchScan\\[FolderName]*. Here folder name is the name of the folder you specified in -FolderName parameter. </br>
+<kbd>
+<img  src="../Images/BatchModeFolderStructure.PNG"  alt="Batch mode folder structure">
+</kbd>
+ </br>
+Once the current batch is complete, a fresh PS console opens which will fetch and scan the next batch of pipelines. The previous console closes (if not using the *-KeepConsoleOpen* switch) The process continues until all pipelines have been scanned, after which no new console will open. In case the scan is interrupted at any point, you can rescan using the same command which will result in starting the scan from the last unscanned batch. 
+
+ >For best results with minimal strain on your system, we recommmend not using -KeepConsoleOpen. Each additional powershell console demands a share on your system resources that can slow it down. 
+
+#### Running batch mode in a VM
+Since batch mode is specifically designed for scanning large projects that can take several hours, you may wish to run the scanner in a VM. To run the scanner in the VM, you would have to provide Managed Identity access to the VM on your key vault. To do that follow the given steps:
+
+ - Create a VM in Azure.
+ - Select 'Identity' in your VM settings. Under System assigned, Status, select On and then click Save.
+ - Create a Key Vault and add your PAT as a secret in the vault. The URL for this secret is what you can use for the gadsbm command.
+ - Navigate to the Key Vault. Under 'Settings' go to 'Access Policies'.
+ - Click on 'Add Access Policy'.
+ - Under 'Configure from template' select 'Secret Management'.
+ - Click on 'Select Principle' and add your VM here as the principal. Click on 'Select'.
+ - Click on 'Add'
+ </br>
+ <kbd>
+<img  src="../Images/BatchModeMI-1.png"  alt="Batch mode add MI">
+</kbd>
+ </br>
+  </br>
+ <kbd>
+<img  src="../Images/BatchModeMI-2.png"  alt="Batch mode add MI">
+</kbd>
+ </br>
+ 
+#### Combining security reports from all batches using GADSBMR
+The results of each individual batch will be in the respective folders in the folder path as defined above. For a consolidated summary and easy viewing of the logs, you may want to combine the security reports from all batch results folders into one combined security report. You can do this using the _Get-AzSKADOSecurityStatusBatchMode (gadsbmr)_ command.
+
+```Powershell
+GADSBMR -OrganizationName "<OrganizationName>" -FolderName "<FolderName>"
+```
+All security reports will be combined in one security report. The security report will contain the path to the logs for each resource which you can use to analyse the results. 
+ 
 ----------------------------------------------
 
 ### Scan ALT-account related controls using "-ALTControlEvaluationMethod" parameter
