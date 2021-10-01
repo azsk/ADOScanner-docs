@@ -5,8 +5,9 @@
  -  [Execute SVTs using "-IncludeAdminControls" switch](Readme.md#execute-svts-using--includeadmincontrols-switch)
  -  [Execute SVTs using "-DetailedScan" switch](Readme.md#execute-svts-using--detailedscan-switch)
  -  [Execute SVTs using "-UsePartialCommits" switch](Readme.md#execute-svts-using--usepartialcommits-switch)
-  	 - [Speed up checkpointed scans with "-DoNotRefetchResources" switch](Readme.md#speed-up-checkpointed-scans-with--donotrefetchresources-switch) 
+ -  [Speed up checkpointed scans with "-DoNotRefetchResources" switch](Readme.md#speed-up-checkpointed-scans-with--donotrefetchresources-switch) 
  -  [Execute path based scanning for builds and releases](Readme.md#execute-path-based-scanning-for-builds-and-releases)
+ -  [Scan ALT-account related controls using "-ALTControlEvaluationMethod" parameter](Readme.md#scan-alt-account-related-controls-using--altcontrolevaluationmethod-parameter)
  -  [Execute SVTs for large organizationss in batch mode](Readme.md#execute-svts-for-large-organizations-in-batch-mode)
 	 - [Understanding the batch mode flow](Readme.md#understanding-the-batch-mode-flow)
 	 - [Running batch mode in a VM](Readme.md#running-batch-mode-in-a-vm)
@@ -257,3 +258,23 @@ GADSBMR -OrganizationName "<OrganizationName>" -FolderName "<FolderName>"
 ```
 All security reports will be combined in one security report. The security report will contain the path to the logs for each resource which you can use to analyse the results. 
  
+----------------------------------------------
+
+### Scan ALT-account related controls using "-ALTControlEvaluationMethod" parameter
+
+The Get-AzSKADOSecurityStatus command now supports ALT control evaluation using Graph API. The following ALT-account related controls now perform Graph queries to resolve group membership:
+- ADO_Organization_AuthN_Use_ALT_Accounts_For_Admin
+- ADO_Project_AuthN_Use_ALT_Accounts_For_Admin
+
+The parameter can be used as follows:
+
+|Parameter|Information|
+|---------|-----------|
+|GraphThenRegEx|The scanner first check for graph access on user identity and try to evaluate using Graph queries. If user/identity doesn't have graph access then scanner will evaluate control using regular expression.|
+|Graph|The scanner will only use graph queries to evaluate the control.|
+|RegEx|The scanner will only use regular expressions to evaluate the control.|
+
+
+```PowerShell 
+Get-AzSKADOSecurityStatus -OrganizationName $orgName -ALTControlEvaluationMethod Graph
+```
