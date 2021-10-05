@@ -9,10 +9,10 @@
   	 -  [Import ADO module](Readme.md#import-ado-module)
  	 -  [Scanning Admin Controls](Readme.md#scanning-admin-controls)
  	 -  [Scanning Non-Admin Controls](Readme.md#scanning-non-admin-controls)
-  -  [Execute SVTs for large organizationss in batch mode](Readme.md#execute-svts-for-large-organizations-in-batch-mode)
+  -  [Execute SVTs for large organizations in batch mode](Readme.md#execute-svts-for-large-organizations-in-batch-mode)
 	 - [Understanding the batch mode flow](Readme.md#understanding-the-batch-mode-flow)
 	 - [Running batch mode in a VM](Readme.md#running-batch-mode-in-a-vm)
-	 - [Combining security reports from all batches using GADSBMR](Readme.md#combining-security-reports-from-all-batches-using-gadsbmr)
+	 - [Combining security reports from all batches](Readme.md#combining-security-reports-from-all-batches)
   -  [Org-specific customization](Readme.md#customizing-adoscanner-using-org-policy)
 	 -  [Overview](Readme.md#Introduction)
 	 -  [Setting up org policy](Readme.md#setting-up-org-policy)
@@ -30,11 +30,13 @@
 ----------------------------------------------
 
 ## Overview
-Security Scanner for Azure DevOps (AzSK.ADO) helps you keep your ADO resource types such as various org/project settings, build/release configurations, service connections, agent pools, feeds, repositories, securefiles, environments etc. configured securely. 
+Security Scanner for Azure DevOps (AzSK.ADO) helps you keep your ADO resources such as various org/project settings, build/release configurations, service connections, agent pools, feeds, repositories, securefiles, environments etc. configured securely. 
 
-> At its core, the Security Scanner for ADO is a PowerShell module. This can be run locally from the PS console after installation. This is as simple as running PS in non-Admin mode and running the scan cmds.
+> At its core, the Security Scanner for ADO is a PowerShell module. This can be run locally from the PS console after installation. This is as simple as running PS in non-Admin mode and running the scan commands.
 
-The purpose of this document is to help the end users to install, configure and use various features of ADOScanner in SDL mode to drive the compliance for their ADO organizations.
+> The ADO Scanner can be used in manual (command line) mode or as an ADO pipeline extension or as a scheduled Azure Function app for getting continuous assurance. We call these the **SDL** mode, the **CICD** mode and the **CA** mode, respectively.
+
+The purpose of this document is to highlight that, even just using the SDL mode, the ADO Scanner can be leveraged to gain visibility and drive compliance while also using a organization-specific custom policy for control configuration/settings.
 
 ----------------------------------------------
 
@@ -45,7 +47,7 @@ The purpose of this document is to help the end users to install, configure and 
 >**Pre-requisites**:
 > - PowerShell 5.0 or higher. 
 
-1. First verify that prerequisites are already installed:  
+1. First verify that pre-requisites are  installed:  
     Ensure that you have PowerShell version 5.0 or higher by typing **$PSVersionTable** in the PowerShell ISE console window and looking at the PSVersion in the output as shown below.) 
  If the PSVersion is older than 5.0, update PowerShell from [here](https://www.microsoft.com/en-us/download/details.aspx?id=54616). 
  
@@ -54,7 +56,7 @@ The purpose of this document is to help the end users to install, configure and 
 </kbd>
 
 
-2. Install the Security Scanner for Azure DevOps (AzSK.ADO) PS module:  
+2. Install the ADO Scanner (AzSK.ADO) PowerShell module:  
 	  
 ```PowerShell
   Install-Module AzSK.ADO -Scope CurrentUser -AllowClobber -Force
@@ -64,65 +66,53 @@ The purpose of this document is to help the end users to install, configure and 
 
 ## Getting Started
 
-### Import ADO module
-To run the scans, we need to import AzSK.ADO module in powershell.
+### Import the ADO Scanner module
+To run scans, we need to import AzSK.ADO module in a PowerShell session.
+
 ```PowerShell
 Import-Module AzSK.ADO
 ```
-### Scanning Admin Controls
 
-Admin controls always refer to the controls associated with organization or project.
 
-> Project Collection Administrator(PCA) or Project Administrator(PA) access is required to scan organization and project controls respectively. Otherwise, the scan results depends on the access/permission level of the identity running the scanner.
+## Scanning Admin Controls
 
-To scan the admin controls, it is always recommended to use `-IncludeAdminControls` switch.
+Admin controls refer to controls associated with organization or project level settings. These are settings that can typically be modified by Project Collection Administrators (PCA) or Project Administrators (PA) respectively.
 
-Run the command below after replacing `<OrganizationName>` with your ADO org name 
-and `<ProjectNames>` with the comma separated list of project names where your ADO resources are hosted.
-You will get organization name from your ADO organization url e.g. http://SampleAdoOrg.visualstudio.com. In this 'SampleAdoOrg' is the org name.
+> Note: If you are not a member of these roles, you may be able to scan these controls but results may be inaccurate.
 
+Run the command below to scan the admin controls for your ADO org and project(s):
 ```PowerShell
 $orgName = "<OrganizationName>"
 $projNames = "<ProjectNames>"
 Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectNames $projNames -IncludeAdminControls
 ```
 
-The outcome of the security scan/analysis is printed on the console during SVT execution and a CSV and LOG files are 
-also generated for subsequent use.
+## Scanning Non-Admin Controls
 
-The CSV file and LOG file are generated under a org-specific sub-folder in the folder  
-*%LOCALAPPDATA%\Microsoft\AzSK.ADOLogs\Org_[yourOrganizationName]*  
-E.g.  C:\Users\<UserName>\AppData\Local\Microsoft\AzSK.ADOLogs\Org_[yourOrganizationName]\20181218_103136_GADS
+Non-admin controls refer to the controls associated with ADO resources created as part of various engineering activities within an organization/project. These are things like builds, releases, agent pools, service connections, variable groups, repos, feeds, etc.
 
-## Scanning non-admin Controls
-
-Non-admin controls always refer to the controls associated with any of the resource types other than organization or project. i.e Build/Release/AgentPool/ServiceConnection/VariableGroup/SecureFile/Repo/Feeds.
-
-For example, to scan all builds in a project, run the command below after replacing `<OrganizationName>` with your ADO org name 
-and `<ProjectNames>` with a comma separated list of project names where your ADO resources are hosted.
+The Get-AzSKADOSecurityStatus command can be used with various switches to define the target resources and controls for a scan. As an example, to scan _all_ builds in a project, you can run:
 
 ```PowerShell
 $orgName = "<OrganizationName>"
 $projNames = "<ProjectNames>"
 Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectNames $projNames -ResourceTypeName Build 
 ```
-Command also supports other parameters of filtering resources.
-
-```PowerShell
-#To scan selected builds in a project
-$buildNames = <Comma sepated build names to filter>
-Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectNames $projNames -ResourceTypeName Build  -BuildNames $buildNames
-
-#Scan all supported artifacts
-Get-AzSKADOSecurityStatus -OrganizationName $orgName  -ProjectNames $projNames -ScanAllResources
+Typically, you would want to scan all resources in the project and limit the control set scanned to baseline controls only. This can be done via the command below:
 
 #Scan resources for baseline controls only
 Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectNames $projNames  -ResourceTypeName Build  -ubc
 
+Another useful option is the ability to scan controls that have a specific tag applied to them. For example, to scan all authorization related controls (tag = "AuthZ") for builds, you can run the following command:
+
+```PowerShell
 #Scan controls with particular tags only
-Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectNames $projNames  -ResourceTypeName Build  -FilterTags "<Comma separated tags to filter>"
+Get-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectNames $projNames  -ResourceTypeName Build  -FilterTags "AuthZ"
 ```
-Check the other parameters supported by command  [here](https://github.com/azsk/ADOScanner-docs/blob/master/02-%20Running%20ADO%20Scanner%20from%20command%20line/Readme.md).
+
+> Note: Available tags for controls can be viewed by running "Get-AzSKADOInfo -InfoType ControlInfo".
+
+Check various other parameters supported by the command  [here](https://github.com/azsk/ADOScanner-docs/blob/master/02-%20Running%20ADO%20Scanner%20from%20command%20line/Readme.md).
 
 > **Note:** Use the switch "-AllowLongRunningScan" if the number of resources scanning are more than 1000 to acknowledge the intent of long running scan.
 
@@ -263,7 +253,7 @@ Since batch mode is specifically designed for scanning large projects that can t
 </kbd>
  </br>
  
-#### Combining security reports from all batches using GADSBMR
+#### Combining security reports from all batches
 The results of each individual batch will be in the respective folders in the folder path as defined above. For a consolidated summary and easy viewing of the logs, you may want to combine the security reports from all batch results folders into one combined security report. You can do this using the _Get-AzSKADOSecurityStatusBatchMode (gadsbmr)_ command.
 
 ```Powershell
