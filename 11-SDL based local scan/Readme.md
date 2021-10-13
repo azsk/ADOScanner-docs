@@ -204,8 +204,6 @@ Check the additional customizations, parameters and features supported by batch 
 
 ### Introduction
 
-### When and why should I setup org policy
-
 In many contexts you may want to "customize" the behavior of the security scans for your environment. You may want to do things such as: (a) enable/disable
 some controls, (b) change control settings to better match specific security policies within your project, (c) change various messages, (d) add additional filter criteria for certain regulatory requirements that teams in your project can leverage, etc. When faced with such a need, you need a way to create and manage
 a dedicated policy endpoint customized to the needs of your environment. The organization policy setup feature helps you do that in an automated fashion.
