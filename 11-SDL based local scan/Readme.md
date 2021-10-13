@@ -6,7 +6,6 @@
   -  [Setup](Readme.md#Setup)
   	 -  [Installation Guide](Readme.md#installation-guide)
   -  [Getting Started](Readme.md#getting-started)
-  	 -  [Import ADO module](Readme.md#import-ado-module)
  	 -  [Scanning Admin Controls](Readme.md#scanning-admin-controls)
  	 -  [Scanning Non-Admin Controls](Readme.md#scanning-non-admin-controls)
   -  [Execute SVTs for large organizations in batch mode](Readme.md#execute-svts-for-large-organizations-in-batch-mode)
