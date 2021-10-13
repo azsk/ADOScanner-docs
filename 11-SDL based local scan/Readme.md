@@ -268,6 +268,10 @@ The AzSK.ADO Monitoring Solution is deployed to a Log Analytics workspace that c
 
 ####  Enabling Log Anaytics workspace connectivity into AzSK.ADO and routing AzSK.ADO events to Log Analytics
 
+This section assumes that: a) you have a Log Analytics worskpace b) you have deployed AzSK.ADO monitoring solution.
+
+Check how to create Log Analytics Workspace and deploy AzSK.ADO monitoring solution. [here](https://github.com/azsk/ADOScanner-docs/blob/users/sragala/sdle2e-v2/06-%20Tracking%20compliance%20for%20your%20ADO%20environment/README.md#setting-up-the-azskado-monitoring-solution-step-by-step).
+
 **Step-1 :** Connect the local (dev box) installation of AzSK.ADO to your Log Analytics workspace for sending AzSK.ADO control evaluation events.
 
 Run the below in a PS session (this assumes that you have the latest AzSK.ADO installed).
