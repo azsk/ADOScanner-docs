@@ -327,16 +327,8 @@ The AzSK.ADO Monitoring Solution is deployed to a Log Analytics workspace that c
 This section will walk you through the step-by-step experience of setting up the AzSK.ADO Monitoring Solution.
 
 This section assumes that:
-a) you have a Log Analytics worskpace
+a) you have a Log Analytics WorkspaceId and SharedKey,
 b) you have setup the local AzSK.ADO to send events to that workspace.
-
-#### Obtain the workspaceId and sharedKey for the Log Analytics workspace you'd like to use for monitoring.
-Go to the Log Analytics workspace and navigate to "Agents management -> Windows Servers" as shown in the image below:
-> **Note**: The "Agents management" option will be visible only if you have 'Owners' access (and have elevated to Owner if using PIM). It will not be visible if you are 'Reader'.
-
-<kbd>
-<img src ="../Images/Log_Analytics_Workspace_WsId_ShrKey.png" alt ="05_Log_Analytics_Workspace_WsId_ShrKey">
-</kbd>
 
 #### Run the commands below in PS after replacing the various '<>' with
   (a) respective values for the Log Analytics workspace to be used
