@@ -224,60 +224,7 @@ In many contexts you may want to "customize" the behavior of the security scans 
 some controls, (b) change control settings to better match specific security policies within your project, (c) change various messages, (d) add additional filter criteria for certain regulatory requirements that teams in your project can leverage, etc. When faced with such a need, you need a way to create and manage
 a dedicated policy endpoint customized to the needs of your environment. The organization policy setup feature helps you do that in an automated fashion.
 
-
-### Setting up org policy
-
-#### Steps to setup org policy
-
-1. Create a Git repository in your project by importing this [repo](https://github.com/azsk/ADOScanner_Policy.git). [Project -> Repos -> Import repository -> Select 'Git' as repository type -> Enter 'https://github.com/azsk/ADOScanner_Policy.git' as clone URL -> Enter 'ADOScannerPolicy' as name].
-
-It will import a very basic 'customized' policy involving below files uploaded to the policy repository.
-
-##### Basic files setup during policy setup
-
-| File | Description
-| ---- | ---- |
-| AzSK.json | Includes org-specific message, installation command etc.
-| ServerConfigMetadata.json | Index file with list of policy files.
-
-----------------------------------------------
-
-### Changing control settings
-The settings  that alter scan behaviour, metrics, control results are generally configured in a file named ControlSettings.json. Using this file we can modify baseline control set for each  resource type, change the update frequency of partial scan, modify the thresholds, parameters for each control etc. Because the first-time org policy setup does not customize anything from this file, we will first need to copy this file from the local AzSK.ADO installation.
-
-The local version of this file should be in the following folder:
-```PowerShell
-    %userprofile%\Documents\WindowsPowerShell\Modules\AzSK.ADO\<version>\Framework\Configurations\SVT
-```
-<kbd>
-   <img src="../Images/09_ADO_Org_Policy2.png" alt="Local AzSK.AzureDevOps Policies">
-</kbd>
-
-Note that the 'Configurations' folder in the above picture holds all policy files (for all features) of AzSK.ADO. We
-will make copies of files we need to change from here and place the changed versions in the org-policy repo.
-Again, you should **never** edit any file directly in the local installation policy folder of AzSK.ADO.
-Rather, **always** copy the file and edit it.
-
-###### Steps:
-
- i) Copy the ControlSettings.json from the AzSK.ADO installation to your org-policy repo.
-
- ii) Remove everything except the "BuildHistoryPeriodInDays" line while keeping the JSON object hierarchy/structure intact.
-<kbd>
-  ![Edit Number of build history period in days](../Images/09_ADO_Org_Policy3.png)
-</kbd>
-
- iii) Commit the file.
-
- iv) Add an entry for *ControlSettings.json* in *ServerConfigMetadata.json* (in the repo) as shown below.
-<kbd>
- ![Update control settings in ServerConfigMetadata](../Images/09_ADO_Org_Policy4.png)
- </kbd>
-###### Testing:
-
-To test the changes, you can start a fresh PS console and run ADO_Build_DP_Review_Inactive_Build control to check build pipeline inactivity.
-The result should reflect the new setting is in effect. (E.g., Incase you change the BuildHistoryPeriodInDays to 90 days and if the pipeline was inactive from past 120 days, then the result for control (ADO_Build_DP_Review_Inactive_Build) will change from 'Passed' to 'Failed'.)
-
+Check the detailed information , setup process and advanced features supported by org policy [here](https://github.com/azsk/ADOScanner-docs/tree/master/08-%20Customizing%20ADOScanner%20for%20your%20org).
 
 ----------------------------------------------
 
@@ -314,9 +261,6 @@ Set-AzSKADOPolicySettings -RestoreDefaultOrgPolicySettings
 ```
 > **Note**: LocalOrgPolicyFolderPath should contain the file ServerConfigMetadata.json  with list of policy files mentioned in it.
 
-
-Check the advanced features supported by org policy [here](https://github.com/azsk/ADOScanner-docs/tree/master/08-%20Customizing%20ADOScanner%20for%20your%20org).
-
 ----------------------------------------------
 ## Compliance visibility
 
@@ -328,8 +272,8 @@ The AzSK.ADO Monitoring Solution is deployed to a Log Analytics workspace that c
 
 Run the below in a PS session (this assumes that you have the latest AzSK.ADO installed).
 ```PowerShell
- $wsID = 'workspace_ID_here'       #See pictures in [A] above for how to get wsId and shrKey
- $shrKey = 'workspace_PrimaryKey_here'
+ $wsID = 'LogAnalyticsWorkSpaceID'       #See pictures in [A] above for how to get wsId and shrKey
+ $shrKey = 'LogAnalyticsWorkSpaceSharedKey'
 	
  Set-AzSKADOMonitoringSettings -WorkspaceID $wsID -SharedKey $shrKey
 ```
