@@ -306,6 +306,7 @@ Enter "AzSK_ADO_CL" in the query field.
 
 You should see data about AzSK.ADO events as query results. (Again, this assumes that by now AzSK.ADO 
 control scan results are being sent to this workspace.
+
 <kbd>
 ![09_Log_Analytics_Workspace_Logs_Query](../Images/09_Log_Analytics_Workspace_Logs_Query.png) 
 </kbd>
@@ -321,6 +322,7 @@ To view the workbook created, Goto : Log Analytics Workspace --> General --> Wor
 The solution workbook contains multiple blades representing various types of security activity, 
 security trends, etc. This view shows up when you click on the view tile and looks like the picture
 below:
+
 <kbd>
 ![09_Log_Analytics_Workbook_Overview](../Images/09_Log_Analytics_Workbook_Overview.png)
 </kbd>
