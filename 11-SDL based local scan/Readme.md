@@ -270,9 +270,9 @@ The AzSK.ADO Monitoring Solution is deployed to a Log Analytics workspace that c
 
 This section assumes that: a) you have a Log Analytics worskpace b) you have deployed AzSK.ADO monitoring solution.
 
-Check how to create Log Analytics Workspace and deploy AzSK.ADO monitoring solution. [here](https://github.com/azsk/ADOScanner-docs/blob/users/sragala/sdle2e-v2/06-%20Tracking%20compliance%20for%20your%20ADO%20environment/README.md#setting-up-the-azskado-monitoring-solution-step-by-step).
+Check how to create Log Analytics Workspace and deploy AzSK.ADO monitoring solution [here](https://github.com/azsk/ADOScanner-docs/blob/users/sragala/sdle2e-v2/06-%20Tracking%20compliance%20for%20your%20ADO%20environment/README.md#setting-up-the-azskado-monitoring-solution-step-by-step).
 
-**Step-1 :** Connect the local (dev box) installation of AzSK.ADO to your Log Analytics workspace for sending AzSK.ADO control evaluation events.
+**Step-1 :** Connect AzSK.ADO to your Log Analytics workspace for sending AzSK.ADO control evaluation results.
 
 Run the below in a PS session (this assumes that you have the latest AzSK.ADO installed).
 ```PowerShell
@@ -295,7 +295,7 @@ For example, you can run one or both of the following:
  Get-AzSKADOSecurityStatus -OrganizationName "OrgName" -ProjectNames "PrjName"
 ```
 
-After the above scans finish, Wait for few minutes and go into Log Analytics workspace Logs and search for 'AzSK_ADO_CL', it should show 
+After the above scans finish, Wait for few minutes and go into Log Analytics Workspace Logs and search for 'AzSK_ADO_CL', it should show 
 AzSK.ADO events similar to the below ("_CL" stands for "custom log"):
 
 ### Using the Log Analytics Workspace for scan logs
