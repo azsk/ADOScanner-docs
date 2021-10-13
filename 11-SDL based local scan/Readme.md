@@ -322,49 +322,6 @@ Check the advanced features supported by org policy [here](https://github.com/az
 
 The AzSK.ADO Monitoring Solution is deployed to a Log Analytics workspace that can be used for monitoring and generating a dashboard for compliance visibility and security monitoring.
 
-### Deploy the AzSK.ADO Monitoring Solution
-
-This section will walk you through the step-by-step experience of setting up the AzSK.ADO Monitoring Solution.
-
-This section assumes that:
-a) you have a Log Analytics WorkspaceId and SharedKey,
-b) you have setup the local AzSK.ADO to send events to that workspace.
-
-#### Run the commands below in PS after replacing the various '<>' with
-  (a) respective values for the Log Analytics workspace to be used
-  and (b) a unique name to identify the view with in the Log Analytics workspace summary (Overview).
-
-```PowerShell
-    $lawsSubId ='<Log Analytics subscription id>'   #subscription hosting the Log Analytics workspace
-    $lawsId ='<Log Analytics workspace id>'
-    $lawsRGName ='<Log Analytics workspace resource group name>'     #RG where the Log Analytics workspace is hosted (See 1-a)
-    $ADOViewName = '<unique_name_for_your_AzSK.ADO_view>' #This will identify the tile for AzSK.ADO view in Log Analytics workspace. E.g., MyApp-View-1
-    $dashboardType = 'Workbook' #Type of dashboard you want to deploy in log analytics workspace. 
-
-    #This command will deploy the AzSK.ADO view in the Log Analytics workspace. Happy monitoring!
-    Install-AzSKADOMonitoringSolution -LAWSSubscriptionId $lawsSubId `
-			-LAWSResourceGroup $lawsRGName `
-			-WorkspaceId $lawsId `
-			-ViewName $ADOViewName `
-			-DashboardType $dashboardType
-```
-
-The table below explains the different parameters used by Install-AzSKADOMonitoringSolution cmdlet:
-
-|ParameterName|Comments|
-| ----- | ---- | 
-|LAWSSubscriptionId|Id of the subscription where the Log Analytics workspace is hosted|
-|LAWSResourceGroup|Name of the resource group where the Log Analytics workspace is hosted|
-|WorkspaceId|Workspace ID of the Log Analytics workspace name which will be used for monitoring|
-|ViewName|Name of the AzSK.ADO Log Analytics Workspace summary/workbook (Overview) (unique per Log Analytics workspace)|
-|DashboardType|Type of the view, whether log analytics workspace summary view or workbook|
-
-
-The installation command will display output like the below:
-<kbd>
-![09_Install-AzSKMonitoringSolution](../Images/ADO_Install-AzSKMonitoringSolution.png)
-</kbd>
-----------------------------------------------
 ####  Enabling Log Anaytics workspace connectivity into AzSK.ADO and routing AzSK.ADO events to Log Analytics
 
 **Step-1 :** Connect the local (dev box) installation of AzSK.ADO to your Log Analytics workspace for sending AzSK.ADO control evaluation events.
