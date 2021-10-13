@@ -211,6 +211,8 @@ GADSBMR -OrganizationName "<OrganizationName>" -FolderName "<FolderName>"
 All security reports will be combined in one security report. The security report will contain the path to the logs for each resource which you can use to analyse the results. 
 
 
+Check the additional customization and features supported by batch mode [here](https://github.com/azsk/ADOScanner-docs/blob/master/02-%20Running%20ADO%20Scanner%20from%20command%20line/Readme.md#execute-svts-for-large-organizations-in-batch-mode).
+
 ----------------------------------------------
 ## Customizing ADOScanner using org policy
 
@@ -218,29 +220,10 @@ All security reports will be combined in one security report. The security repor
 
 ### When and why should I setup org policy
 
-When you run any scan command from AzSK.ADO, it relies on JSON-based policy files to determine various parameters that effect the behavior of the command it is about to run. These policy files are downloaded 'on the fly' from a policy server. When you run the public version of the scanner, the offline policy files present in the module are accessed. Thus, whenever you run a scan from a vanilla installation, AzSK.ADO accesses the offline file present in the module to get the policy configuration and runs the scan using it.
-
-The JSON inside the policy files dictate the behavior of the security scan.
-This includes things such as:
- - Which set of controls to evaluate?
- - What control set to use as a baseline?
- - What settings/values to use for individual controls?
- - What messages to display for recommendations? Etc.
-
- While the out-of-box files in the module may be good for limited use, in many contexts you may want to "customize" the behavior of the security scans for your environment. You may want to do things such as: (a) enable/disable
+In many contexts you may want to "customize" the behavior of the security scans for your environment. You may want to do things such as: (a) enable/disable
 some controls, (b) change control settings to better match specific security policies within your project, (c) change various messages, (d) add additional filter criteria for certain regulatory requirements that teams in your project can leverage, etc. When faced with such a need, you need a way to create and manage
 a dedicated policy endpoint customized to the needs of your environment. The organization policy setup feature helps you do that in an automated fashion.
 
-
-### How does AzSK.ADO use online policy?
-
-Let us look at how policy files are leveraged in a little more detail.
-
-When you install AzSK.ADO, it downloads the latest AzSK.ADO module from the PS Gallery. Along with this module there is an *offline* set of policy files that go in a sub-folder under the %userprofile%\documents\WindowsPowerShell\Modules\AzSK.ADO\<version> folder. It also places (or updates) an AzSKSettings.JSON file in your %LocalAppData%\Microsoft\AzSK.ADO folder that contains the policy endpoint (or policy server) URL that is used by all local commands.
-
-Whenever any command is run, AzSK.ADO uses the policy server URL to access the policy endpoint. It first downloads a 'metadata' file that contains information about other relevant files on policy server to run the scan. After that, whenever AzSK.ADO needs a specific policy file to actually perform a scan, it loads the local copy of the policy file into memory and 'overlays' any settings *if* the corresponding file was also found on the server-side i.e on the repo where org policy files are hosted.
-
-If the policy file is not present on server, then the local copy of policy file which comes as a part of the module will get used. 
 
 ### Setting up org policy
 
