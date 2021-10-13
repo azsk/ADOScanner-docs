@@ -187,16 +187,6 @@ GADSBM -OrganizationName "<OrganizationName>" -ProjectNames "*" -ResourceTypeNam
 |BatchSize| The number of pipelines to be scanned in one batch |False| Valid batch size number
 |KeepConsoleOpen| Keep powershell console open after a batch completes| False
 
-Apart from the above parameters, you can also use the following parameters that are supported in *gads* as well :
-
- - UseBaselineControls
- - FilterTags
- - ControlIds
- - BuildsFolderPath
- - ReleasesFolderPath
- - PolicyProject
- - DoNotOpenFolder
- - All bug logging related parameters
  
 #### Combining security reports from all batches
 The results of each individual batch will be in the respective folders in the folder path as defined above. For a consolidated summary and easy viewing of the logs, you may want to combine the security reports from all batch results folders into one combined security report. You can do this using the _Get-AzSKADOSecurityStatusBatchMode (gadsbmr)_ command.
@@ -207,7 +197,7 @@ GADSBMR -OrganizationName "<OrganizationName>" -FolderName "<FolderName>"
 All security reports will be combined in one security report. The security report will contain the path to the logs for each resource which you can use to analyse the results. 
 
 
-Check the additional customization and features supported by batch mode [here](https://github.com/azsk/ADOScanner-docs/blob/master/02-%20Running%20ADO%20Scanner%20from%20command%20line/Readme.md#execute-svts-for-large-organizations-in-batch-mode).
+Check the additional customizations, parameters and features supported by batch mode [here](https://github.com/azsk/ADOScanner-docs/blob/master/02-%20Running%20ADO%20Scanner%20from%20command%20line/Readme.md#execute-svts-for-large-organizations-in-batch-mode).
 
 ----------------------------------------------
 ## Customizing ADOScanner using org policy
