@@ -297,7 +297,7 @@ AzSK.ADO events similar to the below ("_CL" stands for "custom log"):
 
 ### Using the Log Analytics Workspace for scan logs
 
-####  Viewing raw events from AzSK.ADO (sanity check)
+####  Viewing raw events from AzSK.ADO
 
 Click on the 'Logs' in the menu bar on the left to open the "Logs" query page.
 
