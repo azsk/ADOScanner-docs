@@ -290,7 +290,6 @@ Click on the 'Logs' in the menu bar on the left to open the "Logs" query page.
 
 Enter "AzSK_ADO_CL" in the query field.
 
-You should see data about AzSK.ADO events as query results.
 <kbd>
 ![09_Log_Analytics_Workspace_Logs_Query](../Images/09_Log_Analytics_Workspace_Logs_Query.png) 
 </kbd>
