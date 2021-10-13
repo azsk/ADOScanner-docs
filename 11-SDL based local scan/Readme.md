@@ -6,20 +6,13 @@
   -  [Setup](Readme.md#Setup)
   	 -  [Installation Guide](Readme.md#installation-guide)
   -  [Getting Started](Readme.md#getting-started)
-  	 -  [Import ADO module](Readme.md#import-ado-module)
  	 -  [Scanning Admin Controls](Readme.md#scanning-admin-controls)
  	 -  [Scanning Non-Admin Controls](Readme.md#scanning-non-admin-controls)
   -  [Execute SVTs for large organizations in batch mode](Readme.md#execute-svts-for-large-organizations-in-batch-mode)
-	 - [Understanding the batch mode flow](Readme.md#understanding-the-batch-mode-flow)
-	 - [Running batch mode in a VM](Readme.md#running-batch-mode-in-a-vm)
-	 - [Combining security reports from all batches](Readme.md#combining-security-reports-from-all-batches)
   -  [Org-specific customization](Readme.md#customizing-adoscanner-using-org-policy)
 	 -  [Overview](Readme.md#Introduction)
-	 -  [Setting up org policy](Readme.md#setting-up-org-policy)
 	 -  [Consuming custom org policy](Readme.md#consuming-custom-org-policy)
-	 -  [Changing a control setting for specific controls](Readme.md#changing-control-settings)
   -  [Compliance visibility](Readme.md#compliance-visibility)
-  	 -  [Deploy the AzSK.ADO Monitoring Solution](Readme.md#deploy-the-azskado-monitoring-solution)
   	 -  [Using the Log Analytics Workspace Summary for scan logs](Readme.md#using-the-log-analytics-workspace-for-scan-logs)
   	 -  [Using the Log Analytics Workbook for monitoring](Readme.md#using-the-log-analytics-workbook-for-monitoring)
   -  [FAQs](Readme.md#faqs)
@@ -194,64 +187,6 @@ GADSBM -OrganizationName "<OrganizationName>" -ProjectNames "*" -ResourceTypeNam
 |BatchSize| The number of pipelines to be scanned in one batch |False| Valid batch size number
 |KeepConsoleOpen| Keep powershell console open after a batch completes| False
 
-Apart from the above parameters, you can also use the following parameters that are supported in *gads* as well :
-
- - UseBaselineControls
- - FilterTags
- - ControlIds
- - BuildsFolderPath
- - ReleasesFolderPath
- - PolicyProject
- - DoNotOpenFolder
- - All bug logging related parameters
- 
- #### Customizing batch size
- In addition to using the -BatchSize parameter to define the number of pipelines to scan in one batch, you can also configure the batch size value using org policy. To leverage this, make sure the org policy setup is complete in your project. Read more about org policy [here](https://github.com/azsk/ADOScanner-docs/tree/master/08-%20Customizing%20ADOScanner%20for%20your%20org).
-	 - Copy the ControlSettings.json from the AzSK.ADO installation to your org-policy repo.
-	 - Remove everything except the "*BatchTrackerUpdateFrequency*" line while keeping the JSON object hierarchy/structure intact.
-```json
-{
-	"BatchScan":{
-		"BatchTrackerUpdateFrequency":5000
-	}
-}
-```
-3.  Commit the file.
-4.  Add an entry for *ControlSettings.json* in *ServerConfigMetadata.json*.
-
-By default, the size is 5000 which you can configure. On specifying the -BatchScan parameter, this value will be overriden.
-
-#### Understanding the batch mode flow
-On running the GADSBM command, the scanner fetches only a specified number of pipelines in one go (via org policy or -BatchSize). It scans those pipelines and stores the results of the current batch in the folder *%LOCALAPPDATA%\Microsoft\AzSK.ADOLogs\Org_[yourOrganizationName]\BatchScan\\[FolderName]*. Here folder name is the name of the folder you specified in -FolderName parameter. </br>
-<kbd>
-<img  src="../Images/BatchModeFolderStructure.PNG"  alt="Batch mode folder structure">
-</kbd>
- </br>
-Once the current batch is complete, a fresh PS console opens which will fetch and scan the next batch of pipelines. The previous console closes (if not using the *-KeepConsoleOpen* switch) The process continues until all pipelines have been scanned, after which no new console will open. In case the scan is interrupted at any point, you can rescan using the same command which will result in starting the scan from the last unscanned batch. 
-
- >For best results with minimal strain on your system, we recommmend not using -KeepConsoleOpen. Each additional powershell console demands a share on your system resources that can slow it down. 
-
-#### Running batch mode in a VM
-Since batch mode is specifically designed for scanning large projects that can take several hours, you may wish to run the scanner in a VM. To run the scanner in the VM, you would have to provide Managed Identity access to the VM on your key vault. To do that follow the given steps:
-
- - Create a VM in Azure.
- - Select 'Identity' in your VM settings. Under System assigned, Status, select On and then click Save.
- - Create a Key Vault and add your PAT as a secret in the vault. The URL for this secret is what you can use for the gadsbm command.
- - Navigate to the Key Vault. Under 'Settings' go to 'Access Policies'.
- - Click on 'Add Access Policy'.
- - Under 'Configure from template' select 'Secret Management'.
- - Click on 'Select Principle' and add your VM here as the principal. Click on 'Select'.
- - Click on 'Add'
- </br>
- <kbd>
-<img  src="../Images/BatchModeMI-1.png"  alt="Batch mode add MI">
-</kbd>
- </br>
-  </br>
- <kbd>
-<img  src="../Images/BatchModeMI-2.png"  alt="Batch mode add MI">
-</kbd>
- </br>
  
 #### Combining security reports from all batches
 The results of each individual batch will be in the respective folders in the folder path as defined above. For a consolidated summary and easy viewing of the logs, you may want to combine the security reports from all batch results folders into one combined security report. You can do this using the _Get-AzSKADOSecurityStatusBatchMode (gadsbmr)_ command.
@@ -262,92 +197,18 @@ GADSBMR -OrganizationName "<OrganizationName>" -FolderName "<FolderName>"
 All security reports will be combined in one security report. The security report will contain the path to the logs for each resource which you can use to analyse the results. 
 
 
+Check the additional customizations, parameters and features supported by batch mode [here](https://github.com/azsk/ADOScanner-docs/blob/master/02-%20Running%20ADO%20Scanner%20from%20command%20line/Readme.md#execute-svts-for-large-organizations-in-batch-mode).
+
 ----------------------------------------------
 ## Customizing ADOScanner using org policy
 
 ### Introduction
 
-### When and why should I setup org policy
-
-When you run any scan command from AzSK.ADO, it relies on JSON-based policy files to determine various parameters that effect the behavior of the command it is about to run. These policy files are downloaded 'on the fly' from a policy server. When you run the public version of the scanner, the offline policy files present in the module are accessed. Thus, whenever you run a scan from a vanilla installation, AzSK.ADO accesses the offline file present in the module to get the policy configuration and runs the scan using it.
-
-The JSON inside the policy files dictate the behavior of the security scan.
-This includes things such as:
- - Which set of controls to evaluate?
- - What control set to use as a baseline?
- - What settings/values to use for individual controls?
- - What messages to display for recommendations? Etc.
-
- While the out-of-box files in the module may be good for limited use, in many contexts you may want to "customize" the behavior of the security scans for your environment. You may want to do things such as: (a) enable/disable
+In many contexts you may want to "customize" the behavior of the security scans for your environment. You may want to do things such as: (a) enable/disable
 some controls, (b) change control settings to better match specific security policies within your project, (c) change various messages, (d) add additional filter criteria for certain regulatory requirements that teams in your project can leverage, etc. When faced with such a need, you need a way to create and manage
 a dedicated policy endpoint customized to the needs of your environment. The organization policy setup feature helps you do that in an automated fashion.
 
-
-### How does AzSK.ADO use online policy?
-
-Let us look at how policy files are leveraged in a little more detail.
-
-When you install AzSK.ADO, it downloads the latest AzSK.ADO module from the PS Gallery. Along with this module there is an *offline* set of policy files that go in a sub-folder under the %userprofile%\documents\WindowsPowerShell\Modules\AzSK.ADO\<version> folder. It also places (or updates) an AzSKSettings.JSON file in your %LocalAppData%\Microsoft\AzSK.ADO folder that contains the policy endpoint (or policy server) URL that is used by all local commands.
-
-Whenever any command is run, AzSK.ADO uses the policy server URL to access the policy endpoint. It first downloads a 'metadata' file that contains information about other relevant files on policy server to run the scan. After that, whenever AzSK.ADO needs a specific policy file to actually perform a scan, it loads the local copy of the policy file into memory and 'overlays' any settings *if* the corresponding file was also found on the server-side i.e on the repo where org policy files are hosted.
-
-If the policy file is not present on server, then the local copy of policy file which comes as a part of the module will get used. 
-
-### Setting up org policy
-
-#### Steps to setup org policy
-
-1. Create a Git repository in your project by importing this [repo](https://github.com/azsk/ADOScanner_Policy.git). [Project -> Repos -> Import repository -> Select 'Git' as repository type -> Enter 'https://github.com/azsk/ADOScanner_Policy.git' as clone URL -> Enter 'ADOScannerPolicy' as name].
-
-It will import a very basic 'customized' policy involving below files uploaded to the policy repository.
-
-##### Basic files setup during policy setup
-
-| File | Description
-| ---- | ---- |
-| AzSK.json | Includes org-specific message, installation command etc.
-| ServerConfigMetadata.json | Index file with list of policy files.
-
-> Check the other advanced features supported by org policy [here](https://github.com/azsk/ADOScanner-docs/tree/master/08-%20Customizing%20ADOScanner%20for%20your%20org).
-
-----------------------------------------------
-
-### Changing control settings
-The settings  that alter scan behaviour, metrics, control results are generally configured in a file named ControlSettings.json. Using this file we can modify baseline control set for each  resource type, change the update frequency of partial scan, modify the thresholds, parameters for each control etc. Because the first-time org policy setup does not customize anything from this file, we will first need to copy this file from the local AzSK.ADO installation.
-
-The local version of this file should be in the following folder:
-```PowerShell
-    %userprofile%\Documents\WindowsPowerShell\Modules\AzSK.ADO\<version>\Framework\Configurations\SVT
-```
-<kbd>
-   <img src="../Images/09_ADO_Org_Policy2.png" alt="Local AzSK.AzureDevOps Policies">
-</kbd>
-
-Note that the 'Configurations' folder in the above picture holds all policy files (for all features) of AzSK.ADO. We
-will make copies of files we need to change from here and place the changed versions in the org-policy repo.
-Again, you should **never** edit any file directly in the local installation policy folder of AzSK.ADO.
-Rather, **always** copy the file and edit it.
-
-###### Steps:
-
- i) Copy the ControlSettings.json from the AzSK.ADO installation to your org-policy repo.
-
- ii) Remove everything except the "BuildHistoryPeriodInDays" line while keeping the JSON object hierarchy/structure intact.
-<kbd>
-  ![Edit Number of build history period in days](../Images/09_ADO_Org_Policy3.png)
-</kbd>
-
- iii) Commit the file.
-
- iv) Add an entry for *ControlSettings.json* in *ServerConfigMetadata.json* (in the repo) as shown below.
-<kbd>
- ![Update control settings in ServerConfigMetadata](../Images/09_ADO_Org_Policy4.png)
- </kbd>
-###### Testing:
-
-To test the changes, you can start a fresh PS console and run ADO_Build_DP_Review_Inactive_Build control to check build pipeline inactivity.
-The result should reflect the new setting is in effect. (E.g., Incase you change the BuildHistoryPeriodInDays to 90 days and if the pipeline was inactive from past 120 days, then the result for control (ADO_Build_DP_Review_Inactive_Build) will change from 'Passed' to 'Failed'.)
-
+Check the detailed information , setup process and advanced features supported by org policy [here](https://github.com/azsk/ADOScanner-docs/tree/master/08-%20Customizing%20ADOScanner%20for%20your%20org).
 
 ----------------------------------------------
 
@@ -384,73 +245,23 @@ Set-AzSKADOPolicySettings -RestoreDefaultOrgPolicySettings
 ```
 > **Note**: LocalOrgPolicyFolderPath should contain the file ServerConfigMetadata.json  with list of policy files mentioned in it.
 
-
-Check the advanced features supported by org policy [here](https://github.com/azsk/ADOScanner-docs/tree/master/08-%20Customizing%20ADOScanner%20for%20your%20org).
-
 ----------------------------------------------
 ## Compliance visibility
 
 The AzSK.ADO Monitoring Solution is deployed to a Log Analytics workspace that can be used for monitoring and generating a dashboard for compliance visibility and security monitoring.
 
-### Deploy the AzSK.ADO Monitoring Solution
-
-This section will walk you through the step-by-step experience of setting up the AzSK.ADO Monitoring Solution.
-
-This section assumes that:
-a) you have a Log Analytics worskpace
-b) you have setup the local AzSK.ADO to send events to that workspace.
-
-#### Obtain the workspaceId and sharedKey for the Log Analytics workspace you'd like to use for monitoring.
-Go to the Log Analytics workspace and navigate to "Agents management -> Windows Servers" as shown in the image below:
-> **Note**: The "Agents management" option will be visible only if you have 'Owners' access (and have elevated to Owner if using PIM). It will not be visible if you are 'Reader'.
-
-<kbd>
-<img src ="../Images/Log_Analytics_Workspace_WsId_ShrKey.png" alt ="05_Log_Analytics_Workspace_WsId_ShrKey">
-</kbd>
-
-#### Run the commands below in PS after replacing the various '<>' with
-  (a) respective values for the Log Analytics workspace to be used
-  and (b) a unique name to identify the view with in the Log Analytics workspace summary (Overview).
-
-```PowerShell
-    $lawsSubId ='<Log Analytics subscription id>'   #subscription hosting the Log Analytics workspace
-    $lawsId ='<Log Analytics workspace id>'
-    $lawsRGName ='<Log Analytics workspace resource group name>'     #RG where the Log Analytics workspace is hosted (See 1-a)
-    $ADOViewName = '<unique_name_for_your_AzSK.ADO_view>' #This will identify the tile for AzSK.ADO view in Log Analytics workspace. E.g., MyApp-View-1
-    $dashboardType = 'Workbook' #Type of dashboard you want to deploy in log analytics workspace. 
-
-    #This command will deploy the AzSK.ADO view in the Log Analytics workspace. Happy monitoring!
-    Install-AzSKADOMonitoringSolution -LAWSSubscriptionId $lawsSubId `
-			-LAWSResourceGroup $lawsRGName `
-			-WorkspaceId $lawsId `
-			-ViewName $ADOViewName `
-			-DashboardType $dashboardType
-```
-
-The table below explains the different parameters used by Install-AzSKADOMonitoringSolution cmdlet:
-
-|ParameterName|Comments|
-| ----- | ---- | 
-|LAWSSubscriptionId|Id of the subscription where the Log Analytics workspace is hosted|
-|LAWSResourceGroup|Name of the resource group where the Log Analytics workspace is hosted|
-|WorkspaceId|Workspace ID of the Log Analytics workspace name which will be used for monitoring|
-|ViewName|Name of the AzSK.ADO Log Analytics Workspace summary/workbook (Overview) (unique per Log Analytics workspace)|
-|DashboardType|Type of the view, whether log analytics workspace summary view or workbook|
-
-
-The installation command will display output like the below:
-<kbd>
-![09_Install-AzSKMonitoringSolution](../Images/ADO_Install-AzSKMonitoringSolution.png)
-</kbd>
-----------------------------------------------
 ####  Enabling Log Anaytics workspace connectivity into AzSK.ADO and routing AzSK.ADO events to Log Analytics
 
-**Step-1 :** Connect the local (dev box) installation of AzSK.ADO to your Log Analytics workspace for sending AzSK.ADO control evaluation events.
+This section assumes that: a) you have a Log Analytics worskpace b) you have deployed AzSK.ADO monitoring solution.
+
+Check how to create Log Analytics Workspace and deploy AzSK.ADO monitoring solution [here](https://github.com/azsk/ADOScanner-docs/blob/users/sragala/sdle2e-v2/06-%20Tracking%20compliance%20for%20your%20ADO%20environment/README.md#setting-up-the-azskado-monitoring-solution-step-by-step).
+
+**Step-1 :** Connect AzSK.ADO to your Log Analytics workspace for sending AzSK.ADO control evaluation results.
 
 Run the below in a PS session (this assumes that you have the latest AzSK.ADO installed).
 ```PowerShell
- $wsID = 'workspace_ID_here'       #See pictures in [A] above for how to get wsId and shrKey
- $shrKey = 'workspace_PrimaryKey_here'
+ $wsID = 'LogAnalyticsWorkSpaceID'       #See pictures in [A] above for how to get wsId and shrKey
+ $shrKey = 'LogAnalyticsWorkSpaceSharedKey'
 	
  Set-AzSKADOMonitoringSettings -WorkspaceID $wsID -SharedKey $shrKey
 ```
@@ -468,20 +279,18 @@ For example, you can run one or both of the following:
  Get-AzSKADOSecurityStatus -OrganizationName "OrgName" -ProjectNames "PrjName"
 ```
 
-After the above scans finish, Wait for few minutes and go into Log Analytics workspace Logs and search for 'AzSK_ADO_CL', it should show 
+After the above scans finish, Wait for few minutes and go into Log Analytics Workspace Logs and search for 'AzSK_ADO_CL', it should show 
 AzSK.ADO events similar to the below ("_CL" stands for "custom log"):
 
 ### Using the Log Analytics Workspace for scan logs
 
-####  Viewing raw events from AzSK.ADO (sanity check)
+####  Viewing raw events from AzSK.ADO
 
 Click on the 'Logs' in the menu bar on the left to open the "Logs" query page.
 
 Enter "AzSK_ADO_CL" in the query field.
 
-
-You should see data about AzSK.ADO events as query results. (Again, this assumes that by now AzSK.ADO 
-control scan results are being sent to this workspace.
+You can find the query results below:
 <kbd>
 ![09_Log_Analytics_Workspace_Logs_Query](../Images/09_Log_Analytics_Workspace_Logs_Query.png) 
 </kbd>
