@@ -146,6 +146,21 @@ The "-UsePartialCommits" switch also supports an optional switch: "-DoNotRefetch
 ```PowerShell
 Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectName "<ProjectName>" -ReleaseNames * -ResourceTypeName Release -UsePartialCommits -DoNotRefetchResources
 ```
+----------------------------------------------
+#### Combine security reports from checkpointed scans
+
+In cases when a scan has been interrupted multiple times you may find individual checkpoint results scattered in your report folders. You can easily organize these results and also obtain a consolidated security report from all checkpoints using the following steps:
+Run the GADS command with upc switch and provide a folder name to store the results:
+```PowerShell
+Get-AzSKADOSecurityStatus-OrganizationName "<OrganizationName>" -ScanAllResources -UsePartialCommits -FolderName "<FolderName>"
+```
+All scan reports will now be stored under the path: _%LOCALAPPDATA%/Microsoft/AzSK.ADOLogs/OrgName/FolderName_
+Combine the security results using the _Get-AzSKADOSecurityCombinedResults (gadscr)_ command:
+
+```Powershell
+GADSCR -OrganizationName "<OrganizationName>" -FolderName "<FolderName>" -Mode "UPC"
+```
+
 
 ----------------------------------------------
 
@@ -163,6 +178,71 @@ Consider the following build folder structure: </br>
  </br>
 To scan builds inside "Folder 1", the path should be given as "Folder 1". This will scan all builds inside this folder (i.e., Build 1, Build 2 and Build 3). To scan all builds inside "Folder 2", the path should be "Folder 1\Folder 2". This will scan Build 1 and Build 2.
 
+----------------------------------------------
+### Scan pipelines incrementally
+The Get-AzSKADOSecurityStatus command by default scans all the resources whose resource type you have specified. Situations may arise when pipelines have not been used/changed since the last scan was executed. In such scenarios, you may want to scan only those resources that have the potential to drift from compliance rather than every resource all over again. This will save the scan time as well as give you the most recent and relevant security status. You can achieve this using the *-IncrementalScan* switch.
+ When you use this switch for the first time the scanner stores the timestamp as a reference for future scans. When you scan pipelines the next time, not all of them will be scanned. Rather using the time from last scan only those pipelines will be scanned that have been modified/created since then.
+ ```PowerShell
+ #------------Scan builds incrementally------------------#
+ Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>"  -ProjectName "<ProjectName>"  -BuildNames *  -ResourceTypeName Build -IncrementalScan
+ 
+ #------------Scan releases incrementally----------------#
+ Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>"  -ProjectName "<ProjectName>"  -ReleaseNames *  -ResourceTypeName Release -IncrementalScan
+ 
+ #------------Scan builds and releases incrementally----------------#
+ Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>"  -ProjectName "<ProjectName>"  -ResourceTypeName Build_Release -IncrementalScan
+```
+>The incremental scan switch currently supports build and release pipelines, 
+#### Incremental Scan in CA
+You can also leverage the feature of incremental scans in CA mode as well. Read more about CA [here](https://github.com/azsk/ADOScanner-docs/tree/master/04-Running%20ADOScanner%20as%20Azure%20Function).
+To use incremental scan in CA, setup the CA mode for your project by following steps from [here](https://github.com/azsk/ADOScanner-docs/blob/master/04-Running%20ADOScanner%20as%20Azure%20Function/README.md#setting-up-adoscanner-using-azure-function---step-by-step). In the Extended Command configuration add the following:
+```PowerShell
+#------------Scan releases incrementally----------------#
+-ResourceTypeName Release -IncrementalScan
+
+#------------Scan builds incrementally------------------#
+-ResourceTypeName Build -IncrementalScan
+
+#------------Scan builds and releases incrementally----------------#
+-ResourceTypeName Build_Release -IncrementalScan
+```
+
+#### Scanning incrementally from a given date
+You can also scan pipelines incrementally from a specified date rather than using the last scan time stamp. In such cases, all pipelines that have been modified/created since the given date will be eligible for scanning. To leverage this use the switch *-IncrementalDate*.
+ ```PowerShell
+ #------------Scan builds incrementally------------------#
+ Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>"  -ProjectName "<ProjectName>"  -BuildNames *  -ResourceTypeName Build -IncrementalScan -IncrementalDate "<Date>"
+ 
+ #------------Scan releases incrementally----------------#
+ Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>"  -ProjectName "<ProjectName>"  -ReleaseNames *  -ResourceTypeName Release -IncrementalScan -IncrementalDate "<Date>"
+ 
+ #------------Scan builds and releases incrementally----------------#
+ Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>"  -ProjectName "<ProjectName>"  -ResourceTypeName Build_Release -IncrementalScan -IncrementalDate "<Date>"
+```
+
+You can use the *-IncrementalDate* switch with CA as well by adding the switch in Extended Command as described above.
+>Keep the date format for *-IncrementalDate* switch as MM:DD:YYYY HH:MM:SS AM/PM
+
+#### Miscellaneous features in incremental scan
+- Scan attested resources: In case you have attested a resource and haven't modified since then, incremental scan will not scan the attested resource. You can override this behaviour using the *-ScanAttestedResources* switch
+
+```Powershell
+Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>"  -ProjectName "<ProjectName>"  -ResourceTypeName Build_Release -IncrementalScan -ScanAttestedResources
+```
+- Full scan configuration: By default, incremental scan is configured to perform full scans for all pipelines every 7 days. You can configure this time period in your org policy settings. Read about org policy [here](https://github.com/azsk/ADOScanner-docs/tree/master/08-%20Customizing%20ADOScanner%20for%20your%20org).
+```json
+{
+    "IncrementalScan":{
+        "IncrementalScanValidForDays":7
+    }
+}
+```
+In case you want to override this behaviour and perform incremental scan even after threshold you can use the *-Force* switch
+```Powershell
+Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>"  -ProjectName "<ProjectName>"  -ResourceTypeName Build_Release -IncrementalScan -Force
+```
+>We strongly recommend performing full scan atleast every 7 days in order to ensure a fully secure ADO ecosystem.
+----------------------------------------------
 ### Execute SVTs for large organizations in batch mode
 
 ADO Scanner supports another command, **Get-AzSKADOSecurityStatusBatchMode (gadsbm)**, to facilitate scanning of large organizations whose scanning may continue across hours on an end. In such scenarios the *gadsbm* command scans your pipelines in batches that reduces the load on your RAM and storage. In case the scan interrupts in between, you can resume the scan from the last unscanned batch without having to go through the process of collecting pipelines again. It uses the -upc switch implicitly  ensuring you double checkpoints - batch wise as well as inside a batch.
@@ -250,11 +330,11 @@ Since batch mode is specifically designed for scanning large projects that can t
 </kbd>
  </br>
  
-#### Combining security reports from all batches using GADSBMR
-The results of each individual batch will be in the respective folders in the folder path as defined above. For a consolidated summary and easy viewing of the logs, you may want to combine the security reports from all batch results folders into one combined security report. You can do this using the _Get-AzSKADOSecurityStatusBatchMode (gadsbmr)_ command.
+#### Combining security reports from all batches using GADSCR
+The results of each individual batch will be in the respective folders in the folder path as defined above. For a consolidated summary and easy viewing of the logs, you may want to combine the security reports from all batch results folders into one combined security report. You can do this using the _Get-AzSKADOSecurityCombinedResults (gadscr)_ command.
 
 ```Powershell
-GADSBMR -OrganizationName "<OrganizationName>" -FolderName "<FolderName>"
+GADSCR -OrganizationName "<OrganizationName>" -FolderName "<FolderName>" -Mode "GADSBM"
 ```
 All security reports will be combined in one security report. The security report will contain the path to the logs for each resource which you can use to analyse the results. 
  

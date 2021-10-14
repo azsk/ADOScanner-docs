@@ -187,8 +187,16 @@ Run the below in a PS session (this assumes that you have the latest AzSK.ADO in
 ```PowerShell
  $wsID = 'workspace_ID_here'       #See pictures in [A] above for how to get wsId and shrKey
  $shrKey = 'workspace_PrimaryKey_here'
-	
+
+ #In case you wish to store the primary key in a Key vault, provide the Key vault URL 
+
+ $shrKeyUrl = "key_vault_URL_containing_primaryKey"
+
+ #Enable log analytics workspace connectivity via primary key
  Set-AzSKADOMonitoringSettings -WorkspaceID $wsID -SharedKey $shrKey
+ 
+ #Enable log analytics workspace connectivity via primary key Key vault URL
+ Set-AzSKADOMonitoringSettings -WorkspaceID $wsID -SharedKeyUrl $shrKeyUrl
 ```
 Close the current PS window and start a new one. (This is required for the new settings to take effect.)
 After this, all AzSK.ADO cmdlets, SVTs, etc. run on the local machine will start sending events (outcomes of 
