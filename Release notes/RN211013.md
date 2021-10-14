@@ -20,12 +20,12 @@
 ### Security controls updates
 * New controls:
     The following new control have been added in this release:
-	* ``ADO_Environment_AuthZ_Enable_PreDeployment_Approval``: Environments for production deployments must haveapprovals enabled.
+	* ``ADO_Environment_AuthZ_Enable_PreDeployment_Approval``: Environments for production deployments must have approvals enabled.
 	* ``ADO_Environment_AuthZ_Review_PreDeployment_Approvers``: Approvers on environment must be periodically reviewed.
 	* ``ADO_Environment_SI_Use_Good_Branch_Hygiene``: All deployments to production environments must be done fromstandard branches.
-	* ``ADO_Project_AuthZ_Limit_Build_Admin_Count``: Ensure that there are not many build administrators in yourproject.
+	* ``ADO_Project_AuthZ_Limit_Build_Admin_Count``: Ensure that there are not many build administrators in your project.
 	* ``ADO_Organization_AuthZ_Disable_Request_Access``: Disable request access policy in your organization.
-	* ``ADO_Repository_DP_Enable_Credentials_And_Secrets_Policy``:  Enable 'Check for credentials and other secrets' atrepo policy.
+	* ``ADO_Repository_DP_Enable_Credentials_And_Secrets_Policy``:  Enable 'Check for credentials and other secrets' at repo policy.
     * ``ADO_Organization_AuthZ_Restrict_Broader_Group_Access_on_Feed``: Do not allow feeds to inherit excessive permissions for a broad group of users at organization level.
 
 * Changes to existing controls :
