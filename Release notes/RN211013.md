@@ -22,7 +22,7 @@
     The following new control have been added in this release:
 	* ``ADO_Environment_AuthZ_Enable_PreDeployment_Approval``: Environments for production deployments must have approvals enabled.
 	* ``ADO_Environment_AuthZ_Review_PreDeployment_Approvers``: Approvers on environment must be periodically reviewed.
-	* ``ADO_Environment_SI_Use_Good_Branch_Hygiene``: All deployments to production environments must be done fromstandard branches.
+	* ``ADO_Environment_SI_Use_Good_Branch_Hygiene``: All deployments to production environments must be done from standard branches.
 	* ``ADO_Project_AuthZ_Limit_Build_Admin_Count``: Ensure that there are not many build administrators in your project.
 	* ``ADO_Organization_AuthZ_Disable_Request_Access``: Disable request access policy in your organization.
 	* ``ADO_Repository_DP_Enable_Credentials_And_Secrets_Policy``:  Enable 'Check for credentials and other secrets' at repo policy.
@@ -30,15 +30,15 @@
 
 * Changes to existing controls :
 	* ``ADO_Project_AuthN_Use_ALT_Accounts_For_Admin``: Can now be configured to check for non SC-ALT admins in the following groups as well:Build admins, Release admins and Endpoint admins
-	* ``ADO_Project_AuthZ_Revoke_Admin_Access_for_Inactive_Users``: Can now be configured to check for inactive admins in the followinggroups as well: Build admins and Release admins
+	* ``ADO_Project_AuthZ_Revoke_Admin_Access_for_Inactive_Users``: Can now be configured to check for inactive admins in the following groups as well: Build admins and Release admins
     * ``ADO_Build_SI_Review_External_Sources``: Can now check for multiple repositories checked in YAML pipelines
 
 ### Other Improvements/Bug fixes
 * Incremental scan now supports configurable full scan capabilities. Any incremental scan that has become older than threshold will now scan all pipelines automatically.
 * Incremental scan now supports scanning of attested but non-modified pipelines.
-* Scan from partial commits can now be stored in a separate folder. The results from all checkpoints can be collated in one securitreport using the GADSCR command.
+* Scan from partial commits can now be stored in a separate folder. The results from all checkpoints can be collated in one security report using the GADSCR command.
 * ``Set-AzSKMonitoringSettings`` command now accepts key vault URL containing shared key to setup LA workspace.
-* Fixed a bug in extension based scanning with partial commit which caused scan errors in case scan is cancelled before first partiacommit.
+* Fixed a bug in extension based scanning with partial commit which caused scan errors in case scan is cancelled before first partialcommit.
 * Expanded scan coverage to organization scoped feeds. Earlier only project scoped feeds were being scanned.
 * A note will be displayed in bug if resource owner is a service account.
 * Fixed the caching issue for broad group expansion controls.
