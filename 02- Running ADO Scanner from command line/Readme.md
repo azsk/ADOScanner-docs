@@ -6,6 +6,7 @@
  -  [Execute SVTs using "-DetailedScan" switch](Readme.md#execute-svts-using--detailedscan-switch)
  -  [Execute SVTs using "-UsePartialCommits" switch](Readme.md#execute-svts-using--usepartialcommits-switch)
  	 -  [Speed up checkpointed scans with "-DoNotRefetchResources" switch](Readme.md#speed-up-checkpointed-scans-with--donotrefetchresources-switch) 
+ 	 -  [Combine security reports from checkpointed scans](Readme.md#combine-security-reports-from-checkpointed-scans) 
  -  [Scan pipelines incrementally](Readme.md#scan-pipelines-incrementally)
   	 - [Incremental Scan in CA](Readme.md#incremental-scan-in-ca)
 	 - [Scanning incrementally from a given date](Readme.md#scanning-incrementally-from-a-given-date)
@@ -154,12 +155,12 @@ Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>" -ProjectName "<
 #### Combine security reports from checkpointed scans
 
 In cases when a scan has been interrupted multiple times you may find individual checkpoint results scattered in your report folders. You can easily organize these results and also obtain a consolidated security report from all checkpoints using the following steps:
-Run the GADS command with upc switch and provide a folder name to store the results:
+- Run the GADS command with upc switch and provide a folder name to store the results:
 ```PowerShell
 Get-AzSKADOSecurityStatus-OrganizationName "<OrganizationName>" -ScanAllResources -UsePartialCommits -FolderName "<FolderName>"
 ```
 All scan reports will now be stored under the path: _%LOCALAPPDATA%/Microsoft/AzSK.ADOLogs/OrgName/FolderName_
-Combine the security results using the _Get-AzSKADOSecurityCombinedResults (gadscr)_ command:
+- Combine the security results using the _Get-AzSKADOSecurityCombinedResults (gadscr)_ command:
 
 ```Powershell
 GADSCR -OrganizationName "<OrganizationName>" -FolderName "<FolderName>" -Mode "UPC"
