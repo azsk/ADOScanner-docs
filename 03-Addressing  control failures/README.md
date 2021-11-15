@@ -484,4 +484,41 @@ $resourceNames = '<resource1, resource2,...>'
 Set-AzSKADOSecurityStatus -OrganizationName $orgName -ProjectName $projectName -controlids 'ADO_Feed_AuthZ_Restrict_Broader_Group_Access' -resourcenames $resourceNames -UndoFix
 
 ```
+   
+
+### FAQs
+
+
+#### How to fix ADO_Build_AuthZ_Limit_Pipeline_Access control failure for drafted pipeline.
+Use automated fix step:
+#### 1. Create backup of this control state
+
+Run below cmdlet: 
+
+```PowerShell  
+Get-AzSKADOSecurityStatus -OrganizationName '<Organization name>' -ProjectName '<Project name>' -ResourceTypeName Build -controlids 'ADO_Build_AuthZ_Limit_Pipeline_Access' -upc -PrepareForControlFix  
+```
+
+#### 2. Fix the control
+
+```PowerShell  
+Set-AzSKADOSecurityStatus -OrganizationName '<Organization name>' -ProjectName '<Project name>' -controlids 'ADO_Build_AuthZ_Limit_Pipeline_Access' 
+```
+
+#### How to fix ADO_Build_DP_Dont_Make_Secrets_Available_To_Forked_Builds control failure for drafted pipeline.
+Use automated fix step:
+#### 1. Create backup of this control state
+
+Run below cmdlet: 
+
+```PowerShell  
+Get-AzSKADOSecurityStatus -OrganizationName '<Organization name>' -ProjectName '<Project name>' -ResourceTypeName Build -controlids 'ADO_Build_DP_Dont_Make_Secrets_Available_To_Forked_Builds' -upc -PrepareForControlFix  
+```
+
+#### 2. Fix the control
+
+```PowerShell  
+Set-AzSKADOSecurityStatus -OrganizationName '<Organization name>' -ProjectName '<Project name>' -controlids 'ADO_Build_DP_Dont_Make_Secrets_Available_To_Forked_Builds' 
+```
+
 [Back to top...](README.md#contents)
