@@ -7,7 +7,7 @@
  -  [Execute SVTs using "-UsePartialCommits" switch](Readme.md#execute-svts-using--usepartialcommits-switch)
  	 -  [Speed up checkpointed scans with "-DoNotRefetchResources" switch](Readme.md#speed-up-checkpointed-scans-with--donotrefetchresources-switch) 
  	 -  [Combine security reports from checkpointed scans](Readme.md#combine-security-reports-from-checkpointed-scans) 
- -  [Scan pipelines incrementally](Readme.md#scan-pipelines-incrementally)
+ -  [Scan resources incrementally](Readme.md#scan-resources-incrementally)
   	 - [Incremental Scan in CA](Readme.md#incremental-scan-in-ca)
 	- [Incremental Scan in extension](Readme.md#incremental-scan-in-extension)
 	 - [Scanning incrementally from a given date](Readme.md#scanning-incrementally-from-a-given-date)
