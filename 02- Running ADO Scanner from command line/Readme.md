@@ -9,6 +9,7 @@
  	 -  [Combine security reports from checkpointed scans](Readme.md#combine-security-reports-from-checkpointed-scans) 
  -  [Scan pipelines incrementally](Readme.md#scan-pipelines-incrementally)
   	 - [Incremental Scan in CA](Readme.md#incremental-scan-in-ca)
+	- [Incremental Scan in extension](Readme.md#incremental-scan-in-extension)
 	 - [Scanning incrementally from a given date](Readme.md#scanning-incrementally-from-a-given-date)
 	 - [Miscellaneous features in incremental scan](Readme.md#miscellaneous-features-in-incremental-scan)
  -  [Execute path based scanning for builds and releases](Readme.md#execute-path-based-scanning-for-builds-and-releases)
@@ -184,9 +185,9 @@ Consider the following build folder structure: </br>
 To scan builds inside "Folder 1", the path should be given as "Folder 1". This will scan all builds inside this folder (i.e., Build 1, Build 2 and Build 3). To scan all builds inside "Folder 2", the path should be "Folder 1\Folder 2". This will scan Build 1 and Build 2.
 
 ----------------------------------------------
-### Scan pipelines incrementally
-The Get-AzSKADOSecurityStatus command by default scans all the resources whose resource type you have specified. Situations may arise when pipelines have not been used/changed since the last scan was executed. In such scenarios, you may want to scan only those resources that have the potential to drift from compliance rather than every resource all over again. This will save the scan time as well as give you the most recent and relevant security status. You can achieve this using the *-IncrementalScan* switch.
- When you use this switch for the first time the scanner stores the timestamp as a reference for future scans. When you scan pipelines the next time, not all of them will be scanned. Rather using the time from last scan only those pipelines will be scanned that have been modified/created since then.
+### Scan resources incrementally
+The Get-AzSKADOSecurityStatus command by default scans all the resources whose resource type you have specified. Situations may arise when resources have not been used/changed since the last scan was executed. In such scenarios, you may want to scan only those resources that have the potential to drift from compliance rather than every resource all over again. This will save the scan time as well as give you the most recent and relevant security status. You can achieve this using the *-IncrementalScan* switch.
+ When you use this switch for the first time the scanner stores the timestamp as a reference for future scans. When you scan the resources the next time, not all of them will be scanned. Rather using the time from last scan only those resources will be scanned that have been modified/created since then.
  ```PowerShell
  #------------Scan builds incrementally------------------#
  Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>"  -ProjectName "<ProjectName>"  -BuildNames *  -ResourceTypeName Build -IncrementalScan
@@ -194,10 +195,17 @@ The Get-AzSKADOSecurityStatus command by default scans all the resources whose r
  #------------Scan releases incrementally----------------#
  Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>"  -ProjectName "<ProjectName>"  -ReleaseNames *  -ResourceTypeName Release -IncrementalScan
  
- #------------Scan builds and releases incrementally----------------#
- Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>"  -ProjectName "<ProjectName>"  -ResourceTypeName Build_Release -IncrementalScan
+ #------------Scan variables groups incrementally----------------#
+ Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>"  -ProjectName "<ProjectName>"  -ResourceTypeName VariableGroup -IncrementalScan
 ```
->The incremental scan switch currently supports build and release pipelines, 
+>The incremental scan switch currently supports the following resources:
+> - Builds 
+> - Releases
+>- Variable Groups
+>- Feeds
+>- Repositories
+>- Secure Files
+>- Environments  
 #### Incremental Scan in CA
 You can also leverage the feature of incremental scans in CA mode as well. Read more about CA [here](https://github.com/azsk/ADOScanner-docs/tree/master/04-Running%20ADOScanner%20as%20Azure%20Function).
 To use incremental scan in CA, setup the CA mode for your project by following steps from [here](https://github.com/azsk/ADOScanner-docs/blob/master/04-Running%20ADOScanner%20as%20Azure%20Function/README.md#setting-up-adoscanner-using-azure-function---step-by-step). In the Extended Command configuration add the following:
@@ -208,12 +216,19 @@ To use incremental scan in CA, setup the CA mode for your project by following s
 #------------Scan builds incrementally------------------#
 -ResourceTypeName Build -IncrementalScan
 
-#------------Scan builds and releases incrementally----------------#
--ResourceTypeName Build_Release -IncrementalScan
+#------------Scan bvariables groups incrementally----------------#
+-ResourceTypeName VariableGroup -IncrementalScan
 ```
+#### Incremental Scan in Extension
+Incremental scan can also be used in Extensions. Read about Extensions [here](https://github.com/azsk/ADOScanner-docs/tree/master/05-Running%20ADOScanner%20as%20pipeline%20extension). To use incremental scan in Extension, setup the extension in your pipeline by following the steps from [here](https://github.com/azsk/ADOScanner-docs/blob/master/05-Running%20ADOScanner%20as%20pipeline%20extension/README.md#setting-up-adoscanner-as-pipeline-extension---step-by-step). In the pipeline variables, provide the variable, "IncrementalScan" with value true.
+</br>
+<kbd>
+<img  src="../Images/incrementalScan.png"  alt="Folder structure">
+</kbd>
+ </br>
 
 #### Scanning incrementally from a given date
-You can also scan pipelines incrementally from a specified date rather than using the last scan time stamp. In such cases, all pipelines that have been modified/created since the given date will be eligible for scanning. To leverage this use the switch *-IncrementalDate*.
+You can also scan resources incrementally from a specified date rather than using the last scan time stamp. In such cases, all resources that have been modified/created since the given date will be eligible for scanning. To leverage this use the switch *-IncrementalDate*.
  ```PowerShell
  #------------Scan builds incrementally------------------#
  Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>"  -ProjectName "<ProjectName>"  -BuildNames *  -ResourceTypeName Build -IncrementalScan -IncrementalDate "<Date>"
@@ -221,11 +236,11 @@ You can also scan pipelines incrementally from a specified date rather than usin
  #------------Scan releases incrementally----------------#
  Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>"  -ProjectName "<ProjectName>"  -ReleaseNames *  -ResourceTypeName Release -IncrementalScan -IncrementalDate "<Date>"
  
- #------------Scan builds and releases incrementally----------------#
- Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>"  -ProjectName "<ProjectName>"  -ResourceTypeName Build_Release -IncrementalScan -IncrementalDate "<Date>"
+ #------------Scan variable groups incrementally----------------#
+ Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>"  -ProjectName "<ProjectName>"  -ResourceTypeName VariableGroup -IncrementalScan -IncrementalDate "<Date>"
 ```
 
-You can use the *-IncrementalDate* switch with CA as well by adding the switch in Extended Command as described above.
+You can use the *-IncrementalDate* switch with CA as well by adding the switch in Extended Command as described above. To use the switch in Extension, add another variable "IncrementalDate" with the value as the date, in your pipeline.
 >Keep the date format for *-IncrementalDate* switch as MM:DD:YYYY HH:MM:SS AM/PM
 
 #### Miscellaneous features in incremental scan
@@ -234,7 +249,7 @@ You can use the *-IncrementalDate* switch with CA as well by adding the switch i
 ```Powershell
 Get-AzSKADOSecurityStatus -OrganizationName "<OrganizationName>"  -ProjectName "<ProjectName>"  -ResourceTypeName Build_Release -IncrementalScan -ScanAttestedResources
 ```
-- Full scan configuration: By default, incremental scan is configured to perform full scans for all pipelines every 7 days. You can configure this time period in your org policy settings. Read about org policy [here](https://github.com/azsk/ADOScanner-docs/tree/master/08-%20Customizing%20ADOScanner%20for%20your%20org).
+- Full scan configuration: By default, incremental scan is configured to perform full scans for all resources every 7 days. You can configure this time period in your org policy settings. Read about org policy [here](https://github.com/azsk/ADOScanner-docs/tree/master/08-%20Customizing%20ADOScanner%20for%20your%20org).
 ```json
 {
     "IncrementalScan":{
