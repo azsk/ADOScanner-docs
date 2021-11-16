@@ -394,6 +394,8 @@ This is currently in preview and only below controls' fix are at present support
 	- ADO_Organization_AuthZ_Revoke_Admin_Access_for_Guest_Users
 	- ADO_Organization_AuthZ_Revoke_Admin_Access_for_Inactive_Users
 	- ADO_Organization_AuthZ_Remove_Disconnected_Accounts
+    - ADO_Organization_AuthN_Use_ALT_Accounts_For_Admin
+    - ADO_Organization_AuthZ_Restrict_Broader_Group_Access_on_Feed
 	
 - Project
 	- ADO_Project_AuthZ_Restrict_Broader_Group_Access_on_Agentpool
@@ -405,6 +407,7 @@ This is currently in preview and only below controls' fix are at present support
 	- ADO_Project_AuthZ_Restrict_Broader_Group_Access_on_Repo
 	- ADO_Project_AuthZ_Restrict_Broader_Group_Access_on_Releases
 	- ADO_Project_AuthZ_Restrict_Broader_Group_Access_on_SecureFile
+    - ADO_Project_AuthN_Use_ALT_Accounts_For_Admin
 	
 - AgentPool
 	- ADO_AgentPool_AuthZ_Restrict_Broader_Group_Access
@@ -425,10 +428,12 @@ This is currently in preview and only below controls' fix are at present support
 - ServiceConnection
 	- ADO_ServiceConnection_AuthZ_Restrict_Broader_Group_Access
 	- ADO_ServiceConnection_AuthZ_Dont_Grant_BuildSvcAcct_Permission
+    - ADO_ServiceConnection_AuthZ_Dont_Grant_All_Pipelines_Access
 	
 - VariableGroup
 	- ADO_VariableGroup_AuthZ_Restrict_Broader_Group_Access
 	- ADO_VariableGroup_AuthZ_Restrict_Broader_Group_Access_On_VG_With_Secrets
+    - ADO_VariableGroup_AuthZ_Dont_Grant_All_Pipelines_Access_On_VG_With_Secrets
 	
 - Feed
 	- ADO_Feed_AuthZ_Restrict_Broader_Group_Access
@@ -436,6 +441,7 @@ This is currently in preview and only below controls' fix are at present support
 	
 - SecureFile
 	- ADO_SecureFile_AuthZ_Restrict_Broader_Group_Access
+    - ADO_SecureFile_AuthZ_Dont_Grant_All_Pipelines_Access
 	
 - Repository
 	- ADO_Repository_AuthZ_Dont_Grant_BuildSvc_Permission_On_Branch
