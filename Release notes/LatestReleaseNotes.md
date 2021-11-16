@@ -31,4 +31,4 @@
 
 ### Other Improvements/Bug fixes
 * Corrected logic to determine a service account while bug logging
-* To evaluate ``ADO_Build_SI_Dont_Use_Broadly_Editable_Variable_Group control``, if any variable group is already checked for editability, then it will not be checked again for other build resources.
+* While evaluating ``ADO_Build_SI_Dont_Use_Broadly_Editable_Variable_Group control`` if any variable group is already checked for editability, then it will not be checked again for other build resources.
