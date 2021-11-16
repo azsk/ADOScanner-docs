@@ -6,7 +6,7 @@
      * [Setting up ADOScanner as pipeline extension - Step by Step](README.md#setting-up-adoscanner-as-pipeline-extension---step-by-step)
      * [Customizing your PAT with minimum required privileges for ADO Connection](README.md#-customizing-your-pat-with-minimum-required-privileges-for-azure-devops-connection)
      * [Visualize security scan results](README.md#visualize-security-scan-results)
-
+  -  [Mentioned in](README.md#mentioned-in)
 ## Automated Scanning using ADO extension
 
 
@@ -127,3 +127,6 @@ Step 1,2 & 3 needs to be repeated to add "__Project Component Security Scan Summ
 > **Note:**  Dashboard created will be visible to all users which are part of project.
 
 > **Note:**  Dashboard reflects updates only upon pipeline execution. Local scan results don't reflect automatically. If you have remediated a control, make sure you run the pipeline to reflect the updated control results on dashboard.
+
+## Mentioned in
+- [Incremental Scan in Extension](https://github.com/azsk/ADOScanner-docs/blob/2111/users/juhi/IncScan/02-%20Running%20ADO%20Scanner%20from%20command%20line/Readme.md#incremental-scan-in-extension)
