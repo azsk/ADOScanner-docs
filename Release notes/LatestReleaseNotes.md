@@ -18,6 +18,8 @@
 	* Secure files
     * Environments
 
+* Incremental Scan can now be used via ADO Security Scanner extension as well.
+
 ### Security controls updates
 * New controls:
     The following new control have been added in this release:
@@ -25,8 +27,8 @@
 	* ``ADO_Feed_SI_Review_Inactive_Feeds``: Inactive feeds must be removed if no more required.
 
 * Changes to existing controls :
-	* ``ADO_Build_SI_Dont_Use_Broadly_Editable_Variable_Group``: Can now be configured to check for non SC-ALT admins in the following groups as well:Build admins, Release admins and Endpoint admins
 	* ``ADO_Organization_AuthN_Use_ALT_Accounts_For_Admin``: The control now evaluates any human accounts added in Project Collection Service Accounts for SC-ALT check, in addition to PCA groups. Service accounts are not evaluated. 
 
 ### Other Improvements/Bug fixes
 * Corrected logic to determine a service account while bug logging
+* To evaluate ``ADO_Build_SI_Dont_Use_Broadly_Editable_Variable_Group control``, if any variable group is already checked for editability, then it will not be checked again for other build resources.
