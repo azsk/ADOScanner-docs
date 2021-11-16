@@ -216,7 +216,7 @@ To use incremental scan in CA, setup the CA mode for your project by following s
 #------------Scan builds incrementally------------------#
 -ResourceTypeName Build -IncrementalScan
 
-#------------Scan bvariables groups incrementally----------------#
+#------------Scan variable groups incrementally----------------#
 -ResourceTypeName VariableGroup -IncrementalScan
 ```
 #### Incremental Scan in Extension
