@@ -391,56 +391,62 @@ This feature enables users to bulk fix a control and revert the fix to previous 
 This is currently in preview and only below controls' fix are at present supported via this feature: 
 	
 - Organization
-	- ADO_Organization_AuthZ_Revoke_Admin_Access_for_Guest_Users
-	- ADO_Organization_AuthZ_Revoke_Admin_Access_for_Inactive_Users
-	- ADO_Organization_AuthZ_Remove_Disconnected_Accounts
+    - ADO_Organization_AuthZ_Revoke_Admin_Access_for_Guest_Users
+    - ADO_Organization_AuthZ_Revoke_Admin_Access_for_Inactive_Users
+    - ADO_Organization_AuthZ_Remove_Disconnected_Accounts
+    - ADO_Organization_AuthN_Use_ALT_Accounts_For_Admin
+    - ADO_Organization_AuthZ_Restrict_Broader_Group_Access_on_Feed
 	
 - Project
-	- ADO_Project_AuthZ_Restrict_Broader_Group_Access_on_Agentpool
-	- ADO_Project_AuthZ_Restrict_Broader_Group_Access_on_Builds 
-	- ADO_Project_AuthZ_Restrict_Broader_Group_Access_on_SvcConn
-	- ADO_Project_AuthZ_Restrict_Broader_Group_Access_on_VarGrp
-	- ADO_Project_AuthZ_Revoke_Admin_Access_for_Guest_Users
-	- ADO_Project_AuthZ_Revoke_Admin_Access_for_Inactive_Users
-	- ADO_Project_AuthZ_Restrict_Broader_Group_Access_on_Repo
-	- ADO_Project_AuthZ_Restrict_Broader_Group_Access_on_Releases
-	- ADO_Project_AuthZ_Restrict_Broader_Group_Access_on_SecureFile
+    - ADO_Project_AuthZ_Restrict_Broader_Group_Access_on_Agentpool
+    - ADO_Project_AuthZ_Restrict_Broader_Group_Access_on_Builds 
+    - ADO_Project_AuthZ_Restrict_Broader_Group_Access_on_SvcConn
+    - ADO_Project_AuthZ_Restrict_Broader_Group_Access_on_VarGrp
+    - ADO_Project_AuthZ_Revoke_Admin_Access_for_Guest_Users
+    - ADO_Project_AuthZ_Revoke_Admin_Access_for_Inactive_Users
+    - ADO_Project_AuthZ_Restrict_Broader_Group_Access_on_Repo
+    - ADO_Project_AuthZ_Restrict_Broader_Group_Access_on_Releases
+    - ADO_Project_AuthZ_Restrict_Broader_Group_Access_on_SecureFile
+    - ADO_Project_AuthN_Use_ALT_Accounts_For_Admin
 	
 - AgentPool
-	- ADO_AgentPool_AuthZ_Restrict_Broader_Group_Access
+    - ADO_AgentPool_AuthZ_Restrict_Broader_Group_Access
 	
 - Build
-	- ADO_Build_AuthZ_Restrict_Broader_Group_Access 
-	- ADO_Build_DP_Review_Inactive_Build
-	- ADO_Build_SI_Dont_Use_Broadly_Editable_Task_Group
-	- ADO_Build_SI_Dont_Use_Broadly_Editable_Variable_Group
-	- ADO_Build_DP_Dont_Make_Secrets_Available_To_Forked_Builds
-	
+    - ADO_Build_AuthZ_Restrict_Broader_Group_Access 
+    - ADO_Build_DP_Review_Inactive_Build
+    - ADO_Build_SI_Dont_Use_Broadly_Editable_Task_Group
+    - ADO_Build_SI_Dont_Use_Broadly_Editable_Variable_Group
+    - ADO_Build_DP_Dont_Make_Secrets_Available_To_Forked_Builds
+
 - Release
-	- ADO_Release_AuthZ_Restrict_Broader_Group_Access 
-	- ADO_Release_DP_Review_Inactive_Release
-	- ADO_Release_SI_Dont_Use_Broadly_Editable_Task_Group
-	- ADO_Release_SI_Dont_Use_Broadly_Editable_Variable_Group
+    - ADO_Release_AuthZ_Restrict_Broader_Group_Access 
+    - ADO_Release_DP_Review_Inactive_Release
+    - ADO_Release_SI_Dont_Use_Broadly_Editable_Task_Group
+    - ADO_Release_SI_Dont_Use_Broadly_Editable_Variable_Group
 	
 - ServiceConnection
-	- ADO_ServiceConnection_AuthZ_Restrict_Broader_Group_Access
-	- ADO_ServiceConnection_AuthZ_Dont_Grant_BuildSvcAcct_Permission
+    - ADO_ServiceConnection_AuthZ_Restrict_Broader_Group_Access
+    - ADO_ServiceConnection_AuthZ_Dont_Grant_BuildSvcAcct_Permission
+    - ADO_ServiceConnection_AuthZ_Dont_Grant_All_Pipelines_Access
 	
 - VariableGroup
-	- ADO_VariableGroup_AuthZ_Restrict_Broader_Group_Access
-	- ADO_VariableGroup_AuthZ_Restrict_Broader_Group_Access_On_VG_With_Secrets
+    - ADO_VariableGroup_AuthZ_Restrict_Broader_Group_Access
+    - ADO_VariableGroup_AuthZ_Restrict_Broader_Group_Access_On_VG_With_Secrets
+    - ADO_VariableGroup_AuthZ_Dont_Grant_All_Pipelines_Access_On_VG_With_Secrets
 	
 - Feed
-	- ADO_Feed_AuthZ_Restrict_Broader_Group_Access
-	- ADO_Feed_AuthZ_Dont_Grant_BuildSvcAcct_Permission
+    - ADO_Feed_AuthZ_Restrict_Broader_Group_Access
+    - ADO_Feed_AuthZ_Dont_Grant_BuildSvcAcct_Permission
 	
 - SecureFile
-	- ADO_SecureFile_AuthZ_Restrict_Broader_Group_Access
+    - ADO_SecureFile_AuthZ_Restrict_Broader_Group_Access
+    - ADO_SecureFile_AuthZ_Dont_Grant_All_Pipelines_Access
 	
 - Repository
-	- ADO_Repository_AuthZ_Dont_Grant_BuildSvc_Permission_On_Branch
-	- ADO_Repository_AuthZ_Disable_Inherited_Permissions
-	- ADO_Repository_AuthZ_Dont_Grant_BuildSvcAcct_Permission
+    - ADO_Repository_AuthZ_Dont_Grant_BuildSvc_Permission_On_Branch
+    - ADO_Repository_AuthZ_Disable_Inherited_Permissions
+    - ADO_Repository_AuthZ_Dont_Grant_BuildSvcAcct_Permission
 
 
 
