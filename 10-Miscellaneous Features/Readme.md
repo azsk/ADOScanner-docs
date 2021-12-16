@@ -4,6 +4,7 @@
 - [Execute SVTs using "-AllowLongRunningScan" switch](Readme.md#Execute-SVTs-using--AllowLongRunningScan-switch)
 - [Scan using "-PolicyProject" parameter](Readme.md#Scan-using--PolicyProject-parameter)
 - [Scan using "-ServiceId" parameter](Readme.md#Scan-using--ServiceId-parameter)
+- [Configure an ADO organization to be baseline compliant](Readme.md#Configure-an-ADO-organization-to-be-baseline-compliant)
 
 # ADO Scanner information helper command
 ### Overview
@@ -185,13 +186,13 @@ The following controls are evaluated and fixed by the command:
 At the end of the scan you will presented with a percentage increase in baseline compliance and the list of controls that have been fixed.
 </br>
 <kbd>
-![SBC_compliance](../Images/10_sbc_2.png)  
+<img  src="../Images/10_sbc_2.png"  alt="SBC compliance report">
 </kbd>
 
 You will also be given a BaselineConfigurations.json file that contains a list of control that were passing, controls that were fixed and controls that need to be fixed manually.
 
 </br>
 <kbd>
-![SBC_compliance](../Images/10_sbc.png)  
+<img  src="../Images/10_sbc.png"  alt="SBC compliance report">
 </kbd>
 
