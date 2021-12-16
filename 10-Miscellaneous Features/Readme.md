@@ -94,7 +94,7 @@ If 'IsAllowLongRunningScan' is set to true, then by using '-AllowLongRunningScan
 
 ----------------------------------------------
 
-## Scan using "-PolicyProject" parameter
+# Scan using "-PolicyProject" parameter
 
  Using -PolicyProject parameter you can specify the name of the project to read and write attestation details and fetch organization policy for organization.
  
@@ -118,4 +118,80 @@ Get-AzSKADOSecurityStatus -OrganizationName $orgName `
                              -ProjectNames $projectName `
                              -ServiceId $serviceId
 ```
+
+----------------------------------------------
+
+# Configure an ADO organization to be baseline compliant
+
+### Overview
+If you have newly onboarded to Azure DevOps and want to start fresh with a securely configured Organization and Project, you can use the *Set-AzSKADOBaselineConfigurations* command. The command will scan the organization/project for baseline controls and fix any of the controls that have failed. Instead of manually running the scans and fixing the controls, you can automatically fix all of the covered controls. This ensures you start with a secured configuration. 
+
+### Usage
+
+```PowerShell
+
+#To configure organization and project controls
+Set-AzSKADOBaselineConfigurations -OrganizationName $orgName `
+                                  -ProjectName $ProjectName
+
+#To configure organization and project controls for all projects
+Set-AzSKADOBaselineConfigurations -OrganizationName $orgName `
+                                  -ProjectName *
+                                  
+Set-AzSKADOBaselineConfigurations -OrganizationName $orgName 
+
+#To configure only project controls
+Set-AzSKADOBaselineConfigurations -OrganizationName $orgName `
+                                  -ProjectName $ProjectName `
+                                  -ResourceTypeName Project                                  
+
+```
+> If the organization or the project seem to be old and functionally working, the scanner will not fix these controls. If you still wish to configure these security failures you must use *-force* switch
+```PowerShell
+#To configure organization and project controls and override the scanner behaviour to not fix these controls if found to be operationally working environment
+Set-AzSKADOBaselineConfigurations -OrganizationName $orgName `
+                                  -ProjectName $ProjectName `
+                                  -force
+```
+> The controls fixed by the scanner cannot be reverted back to the original state using the command. In case you want to restore the previous state, you will have to manually configure them on Azure DevOps.
+
+### Controls covered
+The following controls are evaluated and fixed by the command:
+- Organization
+  - ADO_Organization_AuthZ_Limit_Non_Release_Pipeline_Scope
+  - ADO_Organization_AuthZ_Limit_Pipeline_Scope_To_Referenced_Repos
+  - ADO_Organization_AuthZ_Limit_Release_Pipeline_Scope
+  - ADO_Organization_SI_Limit_Variables_Settable_At_Queue_Time
+  - ADO_Organization_DP_Dont_Allow_Public_Projects
+  - ADO_Organization_AuthN_Disable_Guest_Users
+  - ADO_Organization_AuthZ_Restrict_Broader_Group_Access_on_Feed
+  - ADO_Organization_Enable_Audit_Stream
+- Project
+  - ADO_Project_AuthZ_Limit_Non_Release_Pipeline_Scope
+  - ADO_Project_AuthZ_Limit_Pipeline_Scope_To_Referenced_Repos
+  - ADO_Project_AuthZ_Limit_Release_Pipeline_Scope
+  - ADO_Project_SI_Limit_Variables_Settable_At_Queue_Time
+  - ADO_Project_AuthZ_Set_Visibility_Private_Or_Enterprise
+  - ADO_Project_AuthZ_Restrict_Broader_Group_Access_on_Builds
+  - ADO_Project_AuthZ_Restrict_Broader_Group_Access_on_Releases
+  - ADO_Project_AuthZ_Restrict_Broader_Group_Access_on_SvcConn
+  - ADO_Project_AuthZ_Restrict_Broader_Group_Access_on_AgentPool
+  - ADO_Project_AuthZ_Restrict_Broader_Group_Access_on_VarGrp
+  - ADO_Project_AuthZ_Restrict_Broader_Group_Access_on_Repo
+  - ADO_Project_AuthZ_Restrict_Broader_Group_Access_on_SecureFile
+
+### Understanding Baseline Configurations summary
+
+At the end of the scan you will presented with a percentage increase in baseline compliance and the list of controls that have been fixed.
+</br>
+<kbd>
+![SBC_compliance](../Images/10_sbc_2.png)  
+</kbd>
+
+You will also be given a BaselineConfigurations.json file that contains a list of control that were passing, controls that were fixed and controls that need to be fixed manually.
+
+</br>
+<kbd>
+![SBC_compliance](../Images/10_sbc.png)  
+</kbd>
 
