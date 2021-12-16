@@ -396,6 +396,13 @@ This is currently in preview and only below controls' fix are at present support
     - ADO_Organization_AuthZ_Remove_Disconnected_Accounts
     - ADO_Organization_AuthN_Use_ALT_Accounts_For_Admin
     - ADO_Organization_AuthZ_Restrict_Broader_Group_Access_on_Feed
+    - ADO_Organization_AuthN_Disable_Guest_Users 
+    - ADO_Organization_DP_Dont_Allow_Public_Projects 
+    - ADO_Organization_SI_Limit_Variables_Settable_At_Queue_Time 
+    - ADO_Organization_AuthZ_Limit_Non_Release_Pipeline_Scope 
+    - ADO_Organization_AuthZ_Limit_Release_Pipeline_Scope 
+    - ADO_Organization_AuthZ_Limit_Pipeline_Scope_To_Referenced_Repos 
+    - ADO_Organization_Enable_Audit_Stream 
 	
 - Project
     - ADO_Project_AuthZ_Restrict_Broader_Group_Access_on_Agentpool
@@ -408,9 +415,16 @@ This is currently in preview and only below controls' fix are at present support
     - ADO_Project_AuthZ_Restrict_Broader_Group_Access_on_Releases
     - ADO_Project_AuthZ_Restrict_Broader_Group_Access_on_SecureFile
     - ADO_Project_AuthN_Use_ALT_Accounts_For_Admin
+    - ADO_Project_AuthZ_Set_Visibility_Private_Or_Enterprise 
+    - ADO_Project_SI_Limit_Variables_Settable_At_Queue_Time 
+    - ADO_Project_AuthZ_Limit_Non_Release_Pipeline_Scope 
+    - ADO_Project_AuthZ_Limit_Release_Pipeline_Scope 
+    - ADO_Project_AuthZ_Limit_Pipeline_Scope_To_Referenced_Repos 
 	
 - AgentPool
     - ADO_AgentPool_AuthZ_Restrict_Broader_Group_Access
+    - ADO_AgentPool_AuthZ_Dont_Grant_All_Pipelines_Access 
+    - ADO_AgentPool_AuthZ_Dont_Enable_Auto_Provisioning 
 	
 - Build
     - ADO_Build_AuthZ_Restrict_Broader_Group_Access 
@@ -418,12 +432,14 @@ This is currently in preview and only below controls' fix are at present support
     - ADO_Build_SI_Dont_Use_Broadly_Editable_Task_Group
     - ADO_Build_SI_Dont_Use_Broadly_Editable_Variable_Group
     - ADO_Build_DP_Dont_Make_Secrets_Available_To_Forked_Builds
+    - ADO_Build_SI_Review_URL_Variables_Settable_At_Queue_Time 
 
 - Release
     - ADO_Release_AuthZ_Restrict_Broader_Group_Access 
     - ADO_Release_DP_Review_Inactive_Release
     - ADO_Release_SI_Dont_Use_Broadly_Editable_Task_Group
     - ADO_Release_SI_Dont_Use_Broadly_Editable_Variable_Group
+    - ADO_Release_SI_Review_URL_Variables_Settable_At_Release_Time
 	
 - ServiceConnection
     - ADO_ServiceConnection_AuthZ_Restrict_Broader_Group_Access
@@ -434,10 +450,12 @@ This is currently in preview and only below controls' fix are at present support
     - ADO_VariableGroup_AuthZ_Restrict_Broader_Group_Access
     - ADO_VariableGroup_AuthZ_Restrict_Broader_Group_Access_On_VG_With_Secrets
     - ADO_VariableGroup_AuthZ_Dont_Grant_All_Pipelines_Access_On_VG_With_Secrets
+    - ADO_VariableGroup_DP_No_PlainText_Secrets_In_Variables
 	
 - Feed
     - ADO_Feed_AuthZ_Restrict_Broader_Group_Access
     - ADO_Feed_AuthZ_Dont_Grant_BuildSvcAcct_Permission
+    - ADO_Feed_SI_Review_Inactive_Feeds 
 	
 - SecureFile
     - ADO_SecureFile_AuthZ_Restrict_Broader_Group_Access
@@ -448,6 +466,9 @@ This is currently in preview and only below controls' fix are at present support
     - ADO_Repository_AuthZ_Disable_Inherited_Permissions
     - ADO_Repository_AuthZ_Dont_Grant_BuildSvcAcct_Permission
 
+- Environment
+    - ADO_Environment_AuthZ_Restrict_Broader_Group_Access 
+    - ADO_Environment_AuthZ_Dont_Grant_All_Pipelines_Access 
 
 
 
