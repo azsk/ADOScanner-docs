@@ -1,34 +1,57 @@
-# 211115 (AzSK.ADO v.1.13.0)
+# 211115 (AzSK.ADO v.1.14.0)
 
 ## Feature Updates
 
 ### ADO Security Scanner PowerShell Module:
+
+* Introduced a new command to scan, fix and make  new organizations and projects compliant with baseline controls.
+
+```PowerShell
+  Set-AzSKADOBaselineConfigurations
+```
+
+* New command is added to run bug logging using scan result CSV.
+
+```PowerShell
+  Start-AzSKADOBugLogging
+```
+
 * Automated bulk remediation extended for:
-    * ADO_Organization_AuthN_Use_ALT_Accounts_For_Admin
-    * ADO_Organization_AuthZ_Restrict_Broader_Group_Access_on_Feed
-    * ADO_Project_AuthN_Use_ALT_Accounts_For_Admin
-    * ADO_ServiceConnection_AuthZ_Dont_Grant_All_Pipelines_Access
-    * ADO_SecureFile_AuthZ_Dont_Grant_All_Pipelines_Access
-    * ADO_VariableGroup_AuthZ_Dont_Grant_All_Pipelines_Access_On_VG_With_Secrets				
+    * ADO_VariableGroup_DP_No_PlainText_Secrets_In_Variables
+		* ADO_Feed_SI_Review_Inactive_Feeds
+		* ADO_Project_AuthZ_Set_Visibility_Private_Or_Enterprise
+		* ADO_Project_SI_Limit_Variables_Settable_At_Queue_Time
+		* ADO_Project_AuthZ_Limit_Non_Release_Pipeline_Scope
+		* ADO_Project_AuthZ_Limit_Release_Pipeline_Scope
+		* ADO_Project_AuthZ_Limit_Pipeline_Scope_To_Referenced_Repos
+		* ADO_Organization_AuthN_Disable_Guest_Users
+		* ADO_Organization_DP_Dont_Allow_Public_Projects
+		* ADO_Organization_SI_Limit_Variables_Settable_At_Queue_Time
+		* ADO_Organization_AuthZ_Limit_Non_Release_Pipeline_Scope
+		* ADO_Organization_AuthZ_Limit_Release_Pipeline_Scope
+		* ADO_Organization_AuthZ_Limit_Pipeline_Scope_To_Referenced_Repos
+		* ADO_Organization_Enable_Audit_Stream
+		* ADO_Environment_AuthZ_Restrict_Broader_Group_Access
+		* ADO_Environment_AuthZ_Dont_Grant_All_Pipelines_Access
+		* ADO_Release_SI_Review_URL_Variables_Settable_At_Release_Time
+		* ADO_Build_SI_Review_URL_Variables_Settable_At_Queue_Time
+		* ADO_AgentPool_AuthZ_Dont_Grant_All_Pipelines_Access
+    * ADO_AgentPool_AuthZ_Dont_Enable_Auto_Provisioning
 
-* Incremental Scan has been extended to cover the following resource types in addition to builds and releases:
-	* Variable Groups
-	* Feeds
-	* Repositories
-	* Secure files
-    * Environments
+* Extension UI to provide provision to scan repository, secure files, feeds and environment resource types.
 
-* Incremental Scan can now be used via ADO Security Scanner extension as well.
 
 ### Security controls updates
 * New controls:
     The following new control have been added in this release:
-	* ``ADO_Organization_AuthZ_Restrict_Feed_Create_Permission``: Allow only limited group of users permission to create feeds in the organization.
-	* ``ADO_Feed_SI_Review_Inactive_Feeds``: Inactive feeds must be removed if no more required.
-
-* Changes to existing controls :
-	* ``ADO_Organization_AuthN_Use_ALT_Accounts_For_Admin``: The control now evaluates any human accounts added in Project Collection Service Accounts for SC-ALT check, in addition to PCA groups. Service accounts are not evaluated. 
+	* ``ADO_Organization_SI_Protect_Private_Feeds_Impersonation``: Enable protection from externally sourced packages in Azure Artifacts feeds.
+	* ``ADO_Feed_SI_Delete_Inactive_Packages``: Inactive packages must be removed if no more required.
 
 ### Other Improvements/Bug fixes
-* Corrected logic to determine a service account while bug logging
-* While evaluating ``ADO_Build_SI_Dont_Use_Broadly_Editable_Variable_Group control`` if any variable group is already checked for editability, then it will not be checked again for other build resources.
+* Fixed controls  ``ADO_Organization_AuthZ_Restrict_Broader_Group_Access_on_Feed,  ADO_Organization_AuthZ_Restrict_Feed_Create_Permission`` for scan errors when ran from CA.
+* Fixed controls ``ADO_Organization_AuthZ_Revoke_Admin_Access_for_Inactive_Users, ADO_Project_AuthZ_Revoke_Admin_Access_for_Inactive_Users`` for exceptions created in CA.
+* Improved error handling when no resources have been scanned during attestation.
+* Fixed the incorrect inventory count by adding pagination for test plan and environments resource types.
+* Fetching of Inventory details in GADS command can be controlled by switch ``$env:FetchInventoryDetails``
+* Resolution level can now be control via policy and environment variable for broader group controls.
+* Automated fix for feeds supports a new switch ``-CheckOwnerAccess`` to scan and backup only those feeds on which the current user has admin access.
