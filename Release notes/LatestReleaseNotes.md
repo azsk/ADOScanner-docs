@@ -1,17 +1,27 @@
-# 220114 (AzSK.ADO v.1.15.0)
+# 220216 (AzSK.ADO v.1.16.0)
 
 ## Feature Updates
 
-### ADO Security Scanner PowerShell Module:
+### ADO Security Scanner PowerShell Module
 
-* Introduced pluggable rate limit mechanism in the scanner. This will help in reducing the number of blocked ADO API calls due to throttling by controlling the scanning speed. 
+* Automated bulk remediation extended for:
+
+  * ``ADO_AgentPool_DP_No_Secrets_In_Capabilities:``
+  * ``ADO_AgentPool_DP_Enable_Auto_Update``
 
 ### Security controls updates
 
-* Changes to existing controls:
-    Automated fix for ``ADO_Feed_AuthZ_Restrict_Broader_Group_Access`` and ``ADO_Feed_AuthZ_Dont_Grant_BuildSvcAcct_Permission`` fixes excessive permissions of broader groups (Contributor and Project Valid Users) to 'Collaborator' instead of 'Reader'.
+* New controls:
+    The following new controls have been added :
+
+  * ``ADO_ServiceConnection_AuthZ_Enable_Branch_Control``: Allow service connections to be accessed only by select branches.
+  * ``ADO_VariableGroup_AuthZ_Enable_Branch_Control``: Allow variable groups to be accessed only by select branches.
+  * ``ADO_SecureFile_AuthZ_Enable_Branch_Control``: Allow secure files to be accessed only by select branches.
+  * ``ADO_Repository_AuthZ_Enable_Branch_Control``: Allow repositories to be accessed only by select branches.
+  * ``ADO_Build_DP_Configure_YAML_CI_Triggers``: Use CI triggers to allow YAML CI only from select branches.
 
 ### Other Improvements/Bug fixes
-* Fixed control errors for ``ADO_Build_AuthZ_Restrict_Access_To_OAuth_Token_For_Agent_Jobs`` and  ``ADO_ServiceConnection_AuthZ_Dont_Grant_BuildSvcAcct_Permission``
-* Standalone bug logging now supports custom HTML for bug description field.
-* Standalone bug logging now supports ``MaxBugsToLog`` command parameter to limit number of bugs to log.
+
+* Service tree mapping of secure files and variable groups has been increased by 80% and 55% respectively by using Cloudmine data. The scan time for their mapping generation has also been improved.
+* Standalone bug logging now supports resolution of identities from alternate mail addresses while fetching assignees.
+* Additional Info for user baseline controls added.
