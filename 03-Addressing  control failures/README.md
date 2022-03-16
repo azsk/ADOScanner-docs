@@ -403,6 +403,8 @@ This is currently in preview and only below controls' fix are at present support
     - ADO_Organization_AuthZ_Limit_Release_Pipeline_Scope 
     - ADO_Organization_AuthZ_Limit_Pipeline_Scope_To_Referenced_Repos 
     - ADO_Organization_Enable_Audit_Stream 
+    - ADO_Organization_AuthZ_Disable_OAuth_App_Access
+    - ADO_Organization_SI_Protect_Private_Feeds_Impersonation
 	
 - Project
     - ADO_Project_AuthZ_Restrict_Broader_Group_Access_on_Agentpool
@@ -425,6 +427,8 @@ This is currently in preview and only below controls' fix are at present support
     - ADO_AgentPool_AuthZ_Restrict_Broader_Group_Access
     - ADO_AgentPool_AuthZ_Dont_Grant_All_Pipelines_Access 
     - ADO_AgentPool_AuthZ_Dont_Enable_Auto_Provisioning 
+    - ADO_AgentPool_DP_No_Secrets_In_Capabilities
+    - ADO_AgentPool_DP_Enable_Auto_Update
 	
 - Build
     - ADO_Build_AuthZ_Restrict_Broader_Group_Access 
