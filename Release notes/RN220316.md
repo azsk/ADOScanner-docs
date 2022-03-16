@@ -24,6 +24,9 @@
   * ``ADO_SecureFile_Dont_Grant_Broader_Group_Access_As_Approvers``: Broader groups should not be added as approvers on SecureFile.
   * ``ADO_ServiceConnection_Dont_Grant_Broader_Group_Access_As_Approvers``: Broader groups should not be added as approvers on ServiceConnection.
   * ``ADO_VariableGroup_Dont_Grant_Broader_Group_Access_As_Approvers``: Broader groups should not be added as approvers on VariableGroup.
+  * ``ADO_Environment_DP_Use_Template_From_Protected_Branch``: Allow environment to be accessed by templates only from protected branches.
+  * ``ADO_SecureFile_DP_Use_Template_From_Protected_Branch``: Allow secure file to be accessed by templates only from protected branches.
+  * ``ADO_Repository_DP_Use_Template_From_Protected_Branch``: Allow repositoris to be accessed by templates only from protected branches.
 
 ### Other Improvements/Bug fixes
 
