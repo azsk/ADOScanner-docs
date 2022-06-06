@@ -1,0 +1,601 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "metadata": {
+      "comments": "ARM template to deploy AzTS-ADO Scanner resources. Follow 'https://aka.ms/AzTS/ADO' for more details.",
+      "author": "AzTS Team"
+    },
+    "parameters": {
+      "OrganizationName": {
+        "type": "string",
+        "metadata": {
+          "description": "Organization name for which AOD scan needs to be performed."
+        }
+      },
+      "ProjectName": {
+        "type": "string",
+        "metadata": {
+          "description": "Project name for which AOD scan needs to be performed."
+        }
+      },
+      "ProjectId": {
+        "type": "string",
+        "metadata": {
+          "description": "Project id for which AOD scan needs to be performed."
+        }
+      },
+      "AuthenticationType": {
+        "type": "string",
+        "metadata": {
+          "description": "Type of authentication to perform ADO scan."
+        },
+         "allowedValues": [
+           "AccessToken",
+           "PAT"
+         ]
+      },
+      "TokenVauleOrKeyVaultUrl": {
+        "type": "securestring",
+        "metadata": {
+          "description": "Token secure string for organization to be scanned."
+        }
+      },
+      "EnableAutoUpdater": {
+        "type": "bool",
+        "defaultValue": true,
+        "metadata": {
+          "description": "Switch to enable AzTS auto updater. Autoupdater helps to get latest feature released for AzTS components covering updates for security controls. If this is disabled, you can manually update AzTS components."
+        }
+      },
+      "EnableLogAnalyticsWorkspace": {
+        "type": "bool",
+        "defaultValue": true,
+        "metadata": {
+          "description": "Switch to enable Log Analytics Workspace. By default all scan results gets stored as part of Azure Storage. You can also opt to create log analytics workspace to store and query scan events, inventory, scan progress details."
+        }
+      }
+    },
+    "variables": {
+      "resourceNamePrifix": "AzTS-ADO-",
+      "resourceNameSufix": "[substring(uniqueString(resourceGroup().id),0,5)]",
+      "workItemProcessorName": "[concat(variables('resourceNamePrifix'),'Scanner-', variables('resourceNameSufix'))]",
+      "autoUpdaterName": "[concat(variables('resourceNamePrifix'),'AutoUpdater-', variables('resourceNameSufix'))]",
+      "storageName": "[concat(toLower(replace(variables('resourceNamePrifix'),'-','')), 'storage', variables('resourceNameSufix'))]",
+      "workspaceName": "[concat(variables('resourceNamePrifix'),'LAWorkspace-', variables('resourceNameSufix'))]",
+      "applicationInsightsName": "[concat(variables('resourceNamePrifix'),'AppInsights-', variables('resourceNameSufix'))]",
+      "internalMIName": "[concat(variables('resourceNamePrifix'), 'InternalMI-', variables('resourceNameSufix'))]",
+      "rgRoleAssignmentGuid": "[guid(resourceGroup().id)]",
+      "contributorRoleId": "[concat(subscription().Id, '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c')]",
+      "rgRoleAssignmentName": "[variables('rgRoleAssignmentGuid')]",
+      "storageQueueName": "workitemscheduler",
+      "WIfileShare": "[toLower(variables('workItemProcessorName'))]",
+      "AUfileShare": "[toLower(variables('autoUpdaterName'))]",
+      "storageContainerName":"adoscanresult",
+      "configurationContainerName":"configurations",
+      "anonymousUsageTelemetryLogLevel": "None",
+      "autoUpdaterFunctionTimeout":"00:09:00",
+      "workItemProcessorFunctionTimeout":"00:09:00",
+      "hostingPlanName":"[concat(variables('resourceNamePrifix'),'AppServicePlan-', variables('resourceNameSufix'))]",
+      "keyVaultName":"[concat(variables('resourceNamePrifix'),'KeyVault-', variables('resourceNameSufix'))]",
+      "secretName":"[concat(variables('resourceNamePrifix'),'Token-', variables('resourceNameSufix'))]",
+      "organizationName": "NA",
+      "divisionName":"NA",
+      "contactEmailAddressList": "NA",
+      "userAssignedIdentities": {
+        "singleTenantSetUp": {
+          "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities/', variables('internalMIName'))]": {}
+        }
+      }
+    },
+    "resources": [
+      {
+        "name": "[variables('storageName')]",
+        "type": "Microsoft.Storage/storageAccounts",
+        "location": "[resourceGroup().location]",
+        "apiVersion": "2019-06-01",
+        "sku": {
+          "name": "Standard_LRS"
+        },
+        "properties": {
+          "supportsHttpsTrafficOnly": true,
+          "allowBlobPublicAccess": false,
+          "minimumTlsVersion": "TLS1_2"
+        },
+        "tags": {
+          "displayName": "azskaztsapp"
+        },
+        "kind": "StorageV2",
+        "resources": [
+          {
+            "type": "blobServices/containers",
+            "apiVersion": "2019-06-01",
+            "name": "[concat('default/', variables('storageContainerName'))]",
+            "dependsOn": [
+              "[resourceId('Microsoft.Storage/storageAccounts/', variables('storageName'))]"
+            ],
+            "properties": {
+              "publicAccess": "None"
+            }
+          },
+          {
+            "type": "blobServices/containers",
+            "apiVersion": "2019-06-01",
+            "name": "[concat('default/', variables('configurationContainerName'))]",
+            "dependsOn": [
+              "[resourceId('Microsoft.Storage/storageAccounts/', variables('storageName'))]"
+            ],
+            "properties": {
+              "publicAccess": "None"
+            }
+          }
+        ]
+      },
+      {
+        "type": "Microsoft.Storage/storageAccounts/fileServices/shares",
+        "apiVersion": "2019-06-01",
+        "name": "[concat(variables('storageName'), '/default/', variables('WIfileShare'))]",
+        "dependsOn": [
+          "[resourceId('Microsoft.Storage/storageAccounts/', variables('storageName'))]"
+        ]
+      },
+      {
+        "type": "Microsoft.Storage/storageAccounts/fileServices/shares",
+        "apiVersion": "2019-06-01",
+        "name": "[concat(variables('storageName'), '/default/', variables('AUfileShare'))]",
+        "dependsOn": [
+          "[resourceId('Microsoft.Storage/storageAccounts/', variables('storageName'))]"
+        ]
+      },
+      {
+        "name": "[concat(variables('storageName'), '/default/',variables('storageQueueName'))]",
+        "type": "Microsoft.Storage/storageAccounts/queueServices/queues",
+        "apiVersion": "2019-06-01",
+        "dependsOn": [
+            "[resourceId('Microsoft.Storage/storageAccounts', variables('storageName'))]"
+        ],
+        "properties": {
+            "metadata": {}
+
+        }
+    },
+      {
+        "condition": "[parameters('EnableLogAnalyticsWorkspace')]",
+        "type": "Microsoft.OperationalInsights/workspaces",
+        "name": "[variables('workspaceName')]",
+        "apiVersion": "2017-03-15-preview",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "sku": {
+            "name": "pergb2018"
+          },
+          "retentionInDays": 120,
+          "features": {
+            "searchVersion": 1,
+            "legacy": 0,
+            "enableLogAccessUsingOnlyResourcePermissions": true
+          }
+        }
+      },
+      {
+        "type": "Microsoft.ManagedIdentity/userAssignedIdentities",
+        "name": "[variables('internalMIName')]",
+        "apiVersion": "2018-11-30",
+        "location": "[resourceGroup().location]"
+      },
+      {
+        "apiVersion": "2015-08-01",
+        "name": "[variables('hostingPlanName')]",
+        "type": "Microsoft.Web/serverfarms",
+        "location": "[resourceGroup().location]",
+        "tags": {
+          "displayName": "HostingPlan"
+        },
+        "sku": {
+          "name": "Y1",
+          "tier": "Dynamic"
+        },
+        "kind": "functionapp",
+        "properties": {
+          "name": "[variables('hostingPlanName')]",
+          "computeMode": "Dynamic"
+        }
+      },
+      {
+        "apiVersion": "2018-11-01",
+        "name": "[variables('workItemProcessorName')]",
+        "type": "Microsoft.Web/sites",
+        "location": "[resourceGroup().location]",
+        "kind": "functionapp",
+        "identity": {
+          "type": "UserAssigned",
+          "userAssignedIdentities": "[variables('userAssignedIdentities')['singleTenantSetUp']]"
+        },
+        "tags": {
+          "[concat('hidden-related:', resourceGroup().id, '/providers/Microsoft.Web/serverfarms/', variables('hostingPlanName'))]": "Resource",
+          "displayName": "Website"
+        },
+        "dependsOn": [
+          "[resourceId('Microsoft.Web/serverfarms/', variables('hostingPlanName'))]",
+          "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities/', variables('internalMIName'))]",
+          "[resourceId('Microsoft.Storage/storageAccounts/', variables('storageName'))]",
+          "[resourceId('Microsoft.OperationalInsights/workspaces/', variables('workspaceName'))]",
+          "[resourceId('Microsoft.Storage/storageAccounts/fileServices/shares', variables('storageName'), 'default', variables('WIfileShare'))]"
+        ],
+        "properties": {
+          "name": "[variables('workItemProcessorName')]",
+          "httpsOnly": true,
+          "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('hostingPlanName'))]",
+          "siteConfig": {
+            "remoteDebuggingEnabled": false,
+            "webSocketsEnabled": false,
+            "requestTracingEnabled": true,
+            "reservedInstanceCount": 1,
+            "httpLoggingEnabled": true,
+            "detailedErrorLoggingEnabled": true,
+            "minTlsVersion": 1.2,
+            "ftpsState": "Disabled",
+            "appSettings": [
+              {
+                "name": "AzureFunctionsJobHost__functionTimeout",
+                "value": "[variables('workItemProcessorFunctionTimeout')]"
+              },
+              {
+                "name": "AzureWebJobsStorage",
+                "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageName'), ';EndpointSuffix=', environment().suffixes.storage, ';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageName')), '2019-06-01').keys[0].value)]"
+              },
+               {
+              "name": "AuthNSettings__ScannerIdentityConnectionString",
+              "value": "[concat('RunAs=App;AppId=',reference(concat('Microsoft.ManagedIdentity/userAssignedIdentities/', variables('internalMIName')), '2018-11-30').clientId)]"
+            },
+              {
+                "name": "AuthNSettings__InternalIdentityConnectionString",
+                "value": "[concat('RunAs=App;AppId=',reference(concat('Microsoft.ManagedIdentity/userAssignedIdentities/', variables('internalMIName')), '2018-11-30').clientId)]"
+              },
+              {
+                "name": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
+                "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageName'), ';EndpointSuffix=', environment().suffixes.storage, ';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageName')), '2019-06-01').keys[0].value)]"
+              },
+              {
+                "name": "WEBSITE_CONTENTSHARE",
+                "value": "[toLower(variables('workItemProcessorName'))]"
+              },
+              {
+                "name": "FUNCTIONS_EXTENSION_VERSION",
+                "value": "~3"
+              },
+              {
+                "name": "WEBSITE_NODE_DEFAULT_VERSION",
+                "value": "~10"
+              },
+              {
+                "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+                "value": "[reference(resourceId('microsoft.insights/components', variables('applicationInsightsName')), '2020-02-02-preview').InstrumentationKey]"
+              },
+              {
+                "name": "AIConfigurations__ResourceId",
+                "value": "[resourceId('microsoft.insights/components', variables('applicationInsightsName'))]"
+              },
+              {
+                "name": "AzureStorageSettings__ResourceId",
+                "value": "[resourceId('Microsoft.Storage/storageAccounts/', variables('storageName'))]"
+              },
+              {
+                "name": "AzureStorageSettings__ContainerName",
+                "value": "[variables('storageContainerName')]"
+              },
+              {
+                "name": "AzureStorageSettings__FeatureContainerName_Configurations",
+                "value": "[variables('configurationContainerName')]"
+              },
+              {
+                "name": "LAConfigurations__ResourceId",
+                "value": "[resourceId('Microsoft.OperationalInsights/workspaces/', variables('workspaceName'))]"
+              },
+              {
+                "name": "LAConfigurations__WorkspaceId",
+                "value": "[reference(resourceId('Microsoft.OperationalInsights/workspaces', variables('workspaceName')), '2017-03-15-preview').customerId]"
+              },
+              {
+                "name": "FUNCTIONS_WORKER_RUNTIME",
+                "value": "dotnet"
+              },
+              {
+                "name": "queueTriggerName",
+                "value": "[variables('storageQueueName')]"
+              },
+              {
+                "name": "AppMetadata__AppName",
+                "value": "[variables('workItemProcessorName')]"
+              }
+            ],
+            "functionsRuntimeScaleMonitoringEnabled": "false"
+          }
+        },
+        "resources": [
+          {
+            "apiVersion": "2018-11-01",
+            "name": "MSDeploy",
+            "type": "Extensions",
+            "dependsOn": [
+              "[concat('Microsoft.Web/sites/', variables('workItemProcessorName'))]"
+            ],
+            "properties": {
+              "packageUri": "https://aka.ms/AzTS/ADO/Package/Scanner"
+            }
+          }
+        ]
+      },
+      {
+        "condition": "[parameters('EnableAutoUpdater')]",
+        "apiVersion": "2018-11-01",
+        "name": "[variables('autoUpdaterName')]",
+        "type": "Microsoft.Web/sites",
+        "location": "[resourceGroup().location]",
+        "kind": "functionapp",
+        "identity": {
+          "type": "UserAssigned",
+          "userAssignedIdentities": {
+            "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities/', variables('internalMIName'))]": {
+            }
+          }
+        },
+        "tags": {
+          "[concat('hidden-related:', resourceGroup().id, '/providers/Microsoft.Web/serverfarms/', variables('hostingPlanName'))]": "Resource",
+          "displayName": "Website"
+        },
+        "dependsOn": [
+          "[resourceId('Microsoft.Web/serverfarms/', variables('hostingPlanName'))]",
+          "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities/', variables('internalMIName'))]",
+          "[resourceId('Microsoft.Storage/storageAccounts/', variables('storageName'))]",
+          "[resourceId('Microsoft.OperationalInsights/workspaces/', variables('workspaceName'))]",
+          "[resourceId('Microsoft.Storage/storageAccounts/fileServices/shares', variables('storageName'), 'default', variables('AUfileShare'))]"
+        ],
+        "properties": {
+          "name": "[variables('autoUpdaterName')]",
+          "httpsOnly": true,
+          "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('hostingPlanName'))]",
+          "siteConfig": {
+            "remoteDebuggingEnabled": false,
+            "webSocketsEnabled": false,
+            "requestTracingEnabled": true,
+            "reservedInstanceCount": 1,
+            "httpLoggingEnabled": true,
+            "detailedErrorLoggingEnabled": true,
+            "minTlsVersion": 1.2,
+            "ftpsState": "Disabled",
+            "appSettings": [
+              {
+                "name": "AIConfigurations__TelemetryIdentifier",
+                "value": "[variables('rgRoleAssignmentGuid')]"
+              },
+              {
+                "name": "AzureFunctionsJobHost__functionTimeout",
+                "value": "[variables('autoUpdaterFunctionTimeout')]"
+              },
+              {
+                "name": "AzureWebJobsStorage",
+                "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageName'), ';EndpointSuffix=', environment().suffixes.storage, ';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageName')), '2019-06-01').keys[0].value)]"
+              },
+              {
+                "name": "AuthNSettings__ScannerIdentityConnectionString",
+                "value": "[concat('RunAs=App;AppId=',reference(concat('Microsoft.ManagedIdentity/userAssignedIdentities/', variables('internalMIName')), '2018-11-30').clientId)]"
+              },
+              {
+                "name": "AuthNSettings__InternalIdentityConnectionString",
+                "value": "[concat('RunAs=App;AppId=',reference(concat('Microsoft.ManagedIdentity/userAssignedIdentities/', variables('internalMIName')), '2018-11-30').clientId)]"
+              },
+              {
+                "name": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
+                "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageName'), ';EndpointSuffix=', environment().suffixes.storage, ';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageName')), '2019-06-01').keys[0].value)]"
+              },
+              {
+                "name": "WEBSITE_CONTENTSHARE",
+                "value": "[toLower(variables('autoUpdaterName'))]"
+              },
+              {
+                "name": "FUNCTIONS_EXTENSION_VERSION",
+                "value": "~3"
+              },
+              {
+                "name": "WEBSITE_NODE_DEFAULT_VERSION",
+                "value": "~10"
+              },
+              {
+                "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+                "value": "[reference(resourceId('microsoft.insights/components', variables('applicationInsightsName')), '2020-02-02-preview').InstrumentationKey]"
+              },
+              {
+                "name": "AIConfigurations__ResourceId",
+                "value": "[resourceId('microsoft.insights/components', variables('applicationInsightsName'))]"
+              },
+              {
+                "name": "FUNCTIONS_WORKER_RUNTIME",
+                "value": "dotnet"
+              },
+              {
+                "name": "HostEnvironmentDetails__HostSubscriptionId",
+                "value": "[subscription().subscriptionId]"
+              },
+              {
+                "name": "HostEnvironmentDetails__HostResourceGroupName",
+                "value": "[resourceGroup().name]"
+              },
+              {
+                "name": "HostEnvironmentDetails__AppPostfix",
+                "value": "[variables('resourceNameSufix')]"
+              },
+              {
+                "name": "AIConfigurations__AnonymousUsageTelemetry__LogLevel",
+                "value": "[variables('anonymousUsageTelemetryLogLevel')]"
+              },
+              {
+                "name": "WEBSITE_RUN_FROM_PACKAGE",
+                "value": "https://aka.ms/AzTS/ADO/Package/AutoUpdater"
+              },
+              {
+                "name": "OnboardingDetails__Organization",
+                "value": "[variables('organizationName')]"
+              },
+              {
+                "name": "OnboardingDetails__Division",
+                "value": "[variables('divisionName')]"
+              },
+              {
+                "name": "OnboardingDetails__ContactEmailAddressList",
+                "value": "[variables('contactEmailAddressList')]"
+              }
+            ],
+            "functionsRuntimeScaleMonitoringEnabled": "false"
+          }
+        },
+        "resources": [
+          {
+            "condition": "[parameters('EnableAutoUpdater')]",
+            "apiVersion": "2018-11-01",
+            "name": "MSDeploy",
+            "type": "Extensions",
+            "dependsOn": [
+              "[concat('Microsoft.Web/sites/', variables('autoUpdaterName'))]"
+            ],
+            "properties": {
+              "packageUri": "https://aka.ms/AzTS/ADO/Package/AutoUpdater"
+            }
+          }
+        ]
+      },
+      {
+        "type": "Microsoft.Authorization/roleAssignments",
+        "apiVersion": "2017-09-01",
+        "name": "[variables('rgRoleAssignmentName')]",
+        "properties": {
+          "roleDefinitionId": "[variables('contributorRoleId')]",
+          "principalId": "[reference(concat('Microsoft.ManagedIdentity/userAssignedIdentities/', variables('internalMIName')), '2018-11-30').principalId]",
+          "scope": "[resourceGroup().id]"
+        },
+        "dependsOn": [
+          "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities/', variables('internalMIName'))]",
+          "[resourceId('Microsoft.Web/serverfarms/', variables('hostingPlanName'))]",
+          "[resourceId('Microsoft.Storage/storageAccounts/', variables('storageName'))]",
+          "[resourceId('Microsoft.OperationalInsights/workspaces/', variables('workspaceName'))]"
+        ]
+      },
+      {
+        "type": "microsoft.insights/components",
+        "apiVersion": "2020-02-02-preview",
+        "name": "[variables('applicationInsightsName')]",
+        "location": "[resourceGroup().location]",
+        "tags": {
+          "[concat('hidden-link:', resourceId('Microsoft.Web/sites', variables('applicationInsightsName')))]": "Resource"
+        },
+        "properties": {
+          "ApplicationId": "[variables('applicationInsightsName')]",
+          "Request_Source": "WebAppCreate"
+        }
+      },
+      {
+            "type": "Microsoft.Resources/deploymentScripts",
+            "apiVersion": "2020-10-01",
+            "name": "DeploymentHelperPSScript",
+            "location": "[resourceGroup().location]",
+            "kind": "AzurePowerShell",
+            "dependsOn": [
+               "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities/', variables('internalMIName'))]",
+              "[resourceId('Microsoft.Web/serverfarms/', variables('hostingPlanName'))]",
+              "[resourceId('Microsoft.Storage/storageAccounts/', variables('storageName'))]",
+              "[resourceId('Microsoft.OperationalInsights/workspaces/', variables('workspaceName'))]",
+              "[resourceId('Microsoft.KeyVault/vaults/', variables('keyVaultName'))]"
+             
+            ],
+            "identity": {
+            "type": "userAssigned",
+            "userAssignedIdentities": {
+              "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities/', variables('internalMIName'))]": {}
+              }
+            },
+            "properties": {
+                "forceUpdateTag": "1",
+        "azPowerShellVersion": "6.4",
+            "scriptContent": "param([string] $authenticationType, [string] $secretUrl, [string] $secretUrl1,[string] $organizationName,[string] $projectName,[string] $projectId,[string] $accountName,[string] $containerName,[string] $resourceGroupName)            $content =Invoke-WebRequest -Uri 'https://aztsadopackagesringn.blob.core.windows.net/packages/OrgConfiguration_Template.json' -ContentType 'application/json'  -Method Get;           $configurations= $content.Content | ConvertFrom-Json;           $configurations.AuthN.Type = $authenticationType;           $configurations.AuthN.Value = $secretUrl1;           $projectDetails = $configurations.Projects[0] ;           $projectDetails.OrganizationName = $organizationName;           $projectDetails.ProjectName = $projectName;           $projectDetails.ProjectId = $projectId;           $blobName = 'OrgConfiguration_Template.json';   $context = Get-AzStorageAccount -Name $accountName -ResourceGroupName $resourceGroupName;           $cx= $context.Context;          $sasExpiry = (Get-Date).AddHours(1).ToUniversalTime();           $sasToken =  New-AzStorageBlobSASToken -Context $cx -Container $containerName -Blob $blobName -Permission 'w' -ExpiryTime $sasExpiry;           $sasUrl = 'https://'+$accountName+'.blob.core.windows.net/'+$containerName+'/'+$blobName+$sasToken; $headers = @{'x-ms-blob-type'='BlockBlob'}; $body = $configurations | ConvertTo-Json;    Invoke-RestMethod -Method 'PUT' -Uri $sasUrl -Body $body -Headers $headers ",
+            "arguments": "[concat('-authenticationType', ' ', parameters('AuthenticationType'),' ','-secretUrl', ' ', parameters('TokenVauleOrKeyVaultUrl'),' ','-organizationName', ' ', parameters('OrganizationName'),' ','-projectName', ' ', parameters('ProjectName'),' ','-projectId', ' ', parameters('ProjectId'),' ','-accountName', ' ', variables('storageName'),' ','-containerName', ' ', variables('configurationContainerName'),' ','-resourceGroupName', ' ', resourceGroup().name,' ','-secretUrl1', ' ', concat('https://', variables('keyVaultName'),'.vault.azure.net/secrets/', variables('secretName')))]",
+            "timeout": "PT1H",
+            "cleanupPreference": "OnSuccess",
+            "retentionInterval": "PT1H"
+            }
+          },
+
+          {
+      "type": "Microsoft.KeyVault/vaults",
+      "apiVersion": "2021-11-01-preview",
+      "name": "[variables('keyVaultName')]",
+      "location": "[resourceGroup().location]",
+       "dependsOn": [
+               "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities/', variables('internalMIName'))]"
+            ],
+      "properties": {
+        "enabledForDeployment": "false",
+        "enabledForDiskEncryption": "false",
+        "enabledForTemplateDeployment": "false",
+        "tenantId": "[subscription().tenantId]",
+        "accessPolicies": [
+          {
+            "objectId": "[reference(concat('Microsoft.ManagedIdentity/userAssignedIdentities/', variables('internalMIName')), '2018-11-30').principalId]",
+            "tenantId": "[subscription().tenantId]",
+            "permissions": {
+              "secrets": ["get"]
+            }
+          }
+        ],
+        "sku": {
+          "name": "standard",
+          "family": "A"
+        },
+        "networkAcls": {
+          "defaultAction": "Allow",
+          "bypass": "AzureServices"
+        }
+      }
+    },
+    {
+      "type": "Microsoft.KeyVault/vaults/secrets",
+      "apiVersion": "2021-11-01-preview",
+      "name": "[format('{0}/{1}', variables('keyVaultName'), variables('secretName'))]",
+      "properties": {
+        "value": "[parameters('TokenVauleOrKeyVaultUrl')]"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.KeyVault/vaults', variables('keyVaultName'))]"
+      ]
+    }
+    ],
+    "outputs": {
+      "storageId": {
+        "type": "string",
+        "value": "[resourceId('Microsoft.Storage/storageAccounts/', variables('storageName'))]"
+      },
+      "serverfarmId": {
+        "type": "string",
+        "value": "[resourceId('Microsoft.Web/serverfarms/', variables('hostingPlanName'))]"
+      },
+      "storageQueueName": {
+        "type": "string",
+        "value": "[variables('storageQueueName')]"
+      },
+      "internalMIObjectId": {
+        "type": "string",
+        "value": "[reference(concat('Microsoft.ManagedIdentity/userAssignedIdentities/', variables('internalMIName')), '2018-11-30').principalId]"
+      },
+      "applicationInsightsId": {
+        "type": "string",
+        "value": "[resourceId('microsoft.insights/components', variables('applicationInsightsName'))]"
+      },
+      "logAnalyticsResourceId": {
+        "type": "string",
+        "value": "[resourceId('Microsoft.OperationalInsights/workspaces', variables('workspaceName'))]"
+      },
+      "applicationInsightsIKey": {
+        "type": "string",
+        "value": "[reference(resourceId('microsoft.insights/components', variables('applicationInsightsName')), '2020-02-02-preview').InstrumentationKey]"
+      }
+    }
+  }
+  
