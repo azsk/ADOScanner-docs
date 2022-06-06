@@ -89,25 +89,23 @@ Click on deploy to Azure link. It will redirect to Azure Portal. You can follow 
 **ii:** Click on 'AzTS-ADO-Scanner' tile. It should show the following functions: 
 
 
-**3:** Click on 'Configuration' tile. It should show the application settings of the function app. Default schedule is to run scan 20 minutes post Install CA command and then every 24 hours after that. In case -ScanInterval param is used while setting up CA, the first scan will run 20 minutes post Install CA command and then based on scan interval duration set in the command.
+**iii:** Click on 'ADO_1_WorkItemScheduler' tile. It should show the application settings of the function app. Default schedule is to run scan after installation and then every 24 hours after that.
 
 
-**Step-4: Verifying CA execution and Log Analytics connectivity**  
-Once CA setup is completed successfully, the function app will automatically trigger (once a day) and scan the organization and the specified projects for the organization. The outcomes of these scans will be saved in a storage account created during installation (format : adoscannersa\<YYMMDDHHMMSS> e.g. adoscannersa200815181008)
+**Step-4: Verifying scan execution and Log Analytics connectivity**  
+Once setup is completed successfully, the function app will automatically trigger (once a day) and scan the organization and the specified projects for the organization. The outcomes of these scans will be saved in a storage account created during installation (format : adoscanresult\YYYY\MM\DD\ControlResult> )
 
 The results of the control evaluation are also routed to the Log Analytics for viewing via a security dashboard.  
   
 Let us verify that the function app output is generated as expected and that the Log Analytics connectivity is setup and working correctly.
 
-**1:** Verify CSV file and LOG file are getting generated 
+**1:** Verify json file 
  
-1. Go to Storage Explorer and look for a storage account with a name in adoscannersa<YYMMDDHHMMSS> format in your subscription in 'ADOScannerRG' resource group.
+1. Go to Storage Explorer and look for a storage account with a name in "adoscanresult\YYYY\MM\DD\ControlResult" format in your subscription in 'ADOScannerRG' resource group.
 2. Find a blob container called 'ado-scan-logs' in this storage account.
-3. There should be a ZIP file named using a timestamp based on the date time for the manual execution in this container (most likely the ZIP file with the most recent creation date). 
-4. Download the ZIP file and extract its contents locally.
-<kbd>	
-<img src="../Images/09_CA_Storage_Logs.png" alt="09_CA_Storage_Logs">
-</kbd>
+3. There should be a json file named using a timestamp based on the date time for the manual execution in this container (most likely the ZIP file with the most recent creation date). 
+4. Download the json file and extract its contents locally.
+
 **2:** Verify that data is being sent to the target Log Analytics workspace   
 
 1. Go to the Log Analytics workspace that we used to setup CA above.
