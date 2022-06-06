@@ -296,6 +296,14 @@
                 "value": "[reference(resourceId('Microsoft.OperationalInsights/workspaces', variables('workspaceName')), '2017-03-15-preview').customerId]"
               },
               {
+                "name": "LAConfigurations__Enabled",
+                "value": "[parameters('EnableLogAnalyticsWorkspace')]"
+              },
+              {
+                "name": "LAConfigurations__WorkspaceId",
+                "value": "[reference(resourceId('Microsoft.OperationalInsights/workspaces', variables('workspaceName')), '2017-03-15-preview').customerId]"
+              },
+              {
                 "name": "FUNCTIONS_WORKER_RUNTIME",
                 "value": "dotnet"
               },
