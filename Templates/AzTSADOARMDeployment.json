@@ -53,6 +53,13 @@
         "metadata": {
           "description": "Switch to enable Log Analytics Workspace. By default all scan results gets stored as part of Azure Storage. You can also opt to create log analytics workspace to store and query scan events, inventory, scan progress details."
         }
+      },
+        "SchedulerCronExpression": {
+        "type": "string",
+        "defaultValue": "0 0 5 * * *",
+        "metadata": {
+          "description": "Cron expression to schedule ADO Scan. Default value is to start scan every day at 5 UTC time."
+        }
       }
     },
     "variables": {
@@ -242,6 +249,10 @@
               {
                 "name": "AzureWebJobsStorage",
                 "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageName'), ';EndpointSuffix=', environment().suffixes.storage, ';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageName')), '2019-06-01').keys[0].value)]"
+              },
+               {
+                "name": "WorkItemSchedulerSettings__TriggerCronExpression",
+                "value": "[parameters('SchedulerCronExpression')]"
               },
                {
               "name": "AuthNSettings__ScannerIdentityConnectionString",
