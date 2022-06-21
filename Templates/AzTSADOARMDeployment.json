@@ -225,7 +225,7 @@
           "[resourceId('Microsoft.Web/serverfarms/', variables('hostingPlanName'))]",
           "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities/', variables('internalMIName'))]",
           "[resourceId('Microsoft.Storage/storageAccounts/', variables('storageName'))]",
-          "[resourceId('Microsoft.OperationalInsights/workspaces/', variables('workspaceName'))]",
+          "[concat('Microsoft.OperationalInsights/workspaces/', variables('workspaceName'))]",
           "[resourceId('Microsoft.Storage/storageAccounts/fileServices/shares', variables('storageName'), 'default', variables('WIfileShare'))]"
         ],
         "properties": {
@@ -300,7 +300,7 @@
               },
               {
                 "name": "LAConfigurations__ResourceId",
-                "value": "[resourceId('Microsoft.OperationalInsights/workspaces/', variables('workspaceName'))]"
+                "value": "[if(parameters('EnableLogAnalyticsWorkspace'),resourceId('Microsoft.OperationalInsights/workspaces/', variables('workspaceName')),'')]"
               },
               {
                 "name": "LAConfigurations__WorkspaceId",
@@ -362,7 +362,7 @@
           "[resourceId('Microsoft.Web/serverfarms/', variables('hostingPlanName'))]",
           "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities/', variables('internalMIName'))]",
           "[resourceId('Microsoft.Storage/storageAccounts/', variables('storageName'))]",
-          "[resourceId('Microsoft.OperationalInsights/workspaces/', variables('workspaceName'))]",
+          "[concat('Microsoft.OperationalInsights/workspaces/', variables('workspaceName'))]",
           "[resourceId('Microsoft.Storage/storageAccounts/fileServices/shares', variables('storageName'), 'default', variables('AUfileShare'))]"
         ],
         "properties": {
@@ -491,7 +491,7 @@
           "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities/', variables('internalMIName'))]",
           "[resourceId('Microsoft.Web/serverfarms/', variables('hostingPlanName'))]",
           "[resourceId('Microsoft.Storage/storageAccounts/', variables('storageName'))]",
-          "[resourceId('Microsoft.OperationalInsights/workspaces/', variables('workspaceName'))]"
+          "[concat('Microsoft.OperationalInsights/workspaces/', variables('workspaceName'))]"
         ]
       },
       {
@@ -517,7 +517,7 @@
                "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities/', variables('internalMIName'))]",
               "[resourceId('Microsoft.Web/serverfarms/', variables('hostingPlanName'))]",
               "[resourceId('Microsoft.Storage/storageAccounts/', variables('storageName'))]",
-              "[resourceId('Microsoft.OperationalInsights/workspaces/', variables('workspaceName'))]",
+              "[concat('Microsoft.OperationalInsights/workspaces/', variables('workspaceName'))]",
               "[resourceId('Microsoft.KeyVault/vaults/', variables('keyVaultName'))]"
              
             ],
