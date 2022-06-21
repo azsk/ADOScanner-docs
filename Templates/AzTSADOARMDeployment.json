@@ -304,7 +304,7 @@
               },
               {
                 "name": "LAConfigurations__WorkspaceId",
-                "value": "[reference(resourceId('Microsoft.OperationalInsights/workspaces', variables('workspaceName')), '2017-03-15-preview').customerId]"
+                "value": "[if(parameters('EnableLogAnalyticsWorkspace'), reference(resourceId('Microsoft.OperationalInsights/workspaces', variables('workspaceName')), '2017-03-15-preview').customerId, '')]"
               },
               {
                 "name": "LAConfigurations__Enabled",
@@ -605,7 +605,7 @@
       },
       "logAnalyticsResourceId": {
         "type": "string",
-        "value": "[resourceId('Microsoft.OperationalInsights/workspaces', variables('workspaceName'))]"
+        "value": "[if(parameters('EnableLogAnalyticsWorkspace'), resourceId('Microsoft.OperationalInsights/workspaces', variables('workspaceName')),'')]"
       },
       "applicationInsightsIKey": {
         "type": "string",
