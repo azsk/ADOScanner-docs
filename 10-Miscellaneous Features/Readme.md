@@ -253,31 +253,31 @@ The following controls are evaluated and fixed by the command:
   - ADO_Release_SI_Dont_Use_Broadly_Editable_Variable_Group
   - ADO_Release_SI_Review_URL_Variables_Settable_At_Release_Time
 - Service Connection
- - ADO_ServiceConnection_AuthZ_Restrict_Broader_Group_Access
- - ADO_ServiceConnection_AuthZ_Dont_Grant_BuildSvcAcct_Permission
- - ADO_ServiceConnection_AuthZ_Dont_Grant_All_Pipelines_Access
+  - ADO_ServiceConnection_AuthZ_Restrict_Broader_Group_Access
+  - ADO_ServiceConnection_AuthZ_Dont_Grant_BuildSvcAcct_Permission
+  - ADO_ServiceConnection_AuthZ_Dont_Grant_All_Pipelines_Access
 - Agent Pool
- - ADO_AgentPool_AuthZ_Dont_Grant_All_Pipelines_Access
- - ADO_AgentPool_AuthZ_Dont_Enable_Auto_Provisioning
- - ADO_AgentPool_DP_Enable_Auto_Update
- - ADO_AgentPool_AuthZ_Restrict_Broader_Group_Access
+  - ADO_AgentPool_AuthZ_Dont_Grant_All_Pipelines_Access
+  - ADO_AgentPool_AuthZ_Dont_Enable_Auto_Provisioning
+  - ADO_AgentPool_DP_Enable_Auto_Update
+  - ADO_AgentPool_AuthZ_Restrict_Broader_Group_Access
 - Variable Group
- - ADO_VariableGroup_AuthZ_Dont_Grant_All_Pipelines_Access_On_VG_With_Secrets
- - ADO_VariableGroup_DP_No_PlainText_Secrets_In_Variables
- - ADO_VariableGroup_AuthZ_Restrict_Broader_Group_Access
- - ADO_VariableGroup_AuthZ_Restrict_Broader_Group_Access_On_VG_With_Secrets
+  - ADO_VariableGroup_AuthZ_Dont_Grant_All_Pipelines_Access_On_VG_With_Secrets
+  - ADO_VariableGroup_DP_No_PlainText_Secrets_In_Variables
+  - ADO_VariableGroup_AuthZ_Restrict_Broader_Group_Access
+  - ADO_VariableGroup_AuthZ_Restrict_Broader_Group_Access_On_VG_With_Secrets
 - Feed
- - ADO_Feed_AuthZ_Restrict_Broader_Group_Access
- - ADO_Feed_AuthZ_Dont_Grant_BuildSvcAcct_Permission
+  - ADO_Feed_AuthZ_Restrict_Broader_Group_Access
+  - ADO_Feed_AuthZ_Dont_Grant_BuildSvcAcct_Permission
 - Secure File
- - ADO_SecureFile_AuthZ_Dont_Grant_All_Pipelines_Access
- - ADO_SecureFile_AuthZ_Restrict_Broader_Group_Access
+  - ADO_SecureFile_AuthZ_Dont_Grant_All_Pipelines_Access
+  - ADO_SecureFile_AuthZ_Restrict_Broader_Group_Access
 - Environment
- - ADO_Environment_AuthZ_Dont_Grant_All_Pipelines_Access
- - ADO_Environment_AuthZ_Restrict_Broader_Group_Access
+  - ADO_Environment_AuthZ_Dont_Grant_All_Pipelines_Access
+  - ADO_Environment_AuthZ_Restrict_Broader_Group_Access
 - Repository
- - ADO_Repository_AuthZ_Dont_Grant_BuildSvcAcct_Permission
- - ADO_Repository_AuthZ_Dont_Grant_BuildSvc_Permission_On_Branch
+  - ADO_Repository_AuthZ_Dont_Grant_BuildSvcAcct_Permission
+  - ADO_Repository_AuthZ_Dont_Grant_BuildSvc_Permission_On_Branch
 
 ### Understanding Baseline Configurations summary
 
