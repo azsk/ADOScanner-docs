@@ -125,7 +125,7 @@ Get-AzSKADOSecurityStatus -OrganizationName $orgName `
 # Configure an ADO organization to be baseline compliant
 
 ### Overview
-If you have newly onboarded to Azure DevOps and want to start fresh with a securely configured Organization and Project, you can use the *Set-AzSKADOBaselineConfigurations* command. The command will scan the organization/project for baseline controls and fix any of the controls that have failed. Instead of manually running the scans and fixing the controls, you can automatically fix all of the covered controls. This ensures you start with a secured configuration. 
+If you have newly onboarded to Azure DevOps and want to start fresh with a securely configured Organization and Project; or, if you want to configure your existing project and its resources to be baseline compliant, you can use the *Set-AzSKADOBaselineConfigurations* command. The command will scan the organization/project/resources for baseline controls and fix any of the controls that have failed. Instead of manually running the scans and fixing the controls, you can automatically fix all of the covered controls. This ensures you have a secured configuration. 
 
 ### Usage
 
@@ -141,11 +141,72 @@ Set-AzSKADOBaselineConfigurations -OrganizationName $orgName `
                                   
 Set-AzSKADOBaselineConfigurations -OrganizationName $orgName 
 
-#To configure only project controls
+#To configure controls for a particular resource type
+#Configure project
 Set-AzSKADOBaselineConfigurations -OrganizationName $orgName `
                                   -ProjectName $ProjectName `
-                                  -ResourceTypeName Project                                  
+                                  -ResourceTypeName Project 
 
+#Configure builds
+Set-AzSKADOBaselineConfigurations -OrganizationName $orgName `
+                                  -ProjectName $ProjectName `
+                                  -ResourceTypeName Build
+
+#Configure releases
+Set-AzSKADOBaselineConfigurations -OrganizationName $orgName `
+                                  -ProjectName $ProjectName `
+                                  -ResourceTypeName Release                                
+
+#Configure service connections
+Set-AzSKADOBaselineConfigurations -OrganizationName $orgName `
+                                  -ProjectName $ProjectName `
+                                  -ResourceTypeName ServiceConnection
+
+#Configure agent pools
+Set-AzSKADOBaselineConfigurations -OrganizationName $orgName `
+                                  -ProjectName $ProjectName `
+                                  -ResourceTypeName AgentPool
+
+#Configure variable groups
+Set-AzSKADOBaselineConfigurations -OrganizationName $orgName `
+                                  -ProjectName $ProjectName `
+                                  -ResourceTypeName VariableGroup    
+
+#Configure all resources except organization, project and pipelines
+Set-AzSKADOBaselineConfigurations -OrganizationName $orgName `
+                                  -ProjectName $ProjectName `
+                                  -ResourceTypeName SvcConn_AgentPool_VarGroup_CommonSVTResources  
+
+#Configure all supported artifacts of a particular project
+Set-AzSKADOBaselineConfigurations -OrganizationName $orgName `
+                                  -ProjectName $ProjectName `
+                                  -ResourceTypeName All
+
+#To configure controls for a particular resource
+#Builds
+Set-AzSKADOBaselineConfigurations -OrganizationName $orgName `
+                                  -ProjectName $ProjectName `
+                                  -BuildNames "<BLD1,BLD2,etc>"
+
+#Releases
+Set-AzSKADOBaselineConfigurations -OrganizationName $orgName `
+                                  -ProjectName $ProjectName `
+                                  -ReleaseNames "<RLS1,RLS2,etc>"                            
+
+#Service connections
+Set-AzSKADOBaselineConfigurations -OrganizationName $orgName `
+                                  -ProjectName $ProjectName `
+                                  -ServiceConnectionNames "<SER1,SER2,etc>"
+
+#Agent pools
+Set-AzSKADOBaselineConfigurations -OrganizationName $orgName `
+                                  -ProjectName $ProjectName `
+                                  -AgentPoolNames "<AGP1,AGP2,etc>"
+
+#Variable groups
+Set-AzSKADOBaselineConfigurations -OrganizationName $orgName `
+                                  -ProjectName $ProjectName `
+                                  -VariableGroupNames "<VGN1,VGN2,etc>"
 ```
 > If the organization or the project seem to be old and functionally working, the scanner will not fix these controls. If you still wish to configure these security failures you must use *-force* switch
 ```PowerShell
@@ -180,6 +241,43 @@ The following controls are evaluated and fixed by the command:
   - ADO_Project_AuthZ_Restrict_Broader_Group_Access_on_VarGrp
   - ADO_Project_AuthZ_Restrict_Broader_Group_Access_on_Repo
   - ADO_Project_AuthZ_Restrict_Broader_Group_Access_on_SecureFile
+- Build
+  - ADO_Build_AuthZ_Restrict_Broader_Group_Access
+  - ADO_Build_SI_Dont_Use_Broadly_Editable_Task_Group
+  - ADO_Build_SI_Dont_Use_Broadly_Editable_Variable_Group
+  - ADO_Build_DP_Dont_Make_Secrets_Available_To_Forked_Builds
+  - ADO_Build_SI_Review_URL_Variables_Settable_At_Queue_Time
+- Release
+  - ADO_Release_AuthZ_Restrict_Broader_Group_Access
+  - ADO_Release_SI_Dont_Use_Broadly_Editable_Task_Group
+  - ADO_Release_SI_Dont_Use_Broadly_Editable_Variable_Group
+  - ADO_Release_SI_Review_URL_Variables_Settable_At_Release_Time
+- Service Connection
+ - ADO_ServiceConnection_AuthZ_Restrict_Broader_Group_Access
+ - ADO_ServiceConnection_AuthZ_Dont_Grant_BuildSvcAcct_Permission
+ - ADO_ServiceConnection_AuthZ_Dont_Grant_All_Pipelines_Access
+- Agent Pool
+ - ADO_AgentPool_AuthZ_Dont_Grant_All_Pipelines_Access
+ - ADO_AgentPool_AuthZ_Dont_Enable_Auto_Provisioning
+ - ADO_AgentPool_DP_Enable_Auto_Update
+ - ADO_AgentPool_AuthZ_Restrict_Broader_Group_Access
+- Variable Group
+ - ADO_VariableGroup_AuthZ_Dont_Grant_All_Pipelines_Access_On_VG_With_Secrets
+ - ADO_VariableGroup_DP_No_PlainText_Secrets_In_Variables
+ - ADO_VariableGroup_AuthZ_Restrict_Broader_Group_Access
+ - ADO_VariableGroup_AuthZ_Restrict_Broader_Group_Access_On_VG_With_Secrets
+- Feed
+ - ADO_Feed_AuthZ_Restrict_Broader_Group_Access
+ - ADO_Feed_AuthZ_Dont_Grant_BuildSvcAcct_Permission
+- Secure File
+ - ADO_SecureFile_AuthZ_Dont_Grant_All_Pipelines_Access
+ - ADO_SecureFile_AuthZ_Restrict_Broader_Group_Access
+- Environment
+ - ADO_Environment_AuthZ_Dont_Grant_All_Pipelines_Access
+ - ADO_Environment_AuthZ_Restrict_Broader_Group_Access
+- Repository
+ - ADO_Repository_AuthZ_Dont_Grant_BuildSvcAcct_Permission
+ - ADO_Repository_AuthZ_Dont_Grant_BuildSvc_Permission_On_Branch
 
 ### Understanding Baseline Configurations summary
 

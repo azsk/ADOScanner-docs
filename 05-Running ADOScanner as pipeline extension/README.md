@@ -124,6 +124,22 @@ Step 1,2 & 3 needs to be repeated to add "__Project Component Security Scan Summ
  <img src="../Images/09_ADO_ProjectComponentLevl.png" alt"Schedule Trigger">
 </kbd>
 
+# Accessing PAT Token in pipeline
+
+If you want to scan your artifacts using PAT Token, you need to save your PAT as secret variable.
+<kbd>
+ <img src="../Images/05_PAT_token_as_secret_variable.png">
+</kbd>
+
+This PAT token can be accessed in yaml file as environment variable.
+```yaml
+script: |
+            $token =  ConvertTo-SecureString $env:PAT -AsPlainText -Force
+            Set-AzSKADOBaselineConfigurations -OrganizationName "ORG1" -ProjectName "PRJ1" -Force -Verbose -pattoken $token
+env:
+    PAT: $(PAT)
+```
+
 > **Note:**  Dashboard created will be visible to all users which are part of project.
 
 > **Note:**  Dashboard reflects updates only upon pipeline execution. Local scan results don't reflect automatically. If you have remediated a control, make sure you run the pipeline to reflect the updated control results on dashboard.
