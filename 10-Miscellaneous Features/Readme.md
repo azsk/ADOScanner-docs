@@ -180,30 +180,30 @@ Set-AzSKADOBaselineConfigurations -OrganizationName $orgName `
 #Configure all supported artifacts of a particular project
 Set-AzSKADOBaselineConfigurations -OrganizationName $orgName `
                                   -ProjectName $ProjectName `
-                                  -ResourceTypeName All
+                                  -ScanAllResources
 
 #To configure controls for a particular resource
-#Builds
+#Organization, Project and Builds
 Set-AzSKADOBaselineConfigurations -OrganizationName $orgName `
                                   -ProjectName $ProjectName `
                                   -BuildNames "<BLD1,BLD2,etc>"
 
-#Releases
+#Organization, Project and Releases
 Set-AzSKADOBaselineConfigurations -OrganizationName $orgName `
                                   -ProjectName $ProjectName `
                                   -ReleaseNames "<RLS1,RLS2,etc>"                            
 
-#Service connections
+#Organization, Project and Service connections
 Set-AzSKADOBaselineConfigurations -OrganizationName $orgName `
                                   -ProjectName $ProjectName `
                                   -ServiceConnectionNames "<SER1,SER2,etc>"
 
-#Agent pools
+#Organization, Project and Agent pools
 Set-AzSKADOBaselineConfigurations -OrganizationName $orgName `
                                   -ProjectName $ProjectName `
                                   -AgentPoolNames "<AGP1,AGP2,etc>"
 
-#Variable groups
+#Organization, Project and Variable groups
 Set-AzSKADOBaselineConfigurations -OrganizationName $orgName `
                                   -ProjectName $ProjectName `
                                   -VariableGroupNames "<VGN1,VGN2,etc>"
