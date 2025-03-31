@@ -97,6 +97,9 @@ Once you are able to successfully run the ADO scan using ADO pipeline, you can c
 
 ### Visualize security scan results 
 
+> **Note**: Currently, the visualization feature has been removed and is no longer supported through the dashboard. As a result, this extension will no longer support the creation of widgets with their IDs as part of the dashboard. However, existing widgets will still be loaded, but new widget IDs will not be created. This change has been implemented to prevent storing data using the Extension Management Service (API).
+ 
+
 Once scan is completed as part of pipeline, results can be visualized with the help of project dashboard.
 
 Extension mainly provides two widgets that can be added as part of dashboard
