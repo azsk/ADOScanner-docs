@@ -66,7 +66,7 @@ Run the commands below in PS after replacing the various '<>' with
     Install-AzSKADOMonitoringSolution -LAWSSubscriptionId $lawsSubId `
 			-LAWSResourceGroup $lawsRGName `
 			-WorkspaceId $lawsId `
-			-ViewName $ADOViewName,
+			-ViewName $ADOViewName `
 			-DashboardType $dashboardType
 ```
 
