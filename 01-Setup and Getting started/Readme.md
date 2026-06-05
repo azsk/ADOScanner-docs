@@ -1,5 +1,7 @@
 # AzSK.ADO PowerShell module
 
+>**<b><h1>Note:** AzSK.ADO Powershell module will be retired on 1st August 2026.</h1></b>
+
 ## Contents
 
   -  [Overview](Readme.md#overview)
